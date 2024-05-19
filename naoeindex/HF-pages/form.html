@@ -1,0 +1,175 @@
+<style>
+    .AbaRedes {
+        width: 95%;
+        margin: 0 auto;
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            transform-origin: left;
+        }
+        50% {
+            transform: scale(1.4);
+            transform-origin: left;
+        }
+        100% {
+            transform: scale(1);
+            transform-origin: left;
+        }
+    }
+    
+    .pulsar {
+        animation: pulse 0.5s;
+    }
+</style>
+
+<div data-bs-theme="dark" class="modal fade" id="ModalLogin" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-light">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Login & Registros</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <ul class="nav nav-underline">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#home">Email</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#link">Apps</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="home">
+
+                        <form class="mt-3" method="post" id="LoginForm">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">@</span>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="UserLoginForm" minlength="3" placeholder="Username" required>
+                                    <label for="UserLoginForm">Username</label>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">***</span>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" oninput="LoginPass()" id="floatingPassword1" placeholder="Password" required>
+                                    <label for="floatingPassword1">Password</label>
+                                </div>
+                                <div class="d-none" id="msgPassLogin">Boa boa</div>
+
+                            </div>
+
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-danger mb-3 w-100" id="SubLogin">Entrar</button>
+                            </div>
+                        </form>
+
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                        <script>
+                            function LoginPass() {
+                                let InputPassLogin = document.getElementById('floatingPassword1')
+                                let InputPassMsg = document.getElementById('msgPassLogin')
+                                let valido = InputPassLogin.value.length > 7
+
+                                InputPassMsg.className = valido ? 'valid-feedback d-block' : 'invalid-feedback d-block'
+                                InputPassLogin.className = valido ? 'form-control is-valid' : 'form-control is-invalid'
+
+                                InputPassMsg.innerHTML = valido ? 'OK!' : `Precisa ter 8 ou mais caracteres: ${InputPassLogin.value.length}`;
+
+                                return valido
+                            }
+
+                            $('#LoginForm').on('submit', function(e) {
+
+                                if (LoginPass()) {
+
+                                } else {
+                                    e.preventDefault();
+                                    $('#msgPassLogin').addClass('pulsar');
+                                    setTimeout(function() {
+                                        $('#msgPassLogin').removeClass('pulsar');
+                                    }, 500);
+                                }
+                            })
+                        </script>
+
+                    </div>
+                    <div class="tab-pane fade" id="link">
+                        <div class="AbaRedes">
+                            <div class="d-flex flex-column mt-3 mb-3">
+                                <div class="p-3 mb-2 bg-primary">Google</div>
+                                <div class="p-3 mb-2 bg-primary">X</div>
+                                <div class="p-3 mb-2 bg-primary">Discord</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-center">
+                <p class="text-center">Não tem uma conta? <a data-bs-toggle="modal" data-bs-target="#ModalRegistro">Criar conta</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-bs-theme="dark" class="modal fade" id="ModalRegistro" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-light">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel2">Registro de usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="home">
+
+                        <form class="mt-3" method="post">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">@</span>
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
+                                    <label for="floatingInputGroup1">Username</label>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">***</span>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                                    <label for="floatingPassword">Password</label>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-danger mb-3 w-100">Entrar</button>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="tab-pane fade" id="link">
+                        <div class="AbaRedes">
+                            <div class="d-flex flex-column mt-3 mb-3">
+                                <div class="p-3 mb-2 bg-primary">Google</div>
+                                <div class="p-3 mb-2 bg-primary">X</div>
+                                <div class="p-3 mb-2 bg-primary">Discord</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer justify-content-center">
+                <p class="text-center">Não tem uma conta? <a href="">Criar conta</a></p>
+            </div>
+
+        </div>
+    </div>
+</div>
