@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados do Sensor</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <h1>Dados do Sensor</h1>
+    <div id="sensor-data"></div>
+
+    <script>
+        $(document).ready(function() {
+            function fetchSensorData() {
+                $.ajax({
+                    url: 'https://karlosnetwork.elementfx.com/API/GETDATA.php',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        alert(data.medias_diarias[0].Data);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching data:', status, error);
+                    }
+                });
+            }
+
+            function displaySensorData(data) {
+                var sensorDataDiv = $('#sensor-data');
+                sensorDataDiv.empty();
+                var list = $('<ul></ul>');
+                data.forEach(function(item) {
+                    var listItem = $('<li></li>').text('Valor do Sensor: ' + item.sensor_value + ', Timestamp: ' + item.timestamp);
+                    list.append(listItem);
+                });
+                sensorDataDiv.append(list);
+            }
+
+            // Fetch data on page load
+            fetchSensorData();
+
+            // Optionally, set an interval to fetch data periodically
+            setInterval(fetchSensorData, 60000); // Atualiza a cada minuto
+        });
+    </script>
+</body>
+
+</html>
