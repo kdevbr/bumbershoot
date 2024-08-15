@@ -1,6 +1,6 @@
 <style>
     .AbaRedes {
-        width: 95%;
+        width: 100%;
         margin: 0 auto;
     }
     
@@ -23,7 +23,6 @@
         animation: pulse 0.5s;
     }
 </style>
-
 <div data-bs-theme="dark" class="modal fade" id="ModalLogin" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content text-light">
@@ -34,14 +33,13 @@
             </div>
             <div class="modal-body">
 
+
                 <ul class="nav nav-underline">
                     <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#home">Email</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#link">Apps</a>
+                        <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#home">Login</a>
                     </li>
                 </ul>
+
 
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="home">
@@ -55,69 +53,93 @@
                                 </div>
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text">***</span>
+                                <span class="input-group-text">**</span>
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" oninput="LoginPass()" id="floatingPassword1" placeholder="Password" required>
-                                    <label for="floatingPassword1">Password</label>
+                                    <input type="password" class="form-control" oninput="LoginPass()" id="PassLoginForm" placeholder="Password" required>
+                                    <label for="PassLoginForm">Password</label>
                                 </div>
-                                <div class="d-none" id="msgPassLogin">Boa boa</div>
+                                <div class="d-none" id="msgPassLogin"></div>
 
                             </div>
 
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-danger mb-3 w-100" id="SubLogin">Entrar</button>
+                                <input type="submit" class="btn btn-danger mb-2 w-100" id="SubLogin" value="Entrar"></input>
                             </div>
                         </form>
+                        <p class="text-center mt-2">OU CONECTE SE</p>
 
-                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-                        <script>
-                            function LoginPass() {
-                                let InputPassLogin = document.getElementById('floatingPassword1')
-                                let InputPassMsg = document.getElementById('msgPassLogin')
-                                let valido = InputPassLogin.value.length > 7
-
-                                InputPassMsg.className = valido ? 'valid-feedback d-block' : 'invalid-feedback d-block'
-                                InputPassLogin.className = valido ? 'form-control is-valid' : 'form-control is-invalid'
-
-                                InputPassMsg.innerHTML = valido ? 'OK!' : `Precisa ter 8 ou mais caracteres: ${InputPassLogin.value.length}`;
-
-                                return valido
-                            }
-
-                            $('#LoginForm').on('submit', function(e) {
-
-                                if (LoginPass()) {
-
-                                } else {
-                                    e.preventDefault();
-                                    $('#msgPassLogin').addClass('pulsar');
-                                    setTimeout(function() {
-                                        $('#msgPassLogin').removeClass('pulsar');
-                                    }, 500);
-                                }
-                            })
-                        </script>
-
-                    </div>
-                    <div class="tab-pane fade" id="link">
                         <div class="AbaRedes">
-                            <div class="d-flex flex-column mt-3 mb-3">
-                                <div class="p-3 mb-2 bg-primary">Google</div>
-                                <div class="p-3 mb-2 bg-primary">X</div>
-                                <div class="p-3 mb-2 bg-primary">Discord</div>
+                            <div class="d-flex flex-column mt-3 mb-3 fs-6 fw-bold">
+                                <button onclick="appsbtn(2)" class="flex border-1 items-center btn btnapp ds rounded-lg rounded-1 mb-2 shadow-md px-6 py-1 text-sm font-medium text-gray-800 ">
+                                                <svg class="h-6 w-6 mr-2 mb-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                    width="20px" height="20px" viewBox="0 -28.5 256 256" version="1.1" preserveAspectRatio="xMidYMid">
+                                                    <g>
+                                                        <path
+                                                            d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z"
+                                                            fill="#5865F2" fill-rule="nonzero">
+                                        
+                                                        </path>
+                                                    </g>
+                                                </svg>
+                                                <span class="fw-medium fs-5">Discord</span>
+                                        
+                                </button>
+                                <button onclick="appsbtn(1)" class="flex border-1 items-center btn btnapp gg rounded-lg rounded-1 mb-2 shadow-md max-w-xs px-6 py-1 text-sm font-medium text-gray-800 ">
+                                <svg class="h-6 w-6 mr-2 mb-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="-0.5 0 48 48" version="1.1">
+                                
+                                <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                  <g id="Color-" transform="translate(-401.000000, -860.000000)">
+                                      <g id="Google" transform="translate(401.000000, 860.000000)">
+                                          <path
+                                              d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24"
+                                              id="Fill-1" fill="#FBBC05"> </path>
+                                          <path
+                                              d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333"
+                                              id="Fill-2" fill="#EB4335"> </path>
+                                          <path
+                                              d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667"
+                                              id="Fill-3" fill="#34A853"> </path>
+                                          <path
+                                              d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24"
+                                              id="Fill-4" fill="#4285F4"> </path>
+                                      </g>
+                                  </g>
+                                </g>
+                                </svg>
+                                <span class="fw-medium fs-5">Google</span>
+                                </button>
+                                <button onclick="appsbtn(3)" class="flex border-1 items-center btn btnapp tw rounded-lg rounded-1 mb-2 shadow-md max-w-xs px-6 py-1 text-sm font-medium ">
+                                <svg class="h-6 w-6 mr-2 mb-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                viewBox="0 -4 48 48" version="1.1" width="20px" height="20px">
+                                <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                  <g id="Color-" transform="translate(-300.000000, -164.000000)" fill="#00AAEC">
+                                      <path
+                                          d="M348,168.735283 C346.236309,169.538462 344.337383,170.081618 342.345483,170.324305 C344.379644,169.076201 345.940482,167.097147 346.675823,164.739617 C344.771263,165.895269 342.666667,166.736006 340.418384,167.18671 C338.626519,165.224991 336.065504,164 333.231203,164 C327.796443,164 323.387216,168.521488 323.387216,174.097508 C323.387216,174.88913 323.471738,175.657638 323.640782,176.397255 C315.456242,175.975442 308.201444,171.959552 303.341433,165.843265 C302.493397,167.339834 302.008804,169.076201 302.008804,170.925244 C302.008804,174.426869 303.747139,177.518238 306.389857,179.329722 C304.778306,179.280607 303.256911,178.821235 301.9271,178.070061 L301.9271,178.194294 C301.9271,183.08848 305.322064,187.17082 309.8299,188.095341 C309.004402,188.33225 308.133826,188.450704 307.235077,188.450704 C306.601162,188.450704 305.981335,188.390033 305.381229,188.271578 C306.634971,192.28169 310.269414,195.2026 314.580032,195.280607 C311.210424,197.99061 306.961789,199.605634 302.349709,199.605634 C301.555203,199.605634 300.769149,199.559408 300,199.466956 C304.358514,202.327194 309.53689,204 315.095615,204 C333.211481,204 343.114633,188.615385 343.114633,175.270495 C343.114633,174.831347 343.106181,174.392199 343.089276,173.961719 C345.013559,172.537378 346.684275,170.760563 348,168.735283"
+                                          id="Twitter">
+                                
+                                      </path>
+                                  </g>
+                                </g>
+                                </svg>
+                                
+                                <span class="fw-medium fs-5">Twitter</span>
+                                </button>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
             <div class="modal-footer justify-content-center">
-                <p class="text-center">Não tem uma conta? <a data-bs-toggle="modal" data-bs-target="#ModalRegistro">Criar conta</a></p>
+                <p class="text-center">Não tem uma conta? <a class="fw-bolder" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#ModalRegistro">Criar conta</a></p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#ModalRegistro" aria-label="Close"></button>
             </div>
         </div>
     </div>
 </div>
-<div data-bs-theme="dark" class="modal fade" id="ModalRegistro" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+<div data-bs-theme="dark" class="modal fade" id="ModalRegistro" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content text-light">
 
@@ -126,48 +148,53 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
-
+                <ul class="nav nav-underline">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#home">Registro</a>
+                    </li>
+                </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="home">
-
-                        <form class="mt-3" method="post">
+                        <form class="mt-3" method="post" id="RegistroForm">
                             <div class="input-group mb-3">
                                 <span class="input-group-text">@</span>
                                 <div class="form-floating">
-                                    <input type="text" class="form-control" id="floatingInputGroup1" placeholder="Username">
-                                    <label for="floatingInputGroup1">Username</label>
+                                    <input type="text" class="form-control" id="RegistroInputUser" oninput="RegistroUser()" placeholder="Username">
+                                    <label for="RegistroInputUser">Username</label>
                                 </div>
+                                <div class="d-none" id="msgUserRegistro"></div>
                             </div>
                             <div class="input-group mb-3">
-                                <span class="input-group-text">***</span>
+                                <span class="input-group-text">**</span>
                                 <div class="form-floating">
-                                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                                    <label for="floatingPassword">Password</label>
+                                    <input type="password" class="form-control" id="RegistroInputPass" oninput="PassRegistro()" placeholder="Password">
+                                    <label for="RegistroInputPass">Senha</label>
                                 </div>
+                                <input type="button" id="Edinaldinho" onclick="ButaoEdnaldo('Edinaldinho')" class="btn btn-outline-secondary" style="background-position: center; background-size: 50px; background-repeat: no-repeat; background-image: url(/naoeindex/HF-pages/edinaldo2.png);width: 55px;">
+                                <div class="d-none" id="msgPassRegistro"></div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">**</span>
+                                <div class="form-floating">
+                                    <input type="password" class="form-control" id="RegistroInputPassRpt" oninput="PassRegistroRepita()" placeholder="Repita Sua Senha">
+                                    <label for="RegistroInputPassRpt">Repita Sua Senha</label>
+                                </div>
+                                <input type="button" id="Edinaldinho2" onclick="ButaoEdnaldo('Edinaldinho2')" class="btn btn-outline-secondary" style="background-position: center; background-size: 50px; background-repeat: no-repeat; background-image: url(/naoeindex/HF-pages/edinaldo2.png);width: 55px;">
+                                <div class="d-none" id="msgPassRegistro2"></div>
                             </div>
                             <div class="col-auto">
-                                <button type="submit" class="btn btn-danger mb-3 w-100">Entrar</button>
+                                <button type="submit" class="btn btn-danger mb-3 w-100">Criar Conta</button>
                             </div>
                         </form>
 
-                    </div>
-                    <div class="tab-pane fade" id="link">
-                        <div class="AbaRedes">
-                            <div class="d-flex flex-column mt-3 mb-3">
-                                <div class="p-3 mb-2 bg-primary">Google</div>
-                                <div class="p-3 mb-2 bg-primary">X</div>
-                                <div class="p-3 mb-2 bg-primary">Discord</div>
-                            </div>
-                        </div>
+                        <script>
+                        </script>
                     </div>
                 </div>
 
-
-
             </div>
             <div class="modal-footer justify-content-center">
-                <p class="text-center">Não tem uma conta? <a href="">Criar conta</a></p>
+                <p class="text-center">Ja tem uma conta? <a class="fw-bolder" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#ModalLogin">Entrar</a></p>
             </div>
 
         </div>

@@ -1,0 +1,101 @@
+<style>
+    .AbaRedes {
+        width: 95%;
+        margin: 0 auto;
+    }
+    
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            transform-origin: left;
+        }
+        50% {
+            transform: scale(1.4);
+            transform-origin: left;
+        }
+        100% {
+            transform: scale(1);
+            transform-origin: left;
+        }
+    }
+    
+    .pulsar {
+        animation: pulse 0.5s;
+    }
+</style>
+
+<a data-bs-toggle="modal" data-bs-target="#ModalLogin" class="btn btn-outline-danger" type="button">Login & Register</a>
+<div data-bs-theme="dark" class="modal fade" id="ModalLogin" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-light">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Login & Registros</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                ola
+
+            </div>
+            <div class="modal-footer justify-content-center">
+                <p class="text-center">Não tem uma conta? <a data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#ModalRegistro">Criar conta</a></p>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#ModalRegistro" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div data-bs-theme="dark" class="modal fade" id="ModalRegistro" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-light">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel2">Registro de usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                oi
+
+            </div>
+            <div class="modal-footer justify-content-center">
+                <p class="text-center">Não tem uma conta? <a href="">Criar conta</a></p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal 1</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Show a second modal and hide this one with the button below.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">Open second modal</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Modal 2</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Hide this modal and show the first with the button below.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Back to first</button>
+            </div>
+        </div>
+    </div>
+</div>
+<button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Open first modal</button>
