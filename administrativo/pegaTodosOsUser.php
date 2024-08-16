@@ -9,7 +9,7 @@ $usuarios = array();
 while($row = $result->fetch_assoc()) {
     $usuarios[] = $row;
 }
-
+    
 echo json_encode($usuarios);
 
 $conn->close();
