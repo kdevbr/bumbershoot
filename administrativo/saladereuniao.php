@@ -1,19 +1,5 @@
 <?php
-//session_start();
-/*if($_SESSION['ADMAUTORIZADO'] == 0){
-    if($_GET['senha'] == 'nsei'){
-        $_SESSION['ADMAUTORIZADO'] = 1;
-        header('Refresh:0');
-    }else{
-        $_SESSION['ADMAUTORIZADO'] = 0;
-        header('location: index.php');
-    }
-    exit();
-}
-//$_SESSION['logade'] = true;
-//$_SESSION['userId'] = $Usuario['id'];
-//$_SESSION['poder'] = $Usuario['poder'];
-*/
+
 if (!isset($_SESSION['logade'])) {
     exit('Faca login para continuar');
 }
