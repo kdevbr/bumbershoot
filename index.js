@@ -14,7 +14,6 @@ var Divs = {
     Texto: {}
 }
 
-
 $('#conteudoTotal').hide();
 $('#DivDosLogadosHeaders').hide();
 
@@ -81,12 +80,12 @@ function loadContent(path) {
         $('.videoInicial').removeClass('hide').addClass('show');
         contentDiv.load('naoeindex/paginaInicialMain.html')
         deleizinhone1 = setTimeout(() => {
-            $('main').hide();
-        }, 400)
+            //$('main').hide();
+        }, 800)
     } else {
         clearTimeout(deleizinhone1);
         $('.videoInicial').removeClass('show').addClass('hide');
-        document.querySelector('.videoInicial').style.marginTop = `-${document.querySelector('.videoInicial').clientHeight}px`;
+        //document.querySelector('.videoInicial').style.marginTop = `-${document.querySelector('.videoInicial').clientHeight}px`;
         $('main').show();
         $.ajax({
             url: 'naoeindex/carregaConteudo.php',
@@ -94,15 +93,28 @@ function loadContent(path) {
             data: { page: path },
             dataType: 'json',
             success: function(response) {
-                contentDiv.html(`<div class='text-light my-2'>
-                    <h1 class='text-center'>Bem-Vindo</h1>
-                    <h3 class='text-center'>${response.titulo}</h3>
-                    <h3 class='text-center'>Publicado por: ${response.autor}</h3>
-                    <h5 class='text-center'>Data: ${response.data}</h5>
-                    <p class='text-center'>Conteudo: ${response.conteudo}</p>
-                    </div>`);
+                if (response.Refrache) {
+                    window.open('../', "_self");
+                }
+                if (response.ADM) {
+                    window.location.reload();
+                }
+                contentDiv.html(`
+                    <div class="CabecaContainerMain">
+    <div class='text-light my-2 d-flex justify-content-between h-100 flex-wrap'>
+        <div class="ladoEsquedoHeadMainConteudo ms-3">
+            <h1 class=''>${response.titulo}</h1>
+            <h5 class=''>Publicado por: ${response.autor}</h5>
+        </div>
+        <div class="ladoDireitoHeadMainConteudo me-3 mt-1 col-12 col-sm-2">
+            <h6 class='text-center'>Postado:<br>${response.data}</h6>
+        </div>
+    </div>
+</div>
+<p class='text-center position-absolute text-white' style="top: 130px;">Conteudo: ${response.conteudo}</p>
+                    `);
             },
-            error: function() {
+            error: function(e) {
                 contentDiv.html("<h2>Erro</h2><p>correu um erro ao carregar a página.</p>");
             }
         });

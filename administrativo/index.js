@@ -253,13 +253,9 @@ function destacarTexto(texto, busca) {
     return texto.replace(regex, '<strong class="text-bg-info">$1</strong>'); // Substituir as ocorrências por texto em negrito
 }
 
-
-
 function AtualizarUrlDpsDoAdm(url) {
     history.pushState({}, "", '../../administrativo/reuniao' + url)
 }
-
-
 
 function VerficaOsParemetrosDeUrlEfazAlgumaCoisa() {
 
