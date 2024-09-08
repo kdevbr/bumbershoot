@@ -413,3 +413,4 @@ function appsbtn(i) {
             break;
     }
 }
+//ALOU fodeu aqui
