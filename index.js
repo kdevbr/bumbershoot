@@ -73,12 +73,22 @@ function EstasLogado() {
 }
 
 function loadContent(path) {
+
+    let TituloMain = $('#TituloMain');
+    let AutorMain = $('#AutorMain');
+
     const contentDiv = $("#mainelemento");
     //alert(path)
     // Verifica qual seção deve ser carregada com base na URL
     if (path == "/") {
+        let TituloMain = $('#TituloMain');
         $('.videoInicial').removeClass('hide').addClass('show');
-        contentDiv.load('naoeindex/paginaInicialMain.html')
+        TituloMain.toggleClass('AnimaMainEntradaText');
+        TituloMain.toggleClass('AnimaMainSaidaText');
+
+        setTimeout(() => {
+            contentDiv.load('naoeindex/paginaInicialMain.html')
+        }, 800)
         deleizinhone1 = setTimeout(() => {
             //$('main').hide();
         }, 800)
@@ -99,20 +109,33 @@ function loadContent(path) {
                 if (response.ADM) {
                     window.location.reload();
                 }
-                contentDiv.html(`
-                    <div class="CabecaContainerMain">
-    <div class='text-light my-2 d-flex justify-content-between h-100 flex-wrap'>
-        <div class="ladoEsquedoHeadMainConteudo ms-3">
-            <h1 class=''>${response.titulo}</h1>
-            <h5 class=''>Publicado por: ${response.autor}</h5>
-        </div>
-        <div class="ladoDireitoHeadMainConteudo me-3 mt-1 col-12 col-sm-2">
-            <h6 class='text-center'>Postado:<br>${response.data}</h6>
+
+
+
+                TituloMain.toggleClass('AnimaMainEntradaText');
+                TituloMain.toggleClass('AnimaMainSaidaText');
+
+                setTimeout(() => {
+
+                    contentDiv.html(`
+                        <div class="CabecaContainerMain">
+        <div class='text-light my-2 d-flex justify-content-between h-100 flex-wrap'>
+            <div id="TituloMain" class="AnimaMainEntradaText ladoEsquedoHeadMainConteudo ms-3">
+                <h1 id="TituloMain" >${response.titulo}</h1>
+                <h5 class=''>Publicado por: ${response.autor}</h5>
+            </div>
+            <div class="ladoDireitoHeadMainConteudo me-3 mt-1 col-12 col-sm-2">
+                <h6 class='text-center'>Postado:<br>${response.data}</h6>
+            </div>
         </div>
     </div>
-</div>
-<p class='text-center position-absolute text-white' style="top: 130px;">Conteudo: ${response.conteudo}</p>
-                    `);
+    <p class='text-center position-absolute text-white' style="top: 130px;">Conteudo: ${response.conteudo}</p>
+                        `);
+
+                    setTimeout(() => {
+                        TituloMain.toggleClass('AnimaMainEntradaText');
+                    }, 1000)
+                }, 1000)
             },
             error: function(e) {
                 contentDiv.html("<h2>Erro</h2><p>correu um erro ao carregar a página.</p>");

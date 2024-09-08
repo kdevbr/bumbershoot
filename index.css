@@ -121,22 +121,23 @@ main {
 
 .containerMain {
     min-height: calc(95vh - 30px);
-    background: rgba(30, 27, 90, 0.7);
+    background: #1e1b5a;
     border: 5px solid;
     border-image: repeating-linear-gradient( 45deg, rgb(255, 0, 43) 0.5%, rgba(61, 38, 72, 0.839) 1%, rgb(62 39 72) 8%) 20;
     box-shadow: inset 0px 0px 10px 2px #000000;
     position: relative;
     padding: 0;
+    overflow: hidden;
 }
 
 .CabecaContainerMain {
     width: 100%;
     min-height: 100px;
-    background: rgb(30, 27, 90);
+    background: rgba(6, 9, 181, 0.627);
     position: absolute;
     top: 0;
     z-index: 0;
-    box-shadow: inset 13px 0px 10px -10px #000000, inset -13px 0px 10px -10px #000000, inset 0px 13px 10px -10px #000000;
+    box-shadow: inset 13px 0px 10px -9px #000000, inset -13px 0px 10px -9px #000000, inset 0px 13px 10px -9px #000000;
 }
 
 .textoCentroMain {
@@ -226,6 +227,59 @@ main {
     border-radius: 20px;
     flex: 0 0 auto;
     /* Impede o redimensionamento automático dos itens flex */
+}
+
+.caixa {
+    min-width: 100px;
+    height: 65px;
+    font-size: 1.5em;
+    font-family: 'cmds';
+    margin: 0;
+    padding: 0 0.5rem;
+    background: linear-gradient(45deg, #0037ffc9 0%, rgb(52, 66, 213) 100%);
+    box-shadow: inset 0 0 0 0 #7c005779, 5px 3px 11px 0px rgba(0, 21, 255, 0.2);
+    border: 2px solid rgba(9, 17, 82, 0.326);
+    border-radius: .3rem;
+    font-weight: normal;
+    cursor: pointer;
+    transition: border .2s ease-out, box-shadow .2s ease-out, color 0.8s ease-out;
+    box-sizing: border-box;
+}
+
+.caixa:hover {
+    box-shadow: inset 0px 0px 100px 0px #a600ff;
+    border: 3px solid #ff008c;
+    transition: border .3s ease-out, box-shadow 1s ease-out, color .1s ease-out;
+}
+
+.AnimaMainSaidaText {
+    animation: SaidaText .8s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s 1 normal forwards;
+}
+
+.AnimaMainEntradaText {
+    animation: EntradaText .8s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s 1 normal forwards;
+}
+
+@keyframes SaidaText {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-250px);
+    }
+}
+
+@keyframes EntradaText {
+    0% {
+        opacity: 0;
+        transform: translateX(-250px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @media (max-width: 1100px) {
