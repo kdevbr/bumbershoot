@@ -35,7 +35,7 @@ $('#DivDosLogadosHeaders').hide();
 $(window).on("load", function() {
 
     Divs.Header.append(`
-            <a href="/NovaPagina" id="BtnNovaPagina" class="btn btn-light border-2 p-2 mx-2 px-3 rounded-5 fw-bold" style="box-shadow: inset 0 0 15px #525151, 0 0 20px #d9d4d5;">Nova Pagina</a>
+            <button data-bs-toggle="modal" data-bs-target="#ModalNovaPagina" id="BtnNovaPagina" class="btn btn-light border-2 p-2 mx-2 px-3 rounded-5 fw-bold" style="box-shadow: inset 0 0 15px #525151, 0 0 20px #d9d4d5;">Nova Pagina</button>
         `)
 
     $('#gifLogin').hide();
@@ -299,3 +299,25 @@ $('.LinkJanela').each(function() {
         $(this).find('button').html(`Copyado <i class="bi bi-clipboard2-check"></i>`)
     });
 })
+
+function EnviarFormPagina() {
+    const form = document.getElementById('FormCriarPagina');
+    const formData = new FormData(form);
+    console.log(formData.get())
+}
+const radioAdicionarPagina = document.getElementById('validationFormCheck2');
+const radioNaoExibirPagina = document.getElementById('validationFormCheck3');
+const selectMenu = document.getElementById('menuSelecao');
+
+// Função para desabilitar ou habilitar o select
+function atualizarEstadoSelect() {
+    if (radioAdicionarPagina.checked) {
+        selectMenu.disabled = false; // Habilita o select
+    } else {
+        selectMenu.disabled = true; // Desabilita o select
+    }
+}
+
+// Adiciona event listener para os botões de rádio
+radioAdicionarPagina.addEventListener('change', atualizarEstadoSelect);
+radioNaoExibirPagina.addEventListener('change', atualizarEstadoSelect);
