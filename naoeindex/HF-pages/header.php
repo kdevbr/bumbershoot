@@ -10,16 +10,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-center">
-                <form class="container-fluid justify-content-start my-1 w-auto" id="BtnAdms">
+                <div class="container-fluid justify-content-start my-1 w-auto" id="BtnAdms">
                     <span id="divDosBtnMembroComum">
                         <a href="/" class="btn btn-outline-light border-0 rounded-5 fw-bold" type="button">Início</a>
-                        <a href="/login" class="btn btn-outline-light border-0 rounded-5 fw-bold" type="button">Sobre
-                            Nós</a>
+                        <a href="/login" class="btn btn-outline-light border-0 rounded-5 fw-bold" type="button">Sobre Nós</a>
                         <a href="/dashboard" class="btn btn-outline-light border-0 rounded-5 fw-bold" type="button">Dashboard</a>
                     </span>
                     <a href="/administrativo" id="BtnPostar" class="btn btn-danger border-2 p-2 px-3 rounded-5 fw-bold" style="box-shadow: inset 0 0 15px rgb(53, 0, 7), 0 0 20px #c0001a; display: none;">Area Administrativa</a>
-
-                </form>
+                </div>
             </ul>
             <div id="DivDosLogadosHeaders">
                 <a href="/desconectar" class="btn text-bg-primary border-0 rounded-5 fw-bold active mb-1">desconectar</a>
