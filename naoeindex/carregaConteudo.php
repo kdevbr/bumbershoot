@@ -21,6 +21,7 @@ if($url == "/desconectar"){
     setcookie('lembrarDeMim', '', -1, '/');
     $dados['Refrache'] = true;
 }
+
 if($url ==  "/administrativo"){
     $dados['ADM'] = true;
 }
