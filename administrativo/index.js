@@ -303,7 +303,13 @@ $('.LinkJanela').each(function() {
 function EnviarFormPagina() {
     const form = document.getElementById('FormCriarPagina');
     const formData = new FormData(form);
-    console.log(formData.get())
+    let dataDoForm = {}
+    dataDoForm.append(formData.get('pageFile'))
+    dataDoForm.append(formData.get('pagepageInicioSelect'))
+    dataDoForm.append(formData.get('pageInicioN'))
+    dataDoForm.append(formData.get('pageInicioS'))
+    dataDoForm.append(formData.get('pageInfo'))
+    dataDoForm.append(formData.get('pageName'))
 }
 const radioAdicionarPagina = document.getElementById('validationFormCheck2');
 const radioNaoExibirPagina = document.getElementById('validationFormCheck3');
