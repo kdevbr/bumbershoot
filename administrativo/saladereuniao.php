@@ -79,7 +79,7 @@ if (!$_SESSION['poder'] > 100) {
                     <form id="FormCriarPagina">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Nome da pagina:</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1"
+                            <input type="email" class="form-control" name="pageName" id="exampleInputEmail1"
                                 aria-describedby="emailHelp">
                             <div id="emailHelp" class="form-text">Digite o nome</div>
                         </div>
@@ -94,20 +94,20 @@ if (!$_SESSION['poder'] > 100) {
                         <div class="mb-3">
                             <label for="validationTextarea" class="form-label">Informações sobre a Página</label>
                             <textarea class="form-control" id="validationTextarea"
-                                placeholder="Qual é o objetivo da Página" required></textarea>
+                                placeholder="Qual é o objetivo da Página" name="pageInfo" required></textarea>
                             <div class="invalid-feedback">
                                 Preencha o espaço
                             </div>
                         </div>
 
                         <div class="form-check">
-                            <input type="radio" class="form-check-input" id="validationFormCheck2" name="radio-stacked"
+                            <input type="radio" name="pageInicioS" class="form-check-input" id="validationFormCheck2" name="radio-stacked"
                                 required>
                             <label class="form-check-label" for="validationFormCheck2">Adicionar Página ao
                                 início</label>
                         </div>
                         <div class="form-check mb-3">
-                            <input type="radio" class="form-check-input" id="validationFormCheck3" name="radio-stacked"
+                            <input type="radio" name="pageInicioN" class="form-check-input" id="validationFormCheck3" name="radio-stacked"
                                 required>
                             <label class="form-check-label" for="validationFormCheck3">Não exibir Página no
                                 início</label>
@@ -115,7 +115,7 @@ if (!$_SESSION['poder'] > 100) {
                         </div>
 
                         <div class="mb-3">
-                            <select class="form-select" required aria-label="select example" id="menuSelecao" disabled>
+                            <select class="form-select" required aria-label="select example" name="pageInicioSelect" id="menuSelecao" disabled>
                                 <option value="">Menu de seleçäo</option>
                                 <option value="1">Primeiro</option>
                                 <option value="2">Segundo</option>
@@ -125,7 +125,7 @@ if (!$_SESSION['poder'] > 100) {
                         </div>
 
                         <div class="mb-3">
-                            <input type="file" class="form-control" aria-label="file example" required>
+                            <input type="file" class="form-control" name="pageFile" aria-label="file example" required>
                             <div class="invalid-feedback">Example invalid form file feedback</div>
                         </div>
                     </form>

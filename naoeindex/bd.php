@@ -32,7 +32,7 @@ if (is_xampp()) {
 global $conn;
 
 $conn = new mysqli($dbHost, $dbUser, $dbPassword, $dbName);
-$conn->query("SET time_zone = '-03:00'");
+$conn->query(query: "SET time_zone = '-03:00'");
 if ($conn->connect_error) {
     die("Erro na conexão: " . $conn->connect_error);
 }
