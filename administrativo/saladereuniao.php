@@ -71,27 +71,19 @@ if (!$_SESSION['poder'] > 100) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="userModalTitulo">User Information</h5>
+                    <h5 class="modal-title" id="userModalTitulo">Page Information</h5>
 
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="FormCriarPagina">
-                        <div class="mb-3">
+                    <form id="FormCriarPagina" novalidate>
+                        <div class="mb-1">
                             <label for="exampleInputEmail1" class="form-label">Nome da pagina:</label>
-                            <input type="email" class="form-control" name="pageName" id="exampleInputEmail1"
-                                aria-describedby="emailHelp">
+                            <input type="text" class="form-control" name="pageName" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" required>
                             <div id="emailHelp" class="form-text">Digite o nome</div>
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Sim ou nao</label>
-                        </div>
-                        <br>
-                        <label for="customRange1" class="form-label"> o quanto vc é gay</label>
-                        <input type="range" class="form-range" id="customRange1">
-
-                        <div class="mb-3">
+                        <div class="mb-1">
                             <label for="validationTextarea" class="form-label">Informações sobre a Página</label>
                             <textarea class="form-control" id="validationTextarea"
                                 placeholder="Qual é o objetivo da Página" name="pageInfo" required></textarea>
@@ -101,32 +93,25 @@ if (!$_SESSION['poder'] > 100) {
                         </div>
 
                         <div class="form-check">
-                            <input type="radio" name="pageInicioS" class="form-check-input" id="validationFormCheck2" name="radio-stacked"
+                            <input type="checkbox" name="pageInicioS" class="form-check-input" id="validationFormCheck2" name="radio-stacked"
                                 required>
                             <label class="form-check-label" for="validationFormCheck2">Adicionar Página ao
                                 início</label>
                         </div>
-                        <div class="form-check mb-3">
-                            <input type="radio" name="pageInicioN" class="form-check-input" id="validationFormCheck3" name="radio-stacked"
-                                required>
-                            <label class="form-check-label" for="validationFormCheck3">Não exibir Página no
-                                início</label>
-                            <div class="invalid-feedback">Preencha o espaço</div>
-                        </div>
 
-                        <div class="mb-3">
+                        <div class="my-2">
                             <select class="form-select" required aria-label="select example" name="pageInicioSelect" id="menuSelecao" disabled>
                                 <option value="">Menu de seleçäo</option>
                                 <option value="1">Primeiro</option>
                                 <option value="2">Segundo</option>
                                 <option value="3">Terceiro</option>
                             </select>
-                            <div class="invalid-feedback">Example invalid select feedback</div>
+                            <div class="invalid-feedback">Preencha</div>
                         </div>
 
                         <div class="mb-3">
-                            <input type="file" class="form-control" name="pageFile" aria-label="file example" required>
-                            <div class="invalid-feedback">Example invalid form file feedback</div>
+                            <input type="file" class="form-control" id="pageFile" name="pageFile" aria-label="file example" required webkitdirectory>
+                            <div class="invalid-feedback">Preencha</div>
                         </div>
                     </form>
 
