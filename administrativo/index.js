@@ -24,7 +24,10 @@ var Divs = {
         ListaDeUsuariosModalTH: $('#idTRListaDeUsuariosModal'),
         ListaDeUsuariosModalTbody: $('#idTbodyListaDeUsuariosModal'),
     },
-    Header: $('#BtnAdms')
+    Header: $('#BtnAdms'),
+    CriarPagina: {
+        form: $('#FormCriarPagina')
+    }
 }
 
 
@@ -301,18 +304,43 @@ $('.LinkJanela').each(function() {
 })
 
 function EnviarFormPagina() {
-    const form = document.getElementById('FormCriarPagina');
-    const formData = new FormData(form);
-    let dataDoForm = {}
-    dataDoForm.append(formData.get('pageFile'))
-    dataDoForm.append(formData.get('pagepageInicioSelect'))
-    dataDoForm.append(formData.get('pageInicioN'))
-    dataDoForm.append(formData.get('pageInicioS'))
-    dataDoForm.append(formData.get('pageInfo'))
-    dataDoForm.append(formData.get('pageName'))
+    let form = $('#FormCriarPagina')[0];
+    if (form.checkValidity()) {
+        const formData = new FormData(form);
+
+        // Pega os arquivos da pasta
+        const files = $('#pageFile')[0].files; // Certifique-se que o input tem o ID "pageFile"
+
+        // Adiciona todos os arquivos ao FormData
+        for (let i = 0; i < files.length; i++) {
+            formData.append('files[]', files[i]); // Cria um array de arquivos no FormData
+        }
+
+        formData.append('pageName', formData.get('pageName'));
+        formData.append('pageInicioS', formData.get('pageInicioS'));
+        formData.append('pagepageInicioSelect', formData.get('pagepageInicioSelect'));
+        formData.append('pageInfo', formData.get('pageInfo'));
+
+        // Envia os dados ao servidor
+        $.ajax({
+            url: 'NovaPagina.php', // URL do script PHP no servidor
+            type: 'POST',
+            data: formData,
+            processData: false, // Necessário para envio de FormData
+            contentType: false, // Necessário para envio de FormData
+            success: function(response) {
+                console.log('Upload concluído com sucesso!', response);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Erro ao enviar a pasta:', textStatus, errorThrown);
+            }
+        });
+    } else {
+        form.classList.add('was-validated');
+    }
 }
+
 const radioAdicionarPagina = document.getElementById('validationFormCheck2');
-const radioNaoExibirPagina = document.getElementById('validationFormCheck3');
 const selectMenu = document.getElementById('menuSelecao');
 
 // Função para desabilitar ou habilitar o select
@@ -326,4 +354,3 @@ function atualizarEstadoSelect() {
 
 // Adiciona event listener para os botões de rádio
 radioAdicionarPagina.addEventListener('change', atualizarEstadoSelect);
-radioNaoExibirPagina.addEventListener('change', atualizarEstadoSelect);
