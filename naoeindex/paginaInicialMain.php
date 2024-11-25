@@ -1,0 +1,29 @@
+<?php
+include_once('bd.php');
+$res = $conn->query("SELECT * FROM `paginas`");
+?>
+<div class="CabecaContainerMain">
+    <div class='text-light my-2 d-flex justify-content-between h-100 flex-wrap'>
+        <div id="TituloMain" class="AnimaMainEntradaText ladoEsquedoHeadMainConteudo ms-3">
+            <h1 class=''>Paginas</h1>
+            <h5 class='AutorMain'>Publicado por:<span class="text-warning"> KarlosFodao <i>ADM</i></span></h5>
+        </div>
+        <div class="ladoDireitoHeadMainConteudo me-3 mt-1 col-12 col-sm-2">
+            <h6 class='text-center'>Postado:<br>18/08/2024</h6>
+        </div>
+    </div>
+</div>
+<div class=' text-white h-auto w-100' style="margin-top: 130px;">
+    <p class="text-center m-0">Conteudo: ${response.conteudo}</p>
+    <div class="d-flex flex-wrap m-4" style="gap: 20px;">
+
+        <?php if ($res->num_rows > 0) {
+            while ($row = $res->fetch_assoc()) { ?>
+                <div class="caixa d-flex align-items-center justify-content-center flex-fill" onclick="BotoesInicial('<?php echo $row['linkURL']; ?>')">
+                    <?php echo $row['titulo']; ?>
+                </div>
+            <?php }
+        } ?>
+
+    </div>
+</div>
