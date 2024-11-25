@@ -1,19 +1,30 @@
 <?php
-session_start();
-$url = $_GET['page'];
-//$tipo = $_GET['tipo'];
-
+include_once('bd.php');
+$url = str_replace('/', '', $_GET['page']);
 setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
-$dados = [
-    'titulo' => 'teste Nº 9108',
-    'data' => ''.date('d/m/Y'),
-    'autor' => 'eu',
-    'conteudo' => 'Voce esta em: bumbershoot.com.br'.$url,
-    'tipo'=> 'link'
-];
+$dados = array();
 
-if($url == "/desconectar"){
+$res = $conn->query("SELECT * FROM `paginas` WHERE linkURL = '$url'");
+if ($res->num_rows > 0) {
+    $rou = $res->fetch_assoc();
+    $dados['sql'] = $rou;
+    $dados['dados'] = [
+        'titulo' => $rou['titulo'],
+        'data' => '' . date('d/m/Y'),
+        'autor' => 'ID#'. $rou['iduser'],
+        'conteudo' => $rou['data']
+    ];
+}else{
+    $dados['dados'] = [
+        'titulo' => '404 Pagina nao encontrada',
+        'data' => '' . date('d/m/Y'),
+        'autor' => 'ID#',
+        'conteudo' => 'ta errado amigao'
+    ];
+}
+
+if ($url == "desconectar") {
     unset($_SESSION['logade']);
     unset($_SESSION['userId']);
     unset($_SESSION['poder']);
@@ -22,10 +33,8 @@ if($url == "/desconectar"){
     $dados['Refrache'] = true;
 }
 
-if($url ==  "/administrativo"){
+if ($url == "administrativo") {
     $dados['ADM'] = true;
 }
 
-$jsonData = json_encode($dados);
-
-echo $jsonData;
+echo json_encode($dados);

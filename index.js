@@ -81,13 +81,13 @@ function loadContent(path) {
     //alert(path)
     // Verifica qual seção deve ser carregada com base na URL
     if (path == "/") {
-        let TituloMain = $('#TituloMain');
+
         $('.videoInicial').removeClass('hide').addClass('show');
         TituloMain.toggleClass('AnimaMainEntradaText');
         TituloMain.toggleClass('AnimaMainSaidaText');
 
         setTimeout(() => {
-            contentDiv.load('naoeindex/paginaInicialMain.html')
+            contentDiv.load('naoeindex/paginaInicialMain.php')
         }, 800)
         deleizinhone1 = setTimeout(() => {
             //$('main').hide();
@@ -121,15 +121,15 @@ function loadContent(path) {
                         <div class="CabecaContainerMain">
         <div class='text-light my-2 d-flex justify-content-between h-100 flex-wrap'>
             <div id="TituloMain" class="AnimaMainEntradaText ladoEsquedoHeadMainConteudo ms-3">
-                <h1 id="TituloMain" >${response.titulo}</h1>
-                <h5 class=''>Publicado por: ${response.autor}</h5>
+                <h1 id="TituloMain" >${response['dados'].titulo}</h1>
+                <h5 class=''>Publicado por: ${response['dados'].autor}</h5>
             </div>
             <div class="ladoDireitoHeadMainConteudo me-3 mt-1 col-12 col-sm-2">
-                <h6 class='text-center'>Postado:<br>${response.data}</h6>
+                <h6 class='text-center'>Postado:<br>${response['dados'].data}</h6>
             </div>
         </div>
     </div>
-    <p class='text-center position-absolute text-white' style="top: 130px;">Conteudo: ${response.conteudo}</p>
+    <p class='text-center position-absolute text-white' style="top: 130px;">Conteudo: ${response['dados'].conteudo}</p>
                         `);
 
                     setTimeout(() => {
@@ -165,6 +165,7 @@ document.querySelectorAll("nav a").forEach(function(link) {
         loadContent(path);
     });
 });
+
 
 // Atualizar o conteúdo quando a navegação de volta ou avanço é acionada
 window.addEventListener("popstate", function() {
@@ -414,3 +415,7 @@ function appsbtn(i) {
     }
 }
 //fodeu
+function BotoesInicial(sexo) {
+    history.pushState({}, "", sexo);
+    loadContent(sexo);
+}
