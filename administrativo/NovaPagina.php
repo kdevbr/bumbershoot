@@ -1,6 +1,11 @@
 <?php
 include('../naoeindex/bd.php');
 
+ini_set('max_file_uploads', 150);
+ini_set('upload_max_filesize', '100M');
+ini_set('post_max_size', '500M');
+
+
 $nome = $_POST['pageName'];
 $pageInicioS = $_POST['pageInicioS'];
 $pagepageInicioSelect = $_POST['pagepageInicioSelect'];
@@ -9,8 +14,8 @@ $pageInfo = $_POST['pageInfo'];
 if (!empty($_FILES['files'])) {
 
 
-    $uploadsDir = '../p/' . $nome . '/';
-    $uploadsDir2 = '/p/' . $nome . '/';
+    $uploadsDir = '../p/';
+    $uploadsDir2 = '/p/'. explode('/',$_FILES['files']['full_path'][0])[0];
     $link = $nome;
 
     $link = strtolower($link);
@@ -28,18 +33,18 @@ if (!empty($_FILES['files'])) {
         }
         ;
 
-        if (!is_dir($uploadsDir)) {
-            if (!mkdir($uploadsDir, 0777, true)) {
-                die("Erro ao criar o diretório {$uploadsDir}");
-            }
-        }
-
+//print_r($_FILES['files']);
         foreach ($_FILES['files']['tmp_name'] as $key => $tmpName) {
-            $fileName = basename($_FILES['files']['name'][$key]);
+            $fileName = ($_FILES['files']['full_path'][$key]);
             $filePath = $uploadsDir . $fileName;
+            print_r($_FILES['files']);
+
+            if (!is_dir(dirname($filePath))) {
+                mkdir(dirname($filePath), 0777, true);
+            }
 
             if (move_uploaded_file($tmpName, $filePath)) {
-                echo "Arquivo {$fileName} enviado com sucesso!";
+                
             } else {
                 echo "Erro ao enviar o arquivo {$fileName}.";
             }

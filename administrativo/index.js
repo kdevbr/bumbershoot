@@ -310,12 +310,12 @@ function EnviarFormPagina() {
 
         // Pega os arquivos da pasta
         const files = $('#pageFile')[0].files; // Certifique-se que o input tem o ID "pageFile"
-
-        // Adiciona todos os arquivos ao FormData
+        console.log(files)
+            // Adiciona todos os arquivos ao FormData
         for (let i = 0; i < files.length; i++) {
             formData.append('files[]', files[i]); // Cria um array de arquivos no FormData
         }
-
+        console.log(formData)
         formData.append('pageName', formData.get('pageName'));
         formData.append('pageInicioS', formData.get('pageInicioS'));
         formData.append('pagepageInicioSelect', formData.get('pagepageInicioSelect'));

@@ -11,11 +11,15 @@
     src: url('naoeindex/fontes/fontedecmd.ttf');
 }
 
+html,
+body {
+    height: 100%;
+}
+
 main {
     background-image: linear-gradient(180deg, rgba(230, 113, 3, 0.718) 25%, rgb(90, 23, 0) 75%);
     min-height: 100vh;
     padding-top: 100px;
-    padding-bottom: 20px;
 }
 
 .mainAdm {
@@ -131,13 +135,10 @@ main {
 }
 
 .CabecaContainerMain {
+    box-shadow: inset 13px 0px 10px -9px #000000, inset -13px 0px 10px -9px #000000, inset 0px 13px 10px -9px #000000;
     width: 100%;
     min-height: 100px;
     background: rgba(6, 9, 181, 0.627);
-    position: absolute;
-    top: 0;
-    z-index: 0;
-    box-shadow: inset 13px 0px 10px -9px #000000, inset -13px 0px 10px -9px #000000, inset 0px 13px 10px -9px #000000;
 }
 
 .textoCentroMain {
@@ -258,6 +259,11 @@ main {
 
 .AnimaMainEntradaText {
     animation: EntradaText .8s cubic-bezier(0.68, -0.6, 0.32, 1.6) 0s 1 normal forwards;
+}
+
+.headerCorpoMainFi {
+    flex: 1 1 300px;
+    max-height: 300px;
 }
 
 @keyframes SaidaText {

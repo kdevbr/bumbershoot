@@ -116,21 +116,60 @@ function loadContent(path) {
                 TituloMain.toggleClass('AnimaMainSaidaText');
 
                 setTimeout(() => {
-
-                    contentDiv.html(`
-                        <div class="CabecaContainerMain">
-        <div class='text-light my-2 d-flex justify-content-between h-100 flex-wrap'>
-            <div id="TituloMain" class="AnimaMainEntradaText ladoEsquedoHeadMainConteudo ms-3">
-                <h1 id="TituloMain" >${response['dados'].titulo}</h1>
-                <h5 class=''>Publicado por: ${response['dados'].autor}</h5>
-            </div>
-            <div class="ladoDireitoHeadMainConteudo me-3 mt-1 col-12 col-sm-2">
-                <h6 class='text-center'>Postado:<br>${response['dados'].data}</h6>
-            </div>
-        </div>
-    </div>
-    <p class='text-center position-absolute text-white' style="top: 130px;">Conteudo: ${response['dados'].conteudo}</p>
-                        `);
+                    if (response['dados'].erro == 404) {
+                        contentDiv.html(`
+                            <div class="CabecaContainerMain">
+                                <div class="text-light d-flex justify-content-between flex-wrap">
+                                    <div id="TituloMain" class="AnimaMainEntradaText pt-2 ladoEsquedoHeadMainConteudo ms-3">
+                                        <h2 id="TituloMain">${response['dados'].titulo}</h2>
+                                        <h5 class="">Publicado por: ${response['dados'].autor}</h5>
+                                    </div>
+                                    <div class="ladoDireitoHeadMainConteudo me-3 mt-1 col-12 col-sm-2">
+                                        <h6 class="text-center">Postado:<br>${response['dados'].data}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                                        `);
+                    } else {
+                        contentDiv.html(`
+                <div class="CabecaContainerMain">
+                    <div class="text-light d-flex justify-content-between flex-wrap">
+                        <div id="TituloMain" class="AnimaMainEntradaText pt-2 ladoEsquedoHeadMainConteudo ms-3">
+                            <h2 id="TituloMain">${response['dados'].titulo}</h2>
+                            <h5 class="">Publicado por: ${response['dados'].autor}</h5>
+                        </div>
+                        <div class="ladoDireitoHeadMainConteudo me-3 mt-1 col-12 col-sm-2">
+                            <h6 class="text-center">Postado:<br>${response['dados'].data}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="CorpoContainerMain flex-fill m-3 text-white">
+                    <div class="flex-wrap m-1 d-flex">
+                        <img class="headerCorpoMainFi rounded-1 w-75 object-fit-contain" src="${response['dados'].conteudo.img}" style="" alt="">
+                        <div class="headerCorpoMainFi d-flex m-2 flex-column" style="">
+                            <h1 class="m-0">${response['dados'].titulo}</h1>
+                            <h6 class="m-0">${response['dados'].conteudo.subtitulo}</h6>
+                            <a href="${response['dados'].link}" class="btn p-1 mt-1 fw-medium fs-4 btn-success text-start rounded-1">Acessar a ultima versao <i class="bi bi-box-arrow-up-right" style="
+                                vertical-align: 0px;
+                            "></i></a>
+                            <div class="dropdown">
+                                <a class="btn p-1 my-1 w-100 fw-medium fs-4 btn-success text-start rounded-1 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Outras versoes
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="#">v1</a></li>
+                                    <li><a class="dropdown-item" href="#">v1.1</a></li>
+                                    <li><a class="dropdown-item" href="#">v2</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="headerCorpoMainFi d-flex m-2 flex-column" style="">
+                            <p>${response['dados'].conteudo.desc}</p>
+                        </div>
+                    </div>
+                </div>
+                            `);
+                    }
 
                     setTimeout(() => {
                         TituloMain.toggleClass('AnimaMainEntradaText');

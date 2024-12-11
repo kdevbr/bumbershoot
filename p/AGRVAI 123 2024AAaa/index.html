@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLICA MUITO</title>
+    <style>
+
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        #nav-profile-tab.active {
+            background-color: #ddc911;
+            /* Amarelo para a guia ativa "Itens" */
+            color: #000000;
+            /* Cor do texto para a guia ativa "Itens" */
+        }
+        
+        #nav-home-tab.active {
+            background-color: #0099ff;
+            /* Vermelho para a guia ativa "Melhorias" */
+            color: #ffffff;
+            /* Cor do texto para a guia ativa "Melhorias" */
+        }
+        
+        #nav-config-tab:hover {
+            background-color: #df0e0e;
+            /* Vermelho para a guia ativa "Melhorias" */
+            color: #000000;
+            /* Cor do texto para a guia ativa "Melhorias" */
+        }
+        
+        .nav-link {
+            background-color: rgba(33, 1, 109, 0.687);
+            border: none;
+            /* Cor padrão para guias não ativas */
+        }
+        
+        .col-md-4,
+        .col-md-6,
+        img,
+        .upgrade-container {
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+        
+        .numero-temporario {
+            position: absolute;
+            color: rgb(255, 255, 255);
+            padding: 10px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 28px;
+            text-shadow: 2px 2px 4px rgb(0, 0, 0);
+            user-select: none;
+            pointer-events: none;
+        }
+        
+        .nav-link {
+            color: black;
+        }
+        
+        .scroll-container {
+            height: 75vh;
+            /* Defina a altura desejada */
+            overflow-y: auto;
+            /* Adicione rolagem vertical conforme necessário */
+        }
+        
+        .upgrade-container {
+            border: 1px solid black;
+            border-right: 1px solid black;
+        }
+        
+        .upgrade-container:last-child {
+            border-right: none;
+        }
+        
+        .custom-tooltip {
+            --bs-tooltip-color: white;
+            --bs-tooltip-border-radius: 5px;
+            --bs-tooltip-max-width: 160px;
+        }
+        
+        .upgradeelemente {
+            transition: opacity 0.1s ease;
+        }
+        
+        .custom-tooltip {
+            text-align: center;
+            width: 200px;
+            color: rgb(123, 7, 255);
+            background-color: #000000e5;
+            padding: 5px;
+            border-radius: 10px;
+        }
+        
+        .centrohorizontal {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .cordofundoup {
+            background-color: #00000045;
+        }
+        
+        .cordofundoup2 {
+            background-color: rgb(27, 31, 34);
+            height: 84px;
+        }
+        
+        .prx {
+            top: 50%;
+            transform: translateY(3%);
+        }
+        
+        .prx2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 130%);
+            width: 100%;
+        }
+        
+        .prx3 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(0%, 7%);
+        }
+        
+        .roxobonitao {
+            background-color: rgb(215, 187, 228);
+        }
+        
+        .verdebonitao {
+            background-color: rgb(199, 228, 187);
+        }
+        
+        .azulbonitao {
+            background-color: #9ec0e1;
+        }
+        
+        .imagem-certo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: .7;
+            /* Inicialmente, a imagem "certo" está invisível */
+            transition: opacity 0.5s ease;
+            /* Adiciona um efeito de transição para suavizar a alteração de opacidade */
+        }
+        
+        .upgrade-comprado .imagem-certo {
+            opacity: 1;
+            /* Quando a classe "upgrade-comprado" é aplicada, a imagem "certo" fica visível */
+        }
+        
+        @media (min-width: 600px) {
+            #bodi2 {
+                zoom: 0.90;
+            }
+        }
+    </style>
+</head>
+
+<body class="overflow-hidden">
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel" data-bs-theme="dark">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Conta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <a href="../../entrar.html?r=/vapo/v1.2.3/">Logar</a>
+            <a id="Btn-Deslogar">Des-Logar</a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="ModalLeaderboard" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-theme="dark">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Leaderboard <img class="mb-1" src="img/leaderboard.png" style="height:30px;"></h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nº</th>
+                                <th scope="col">Icon</th>
+                                <th scope="col">Nick</th>
+                                <th scope="col">Pontos</th>
+                                <th scope="col">PPs</th>
+                                <th scope="col">Construçoes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-jogadores">
+
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="envSave" class="btn btn-outline-success">Enviar Save & Salvar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="statsModal" tabindex="-1" aria-labelledby="statsModalLabel" aria-hidden="true" data-bs-theme="dark">
+        <div class="modal-dialog text-white">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="statsModalLabel">Estatísticas da Construção</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="statsModalBody">
+                    <!-- Conteúdo das estatísticas vai aqui -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header class="bg-dark text-light text-center py-1 d-flex flex-wrap align-items-center">
+        <div class="col-md-4 col-12">
+            <div id="header2" class="align-items-center"></div>
+        </div>
+        <div class="col-md-4 col-12">
+            <div id="" class="align-items-center mx-0 pb-0 px-2 rounded-1 border border-1 border-dark border-opacity-75 transition-bg upgrade-container cordofundoup2">
+                <h1 class="h3">Bozoclicker</h1>
+                <p class="">Pontos Acumulados: <span id="PontosAcumuladosD"></span></p>
+            </div>
+        </div>
+        <div class="col-md-4 col-12">
+            <div id="header" class="align-items-center"></div>
+        </div>
+    </header>
+
+
+    <div class="container-fluid" id="bodi2">
+        <div class="row" style="height: 100vh;">
+            <div class="col-md-3 p-3 bg-secondary border border-end-0 border-start-0 border-black border-3" style="top: 0;" id="domeio">
+
+                <div id="pontosd"></div>
+
+                <h6 class="text-center text-bg-dark" style="bottom: -3px;">IMBROXABILIDADE: <span id="MltD"></span>%</h6>
+                <img class="img-fluid border border-dark rounded mb-1" src="bozo.jpg" id="BOZOIMG">
+
+                <div class="numero-temporario "></div>
+
+            </div>
+
+            <div class="col-md-9 p-3 border border-3 border-black border-end-0 overflow-y-visible" style="background-image: url(planalto.jpg); background-size: 40%;" id="pontosd1">
+
+                <nav class="mb-3 border-bottom border-3 border-black">
+                    <div class="nav nav-tabs border-0 mb-1" id="nav-tab" role="tablist">
+                        <button class="nav-link active text-white fw-semibold border-0" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="true">Itens</button>
+                        <button class="nav-link ms-1 text-white border-0 fw-semibol position-relative" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Melhorias<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="numeroadicionado" style="display: none;"><span class="visually-hidden">unread messages</span></span></button>
+                        <button class="nav-link ms-1 text-white border-0 fw-semibol position-relative" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-prestig" type="button" role="tab" aria-controls="nav-home" aria-selected="false">Prestigio<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="numeroprestigio" style="display: none;"><span class="visually-hidden">unread messages</span></span></button>
+
+                        <button class="nav-link text-white border-0 ms-1 fw-semibol" id="nav-config-tab" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Configuraçoes</button>
+                    </div>
+                </nav>
+
+                <div class="tab-content" id="nav-tabContent">
+
+                    <!-- Melhorias -->
+                    <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                        <div style="border-color: rgb(255, 255, 255)!important;top: 5px; z-index: 1000;" class=" py-1 ps-2 border-top rounded-start-2 rounded-end-2 border-4 bg-dark my-2 col-12 m-auto">
+                            <h4 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; letter-spacing:8px;text-shadow: 2px 1px 3px rgba(111, 0, 255, 0.445), 0 0 1em rgb(0 0 0), 0 0 0.2em rgb(153, 0, 255); color: white;" class="mx-2 mb-1 m-0 p-0 border-bottom border-2 border-white text-center fw-semibold">Melhorias<span style="letter-spacing:2px;" class="fs-5 ms-2" id="QuantasUpgradesCompradas">oi</h4>
+                        </div>
+                        <div class="scroll-container">
+                            <div class="d-flex flex-wrap flex-md-row justify-content-start upgrades-container-upgrades py-3 rounded transition-bg border border-3 border-primary bg-black bg-opacity-25">
+                                <div class="container" id="tiposDeUp">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- Construçao -->
+                    <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                        <div class="scroll-container" id="containercell">
+                            <div class="d-flex flex-wrap flex-md-row justify-content-start upgrades-container-upgrades p-3 rounded transition-bg text-center border border-3 border-warning" id="upgrades-container">
+
+                            </div>
+                        </div>
+                    </div>
+<!-- Prestigio -->
+                    <div class="tab-pane fade" id="nav-prestig" tabindex="0">
+                        <div style="border-color: rgb(255, 255, 255)!important;top: 5px; z-index: 1000;" class=" py-1 ps-2 border-top rounded-start-2 rounded-end-2 border-4 bg-dark my-2 col-12 m-auto">
+                            <h4 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; letter-spacing:8px;text-shadow: 2px 1px 3px rgba(255, 153, 0, 0.445), 0 0 1em rgb(0 0 0), 0 0 0.2em rgb(255, 102, 0); color: white;" class="mx-2 mb-1 m-0 p-0 border-bottom border-2 border-white text-center fw-semibold">Bozo Pedras Magicas<br><span style="letter-spacing:2px;text-shadow: none;" class="fs-6 my-5" id="numeroprestigio">oi</h4>
+                        </div>
+                        <div class="scroll-container" id="containercell">
+                            <div class="d-flex flex-wrap flex-md-row justify-content-start upgrades-container-upgrades p-3 rounded transition-bg text-center border border-3 border-danger" id="prestigeo-container">
+<div style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="text-bg-dark text-center m-auto rounded-4"><p class="m-0 h5">As pedras magicas do bolsonaro servem para voce recomeçar o jogo com um uma porcentagem multiplicativa com base nas pedras que voce possui, voce consegue Pedras com base nos Pontos Acumulados </p>
+
+    <h4 class="my-2">Voce precisa de mais <span class="text-bg-info">10.000</span> Pontos Acumulados para o proximo Prestigio</h4>
+                            <div class="progress col-11 m-auto rounded-1 mb-1 bg-secondary" role="progressbar" aria-label="Example 20px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 5px">
+                                <div class="progress-bar bg-gradient progress-bar-animated progress-bar-striped" style="width: 10%"></div>
+                            </div>
+                            <h3>Voce possui: <span class="text-primary">45</span> Pedras</h3>
+                        </div>
+                        <button class="btn-primary my-2 btn m-auto col-11 fw-semibold">Resetar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade text-light" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-theme="dark">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Configuraçoes</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <button type="button" class="btn btn-outline-success" data-dismiss="alert" id="savebtn">Save</button>
+                        <br><br>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                            <label class="form-check-label" for="flexSwitchCheckChecked">Auto save(esse botão é so um enfeite e não, o jogo, nao vai se salvar sozinho a cada 5 minutos hahaha, se voce não apertar na porra desse botao de save gigante na tela voce se fodeu hahaha, seu merda)</label>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade text-light" id="staticBackdrope" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true" data-bs-theme="dark">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Notas de atualização</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        - Adicionado conteudo a parte de upgrades, podendo melhorar os itens, click e tudo mais
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <div id="toastContainer" class="position-fixed bottom-0 start-50 translate-middle-x my-2 p-3" data-bs-theme="dark" style="z-index: 1060;">
+    </div>
+
+
+    <script src="https://unpkg.com/flatted"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+
+</body>
+
+</html>
