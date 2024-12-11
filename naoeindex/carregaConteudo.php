@@ -13,14 +13,20 @@ if ($res->num_rows > 0) {
         'titulo' => $rou['titulo'],
         'data' => '' . date('d/m/Y'),
         'autor' => 'ID#'. $rou['iduser'],
-        'conteudo' => $rou['data']
+        'conteudo' => [
+            'img' => null,
+            'subtitulo' => $rou['titulo'],
+            'desc' => $rou['data']
+        ],
+        'link' => $rou['corpo']
     ];
 }else{
     $dados['dados'] = [
         'titulo' => '404 Pagina nao encontrada',
         'data' => '' . date('d/m/Y'),
         'autor' => 'ID#',
-        'conteudo' => 'ta errado amigao'
+        'conteudo' => 'ta errado amigao',
+        'erro' => 404
     ];
 }
 
