@@ -20,7 +20,8 @@ class Usuario
         if ($res->num_rows > 0) {
             $Usuario = $res->fetch_assoc();
 
-            if ($Usuario['password'] == $senha) {
+            $senhaCriptografada = hash('sha256', $senha);
+            if ($senhaCriptografada == $Usuario['password']) {
 
                 $_SESSION['logade'] = 1;
                 $_SESSION['userId'] = $Usuario['id'];
@@ -77,6 +78,9 @@ class Usuario
             $user = $result->fetch_assoc();
         
             if ($user) {
+
+                session_regenerate_id(true);
+
                 $_SESSION['logade'] = 1;
                 $_SESSION['userId'] = $user['id'];
                 $_SESSION['poder'] = $user['poder'];

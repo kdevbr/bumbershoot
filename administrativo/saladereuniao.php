@@ -3,7 +3,7 @@
 if (!isset($_SESSION['logade'])) {
     exit('Faca login para continuar');
 }
-if (!$_SESSION['poder'] > 100) {
+if ($_SESSION['poder'] < 100) {
     exit('voce nao tem privilegios sulficientes');
 }
 ?>
@@ -29,7 +29,7 @@ if (!$_SESSION['poder'] > 100) {
 
 <body class="bg-dark h-100">
 
-    <div class="modal fade" id="ModalInfoUsers" tabindex="-1" aria-labelledby="userModalTitulo" aria-hidden="true">
+    <div class="modal fade" id="ModalInfoUsers" tabindex="-1" aria-labelledby="userModalTitulo" aria-hidden="true" style="z-index: 3000;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -68,7 +68,7 @@ if (!$_SESSION['poder'] > 100) {
 
     <div class="modal fade" id="ModalNovaPagina" tabindex="-1" aria-labelledby="userModalTitulo" style="z-index: 3000;"
         aria-hidden="true">
-        <div class="modal-dialog">
+        <d class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="userModalTitulo">Page Information</h5>
@@ -84,6 +84,12 @@ if (!$_SESSION['poder'] > 100) {
                             <div id="emailHelp" class="form-text">Digite o nome</div>
                         </div>
                         <div class="mb-1">
+                            <label for="exampleInputSub1" class="form-label">Subtitulo:</label>
+                            <input type="text" class="form-control" name="pageSubtitulo" id="exampleInputSub1"
+                                aria-describedby="sub" required>
+                            <div id="sub" class="form-text">Digite o subtitulo</div>
+                        </div>
+                        <div class="mb-1">
                             <label for="validationTextarea" class="form-label">Informações sobre a Página</label>
                             <textarea class="form-control" id="validationTextarea"
                                 placeholder="Qual é o objetivo da Página" name="pageInfo" required></textarea>
@@ -92,26 +98,39 @@ if (!$_SESSION['poder'] > 100) {
                             </div>
                         </div>
 
+                        <div class="my-2">
+                        <label for="menuSelecaoAut" id="labelsELECTEWERQWDQW" class="form-label">Autor</label>
+                            <select class="form-select" required aria-label="select example" name="pageAutorSelect" id="menuSelecaoAut" id="AutoresNovaPagina">
+                            </select>
+                            <div class="invalid-feedback">Preencha</div>
+                        </div>
+
                         <div class="form-check">
-                            <input type="checkbox" name="pageInicioS" class="form-check-input" id="validationFormCheck2" name="radio-stacked"
-                                required>
+                            <input type="checkbox" name="pageInicioS" class="form-check-input" id="validationFormCheck2" name="radio-stacked">
                             <label class="form-check-label" for="validationFormCheck2">Adicionar Página ao
                                 início</label>
                         </div>
 
                         <div class="my-2">
-                            <select class="form-select" required aria-label="select example" name="pageInicioSelect" id="menuSelecao" disabled>
+                            <select class="form-select" id="labelsInicio" required aria-label="select example" name="pageInicioSelect" disabled>
                                 <option value="">Menu de seleçäo</option>
                                 <option value="1">Primeiro</option>
                                 <option value="2">Segundo</option>
                                 <option value="3">Terceiro</option>
                             </select>
                             <div class="invalid-feedback">Preencha</div>
+                            <label class="mb-1 form-text">Tela inical</label>
                         </div>
 
-                        <div class="mb-3">
+                        <div class="mb-1">
                             <input type="file" class="form-control" id="pageFile" name="pageFile" aria-label="file example" required webkitdirectory>
                             <div class="invalid-feedback">Preencha</div>
+                            <label class="mb-1 form-text">Pasta site</label>
+                        </div>
+                        <div class="mb-3">
+                            <input type="file" class="form-control" id="pageImg" name="pageImg" aria-label="file example">
+                            <div class="invalid-feedback">Preencha</div>
+                            <label class="mb-1 form-text">Imagem(opcional)</label>
                         </div>
                     </form>
 
@@ -126,7 +145,7 @@ if (!$_SESSION['poder'] > 100) {
     </div>
 
     <?php include_once('../naoeindex/HF-pages/header.php'); ?>
-    <div class="mainAdm">
+    <div class="mainAdm" style="transform: translateY(100px);">
         <div class="sideEsq SidLateraisMainAdm">
             <h4 class="text-center text-bg-info fst-italic m-0">Lista de Usuarios</h4>
             <form class="d-flex my-2 mx-1" role="search">

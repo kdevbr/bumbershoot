@@ -82,21 +82,15 @@ function loadContent(path) {
     // Verifica qual seção deve ser carregada com base na URL
     if (path == "/") {
 
-        $('.videoInicial').removeClass('hide').addClass('show');
         TituloMain.toggleClass('AnimaMainEntradaText');
         TituloMain.toggleClass('AnimaMainSaidaText');
 
         setTimeout(() => {
             contentDiv.load('naoeindex/paginaInicialMain.php')
         }, 800)
-        deleizinhone1 = setTimeout(() => {
-            //$('main').hide();
-        }, 800)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        clearTimeout(deleizinhone1);
-        $('.videoInicial').removeClass('show').addClass('hide');
-        //document.querySelector('.videoInicial').style.marginTop = `-${document.querySelector('.videoInicial').clientHeight}px`;
-        $('main').show();
+        document.querySelector('main').scrollIntoView({ behavior: 'smooth' });
         $.ajax({
             url: 'naoeindex/carregaConteudo.php',
             method: 'GET',
@@ -110,11 +104,9 @@ function loadContent(path) {
                     window.location.reload();
                 }
 
-
-
                 TituloMain.toggleClass('AnimaMainEntradaText');
                 TituloMain.toggleClass('AnimaMainSaidaText');
-
+                $(".CorpoContainerMainI").html('');
                 setTimeout(() => {
                     if (response['dados'].erro == 404) {
                         contentDiv.html(`
@@ -153,7 +145,7 @@ function loadContent(path) {
                                 vertical-align: 0px;
                             "></i></a>
                             <div class="dropdown">
-                                <a class="btn p-1 my-1 w-100 fw-medium fs-4 btn-success text-start rounded-1 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="btn p-1 my-1 w-100 fw-medium fs-4 btn-dark text-start rounded-1 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" disabled>
                                     Outras versoes
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
@@ -171,10 +163,8 @@ function loadContent(path) {
                             `);
                     }
 
-                    setTimeout(() => {
-                        TituloMain.toggleClass('AnimaMainEntradaText');
-                    }, 1000)
                 }, 1000)
+
             },
             error: function(e) {
                 contentDiv.html("<h2>Erro</h2><p>correu um erro ao carregar a página.</p>");
@@ -404,6 +394,7 @@ function ButaoEdnaldo(tipopass) {
 }
 
 $('#RegistroForm').on('submit', (e) => {
+
     e.preventDefault();
     if (PassRegistroRepita() && nome_de_usuario_ok && nome_de_usuario_maior_que_3) {
 
@@ -458,3 +449,49 @@ function BotoesInicial(sexo) {
     history.pushState({}, "", sexo);
     loadContent(sexo);
 }
+
+
+$.ajax({
+    type: "GET",
+    url: "administrativo/VerificaQuaisPaginasEstaoNaPaginaInicial.php",
+    dataType: "json",
+    async: false,
+    success: function(res) {
+        // Arrays para armazenar os resultados
+        let tela1 = [];
+        let tela2 = [];
+        let tela3 = [];
+
+        // Iterar sobre os objetos recebidos
+        res.forEach(item => {
+            switch (parseInt(item.TelaInicial)) {
+                case 1:
+                    tela1.push(item);
+                    break;
+                case 2:
+                    tela2.push(item);
+                    break;
+                case 3:
+                    tela3.push(item);
+                    break;
+            }
+        });
+
+        // Preencher com vazio se algum array estiver vazio
+        if (tela1.length === 0) tela1.push('vazio');
+        if (tela2.length === 0) tela2.push('vazio');
+        if (tela3.length === 0) tela3.push('vazio');
+
+        // Combinar os arrays na ordem desejada
+        let resultadoFinal = [...tela1, ...tela2, ...tela3];
+
+        // Exibir ou processar o resultado final
+        console.log(resultadoFinal);
+        resultadoFinal.forEach((e, i) => {
+            $('.btn-container').append(`<a onclick="BotoesInicial('${e.linkURL}')"><button id="myButton${e.TelaInicial}" class="btnn slide_diagonal">${e.titulo}</button></a>`)
+        })
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        console.error('Erro ao verificar páginas:', textStatus, errorThrown);
+    }
+});

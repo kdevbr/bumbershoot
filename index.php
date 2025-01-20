@@ -125,9 +125,6 @@
             <video id="myVideo" src="naoeindex/imgvid/Gifentrada.mp4" class="videoPrnc" muted autoplay></video>
 
             <div class="btn-container">
-                <a href="#mainelemento"><button id="myButton1" class="btnn slide_diagonal">Bozoclicker</button></a>
-                <a href="#mainelemento"><button id="myButton2" class="btnn slide_diagonal">Chat</button></a>
-                <a href="#mainelemento"><button id="myButton3" class="btnn slide_diagonal">SobreNoizes</button></a>
             </div>
         </div>
         <main>
