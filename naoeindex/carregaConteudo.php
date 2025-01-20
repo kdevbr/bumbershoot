@@ -12,9 +12,9 @@ if ($res->num_rows > 0) {
     $dados['dados'] = [
         'titulo' => $rou['titulo'],
         'data' => '' . date('d/m/Y'),
-        'autor' => 'ID#'. $rou['iduser'],
+        'autor' => '@'. $rou['autor'],
         'conteudo' => [
-            'img' => null,
+            'img' => $rou['linkIMG'],
             'subtitulo' => $rou['titulo'],
             'desc' => $rou['data']
         ],

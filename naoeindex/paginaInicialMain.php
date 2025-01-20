@@ -10,7 +10,7 @@ $res = $conn->query("SELECT * FROM `paginas`");
         </div>
     </div>
 </div>
-<div class=' text-white h-auto w-100 m-1'>
+<div class='CorpoContainerMainI text-white h-auto w-100 m-1'>
     <p class="text-center m-0">Nossos sites :D</p>
     <div class="d-flex flex-wrap mx-3 my-1" style="gap: 20px;">
 

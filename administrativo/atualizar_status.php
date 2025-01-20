@@ -44,3 +44,4 @@ if (isset($_SESSION['userId'])) {
     echo json_encode($status, JSON_PRETTY_PRINT);
 
 }
+$conn->close();

@@ -3,6 +3,7 @@ var MensagensDeRegistrgo = ['Erro tente novamente', 'Usuario ja resgistrado', 'E
 var DadosUser;
 var LogadoSimOuNao;
 let usuarios;
+var Adms;
 var Divs = {
     TextoLoginEregistro: $('#BtnHeaderLoginRegistro'),
     HeadersLogados: $('#DivDosLogadosHeaders'),
@@ -38,7 +39,7 @@ $('#DivDosLogadosHeaders').hide();
 $(window).on("load", function() {
 
     Divs.Header.append(`
-            <button data-bs-toggle="modal" data-bs-target="#ModalNovaPagina" id="BtnNovaPagina" class="btn btn-light border-2 p-2 mx-2 px-3 rounded-5 fw-bold" style="box-shadow: inset 0 0 15px #525151, 0 0 20px #d9d4d5;">Nova Pagina</button>
+            <button data-bs-toggle="modal" data-bs-target="#ModalNovaPagina" onclick="NovaPaginaBtn()" id="BtnNovaPagina" class="btn btn-light border-2 p-2 mx-2 px-3 rounded-5 fw-bold" style="box-shadow: inset 0 0 15px #525151, 0 0 20px #d9d4d5;">Nova Pagina</button>
         `)
 
     $('#gifLogin').hide();
@@ -86,6 +87,9 @@ $(window).on("load", function() {
             method: 'POST',
             success: function(jso) {
                 console.log('Atividade atualizada');
+
+                Adms = jso;
+
                 let statu1 = jso[0].status
                 let statu2 = jso[1].status
                 let statu3 = jso[2].status
@@ -310,16 +314,22 @@ function EnviarFormPagina() {
 
         // Pega os arquivos da pasta
         const files = $('#pageFile')[0].files; // Certifique-se que o input tem o ID "pageFile"
+        const filesImg = $('#pageImg')[0].files; // Certifique-se que o input tem o ID "pageFile"
         console.log(files)
             // Adiciona todos os arquivos ao FormData
         for (let i = 0; i < files.length; i++) {
             formData.append('files[]', files[i]); // Cria um array de arquivos no FormData
         }
+        for (let i = 0; i < filesImg.length; i++) {
+            formData.append('filesimg[]', filesImg[i]); // Cria um array de arquivos no FormData
+        }
         console.log(formData)
         formData.append('pageName', formData.get('pageName'));
-        formData.append('pageInicioS', formData.get('pageInicioS'));
-        formData.append('pagepageInicioSelect', formData.get('pagepageInicioSelect'));
+        formData.append('pageSubtitulo', formData.get('pageSubtitulo'));
         formData.append('pageInfo', formData.get('pageInfo'));
+        formData.append('pageAutorSelect', formData.get('pageAutorSelect'));
+        formData.append('pageInicioS', formData.get('pageInicioS'));
+        formData.append('pagepageInicioSelect', formData.get('pageInicioSelect'));
 
         // Envia os dados ao servidor
         $.ajax({
@@ -330,6 +340,8 @@ function EnviarFormPagina() {
             contentType: false, // Necessário para envio de FormData
             success: function(response) {
                 console.log('Upload concluído com sucesso!', response);
+                form.reset(); // Limpa o formulário após o envio bem-sucedido
+                NovaPaginaBtn()
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.error('Erro ao enviar a pasta:', textStatus, errorThrown);
@@ -341,7 +353,7 @@ function EnviarFormPagina() {
 }
 
 const radioAdicionarPagina = document.getElementById('validationFormCheck2');
-const selectMenu = document.getElementById('menuSelecao');
+const selectMenu = document.getElementById('labelsInicio');
 
 // Função para desabilitar ou habilitar o select
 function atualizarEstadoSelect() {
@@ -354,3 +366,61 @@ function atualizarEstadoSelect() {
 
 // Adiciona event listener para os botões de rádio
 radioAdicionarPagina.addEventListener('change', atualizarEstadoSelect);
+
+function NovaPaginaBtn() {
+    let autores = $('#menuSelecaoAut')
+    let PaginasIniciais = $('#labelsInicio')
+    $('#labelsELECTEWERQWDQW').html('').append(' Logado como: <span class="fw-bolder text-bg-info">' + DadosUser.username + '</span>')
+    autores.html('');
+    Adms.forEach((x) => {
+        if (x.user == DadosUser.username) {
+            autores.append(`<option value="${x.user}" selected>${x.user} (Voce)</option>`)
+        } else {
+            autores.append(`<option value="${x.user}">${x.user}</option>`)
+        }
+    })
+    PaginasIniciais.html('');
+    $.ajax({
+        type: "GET",
+        url: "VerificaQuaisPaginasEstaoNaPaginaInicial.php",
+        dataType: "json",
+        success: function(res) {
+            // Arrays para armazenar os resultados
+            let tela1 = [];
+            let tela2 = [];
+            let tela3 = [];
+
+            // Iterar sobre os objetos recebidos
+            res.forEach(item => {
+                switch (parseInt(item.TelaInicial)) {
+                    case 1:
+                        tela1.push(item);
+                        break;
+                    case 2:
+                        tela2.push(item);
+                        break;
+                    case 3:
+                        tela3.push(item);
+                        break;
+                }
+            });
+
+            // Preencher com vazio se algum array estiver vazio
+            if (tela1.length === 0) tela1.push('vazio');
+            if (tela2.length === 0) tela2.push('vazio');
+            if (tela3.length === 0) tela3.push('vazio');
+
+            // Combinar os arrays na ordem desejada
+            let resultadoFinal = [...tela1, ...tela2, ...tela3];
+
+            // Exibir ou processar o resultado final
+            console.log(resultadoFinal);
+            resultadoFinal.forEach((e, i) => {
+                PaginasIniciais.append(`<option value="${i}">${e.titulo} (${e.TelaInicial})</option>`)
+            })
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('Erro ao verificar páginas:', textStatus, errorThrown);
+        }
+    });
+}
