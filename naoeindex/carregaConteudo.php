@@ -1,22 +1,31 @@
 <?php
 include_once('bd.php');
 $url = str_replace('/', '', $_GET['page']);
+if (empty($url)) {
+    echo json_encode(['error' => 'URL não fornecida']);
+    exit;
+}
 setlocale(LC_ALL, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
 date_default_timezone_set('America/Sao_Paulo');
 $dados = array();
 
 $res = $conn->query("SELECT * FROM `paginas` WHERE linkURL = '$url'");
+if ($res === false) {
+    echo json_encode(['error' => 'Erro na consulta SQL: ' . $conn->error]);
+    exit;
+}
+
 if ($res->num_rows > 0) {
     $rou = $res->fetch_assoc();
-    $dados['sql'] = $rou;
+
     $dados['dados'] = [
         'titulo' => $rou['titulo'],
         'data' => '' . date('d/m/Y'),
         'autor' => '@'. $rou['autor'],
         'conteudo' => [
             'img' => $rou['linkIMG'],
-            'subtitulo' => $rou['titulo'],
-            'desc' => $rou['data']
+            'subtitulo' => $rou['subtitulo'],
+            'desc' => utf8_encode($rou['data']) 
         ],
         'link' => $rou['corpo']
     ];
@@ -43,4 +52,4 @@ if ($url == "administrativo") {
     $dados['ADM'] = true;
 }
 
-echo json_encode($dados);
+echo json_encode($dados, JSON_UNESCAPED_UNICODE);

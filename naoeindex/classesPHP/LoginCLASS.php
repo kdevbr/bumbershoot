@@ -25,6 +25,7 @@ class Usuario
 
                 $_SESSION['logade'] = 1;
                 $_SESSION['userId'] = $Usuario['id'];
+                $_SESSION['username'] = $Usuario['username'];
                 $_SESSION['poder'] = $Usuario['poder'];
 
                 $token = bin2hex(random_bytes(16));
@@ -83,6 +84,7 @@ class Usuario
 
                 $_SESSION['logade'] = 1;
                 $_SESSION['userId'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
                 $_SESSION['poder'] = $user['poder'];
 
                 echo json_encode(["Dados" => $user, "Codigo" => 3]);
@@ -116,7 +118,7 @@ class Usuario
             $q->bind_param("ss", $user, $senha);
             
             if ($q->execute()) {
-                return 0;
+                return 3;
                 //usuario registrado
             } else{
                 $q->close();

@@ -166,8 +166,13 @@ function loadContent(path) {
                 }, 1000)
 
             },
-            error: function(e) {
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Exibir mensagem de erro no elemento contentDiv
                 contentDiv.html("<h2>Erro</h2><p>correu um erro ao carregar a página.</p>");
+
+                // Registrar detalhes do erro no console
+                console.error('Erro ao carregar a página:', textStatus, errorThrown);
+                console.error('Resposta do servidor:', jqXHR.responseText);
             }
         });
     }
@@ -323,19 +328,25 @@ function PassRegistro() {
         InputPassMsg.className = 'invalid-feedback d-block';
         InputPassMsg.innerText = "Senha fraca: A senha deve conter pelo menos um número.";
     }
-
-    if (!ValorInputPass.match(/[a-z]/) || !ValorInputPass.match(/[A-Z]/)) {
+    if (ValorInputPass.length < 8) {
         valido = false;
-        InputPassMsg.className = 'invalid-feedback d-block';
-        InputPassMsg.innerText = "Senha fraca: A senha deve conter pelo menos uma letra minúscula e uma letra maiúscula.";
         InputPassRegistro.className = "form-control is-invalid"
+        InputPassMsg.className = 'invalid-feedback d-block';
+        InputPassMsg.innerText = "Senha fraca: A senha deve conter pelo menos 8 caracteres.";
     }
-    /*if (!ValorInputPass.match(/[!@#$%&'()*+,-./[\]^_`{|}~"]/)) {
-        valido = false;
-        InputPassMsg.className = 'invalid-feedback d-block';
-        InputPassMsg.innerText = "Senha fraca: A senha deve conter pelo menos um caractere especial.";
-        InputPassRegistro.className = "form-control is-invalid"
-    }*/
+    /*
+        if (!ValorInputPass.match(/[a-z]/) || !ValorInputPass.match(/[A-Z]/)) {
+            valido = false;
+            InputPassMsg.className = 'invalid-feedback d-block';
+            InputPassMsg.innerText = "Senha fraca: A senha deve conter pelo menos uma letra minúscula e uma letra maiúscula.";
+            InputPassRegistro.className = "form-control is-invalid"
+        }
+        if (!ValorInputPass.match(/[!@#$%&'()*+,-./[\]^_`{|}~"]/)) {
+            valido = false;
+            InputPassMsg.className = 'invalid-feedback d-block';
+            InputPassMsg.innerText = "Senha fraca: A senha deve conter pelo menos um caractere especial.";
+            InputPassRegistro.className = "form-control is-invalid"
+        }*/
 
     if (valido) {
         InputPassMsg.innerText = "Senha valida"
@@ -404,8 +415,7 @@ $('#RegistroForm').on('submit', (e) => {
             tipo: 'registro'
         }
 
-        alert('fazer registro')
-            //Bruno é Gay
+        //Bruno é Gay
         $.ajax({
             type: 'POST',
             url: 'naoeindex/SistemaLogin/registro.php',
@@ -432,17 +442,7 @@ $('#RegistroForm').on('submit', (e) => {
 
 //Login com google,x,discord:
 function appsbtn(i) {
-    switch (i) {
-        case 1:
-            window.open('LoginApps/google.php', '_self');
-            break;
-        case 2:
-            window.open('LoginApps/discord.php?action=login', '_self');
-            break;
-        case 3:
-            window.open('LoginApps/twitter.php', '_self');
-            break;
-    }
+    alert('Ainda não implementado')
 }
 //fodeu
 function BotoesInicial(sexo) {

@@ -21,7 +21,7 @@ case 'veri':
     break;
 case 'registro':
     $codigoRes = $x->registro($username ,$password);
-    if($codigoRes == 0 ){
+    if($codigoRes == 3 ){
         if($x->login($username ,$password) == 0 ){
             $x->PegarDados();
         }

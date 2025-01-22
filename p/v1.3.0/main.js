@@ -692,6 +692,25 @@ class Game {
                 }
             });
         })
+        $('#CarregaSave').on('click', function() {
+            $.ajax({
+                url: 'online.php',
+                method: 'POST',
+                data: { BuscaTabela: true },
+                dataType: 'json', // Converte o objeto JSON para uma string JSON
+                success: function(r) {
+                    r.forEach((x, i) => {
+                        if (x['username'] == game.online.username) {
+                            localStorage.setItem('savedojogo', atob(x['savee']));
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: function() {
+                    alert('fodeu')
+                }
+            });
+        })
 
         // notas de atualisao
         if (!localStorage.getItem('modalShown')) {
