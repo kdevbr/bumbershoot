@@ -6,7 +6,7 @@ $res = $conn->query("SELECT * FROM `paginas`");
     <div class='text-light py-2 d-flex justify-content-between h-100 flex-wrap'>
         <div id="TituloMain" class="AnimaMainEntradaText ladoEsquedoHeadMainConteudo ms-3">
             <h1 class=''>Bumbershoot</h1>
-            <h5 class='AutorMain'>Ultima Atualizaçao:<span class="text-warning"> 1945/12/11</span></h5>
+            <h5 class='AutorMain'>Ultima Atualizaçao:<span class="text-warning"> 2001</span></h5>
         </div>
     </div>
 </div>
