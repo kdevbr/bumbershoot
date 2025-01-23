@@ -38,35 +38,28 @@
         /* Estilo do botão */
 
         .btnn {
-            margin: 0 20px;
-            padding: 5px 10px;
-            background-image: linear-gradient(154deg, #fddc56 13%, #f8c91d 23%, #ffc800 24%, #ff9100 75pt);
-            color: #3a2101;
-            border: ridge rgb(0, 0, 0) 0px;
-            border-style: ridge;
-            font-size: 14px;
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(70px);
-            transition: opacity 2s, transform 0.5s;
-            border-radius: 2px;
-            letter-spacing: 1px;
-            font-family: "Lucida Console", Monaco, monospace;
-            font-size: 20px;
-            box-shadow: inset 0 0 0 0 #7c5b0079, -1.5px -1.5px 2px .9px rgb(255, 255, 255), 2px 3px 2px 0px rgb(0, 0, 0);
-            -webkit-transition: ease-out 22s;
-            -moz-transition: ease-out 22s;
-            transition: ease-out 0.4s;
-            font-weight: bolder;
-            min-height: 60px;
-            min-width: 195px;
-        }
+    margin: 0 20px;
+    padding: 15px 25px;
+    background-color: #ffc800;
+    color: #3a2101;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(400px);
+    transition: opacity 0.3s, transform 0.4s, font-size 0.3s, box-shadow .6s ease-out, color 1s ease-out;
+    border-radius: 4px;
+    font-family: cursive;
+    font-weight: bold;
+    min-height: 50px;
+    min-width: 150px;
+}
 
         .slide_diagonal:hover {
-            box-shadow: inset 400px 20px 0 0 #643602, -1px -1px 1px 1px rgba(255, 255, 255, 0.747), 2px 2px 1px 1px rgb(0, 0, 0);
-            color: wheat;
-            font-size: 22px;
-            transition: box-shadow 1s ease-out, color 0.8s ease-out;
+            box-shadow: inset 400px 20px 0 0 #643602;
+            color:wheat;
+            font-size: 35px;
+            transition: box-shadow 1.4s ease-out, color 1.5s ease-out, font-size .1s ease-out;
         }
 
         /* Classe para animar os botões */
@@ -90,11 +83,12 @@
 
         @media only screen and (max-width: 768px) {
             .btnn {
-                padding: 3px 8px;
-                font-size: 10px;
-                min-height: 40px;
-                min-width: 120px;
+                font-size:20px;
+                font-weight: 100;
                 margin-bottom: 15px;
+                min-height: 25px;
+                min-width: 75px;
+                letter-spacing: 1px;
             }
 
             .slide_diagonal:hover {
@@ -106,6 +100,7 @@
 
             .btn-container {
                 flex-direction: column;
+                top: 40%;
             }
 
             #myVideo {
