@@ -484,10 +484,7 @@ $.ajax({
             }
         });
 
-        // Preencher com vazio se algum array estiver vazio
-        if (tela1.length === 0) tela1.push('vazio');
-        if (tela2.length === 0) tela2.push('vazio');
-        if (tela3.length === 0) tela3.push('vazio');
+
 
         // Combinar os arrays na ordem desejada
         let resultadoFinal = [...tela1, ...tela2, ...tela3];
