@@ -20,7 +20,7 @@ case 'veri':
         $x->PegarDados();
     break;
 case 'login':
-    if($x->login($username ,$password) == 0 ){
+    if($x->login($username ,$password) == 3 ){
         $x->PegarDados();
     }else{
      echo json_encode(["Codigo"=>$x->login($username ,$password)]);

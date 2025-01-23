@@ -22,8 +22,11 @@ case 'veri':
 case 'registro':
     $codigoRes = $x->registro($username ,$password);
     if($codigoRes == 3 ){
-        if($x->login($username ,$password) == 0 ){
+
+        if($x->login($username ,$password) == 3 ){
             $x->PegarDados();
+        }else{
+            echo json_encode(["Codigo erro"=>$x->login($username ,$password)]);
         }
     }else{
      echo json_encode(["Codigo"=>$codigoRes]);

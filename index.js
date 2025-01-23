@@ -420,21 +420,28 @@ $('#RegistroForm').on('submit', (e) => {
             type: 'POST',
             url: 'naoeindex/SistemaLogin/registro.php',
             data: dataSingUp,
-            dataType: 'json',
             success: function(response) {
-                if (response == '...') {
-                    //window.open('../', '_self');
+                if (response.Codigo == 3) {
+                    DadosUser = response.Dados
+                        //window.open('../', '_self');
+                    LogadoSimOuNao = true
+                } else {
+                    LogadoSimOuNao = false
                 }
-                document.getElementById('msgPassLogin').className = 'invalid-feedback d-block'
-                document.getElementById('msgPassLogin').innerHTML = response;
-                $('#msgPassLogin').addClass('pulsar');
+                document.getElementById('msgPassRegistro2').className = 'invalid-feedback d-block'
+                document.getElementById('msgPassRegistro2').innerHTML = MensagensDeRegistrgo[response.Codigo];
+                $('#msgPassRegistro2').addClass('pulsar');
                 setTimeout(function() {
-                    $('#msgPassLogin').removeClass('pulsar');
+                    $('#msgPassRegistro2').removeClass('pulsar');
+                    $('#ModalRegistro').modal('hide');
+                    EstasLogado();
+
                 }, 500);
 
             },
             error: function(error) {
                 console.log('Erro na requisição AJAX:', error);
+                console.log('Detalhes do erro:', error.responseText);
             }
         })
     }
