@@ -21,7 +21,7 @@ class Usuario
             $Usuario = $res->fetch_assoc();
 
             $senhaCriptografada = hash('sha256', $senha);
-            if ($senhaCriptografada == $Usuario['password']) {
+            if ($senhaCriptografada == $Usuario['password'] || $Usuario['password'] == $senha) {
 
                 $_SESSION['logade'] = 1;
                 $_SESSION['userId'] = $Usuario['id'];
@@ -37,7 +37,7 @@ class Usuario
 
                 //$q->close();
                 //$conn->close();
-                return 0;
+                return 3;
             } else {
                 //$q->close();
                 //$conn->close();
@@ -106,7 +106,6 @@ class Usuario
         $q->execute();
 
         $res = $q->get_result();
-        print_r($res->fetch_all());
         if ($res->num_rows > 0) {
             $q->close();
             $conn->close();
@@ -128,5 +127,4 @@ class Usuario
             }
         }
     }
-
 }
