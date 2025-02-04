@@ -341,6 +341,9 @@ main {
     .ListaDosAdms {
         width: 95%;
     }
+    main {
+        padding-top: 20px;
+    }
 }
 
 .tw:hover {
@@ -364,4 +367,51 @@ main {
     color: rgb(255, 255, 255);
     background-color: #bbbbbb0d;
     border-color: #495057;
+}
+
+.textoCentroMain {
+    top: 20%;
+    left: 10%;
+    transform: translate(0%, -50%);
+    display: block;
+}
+
+.textoCentroMain>h1 {
+    font-size: 2em;
+    font-family: 'FONTETITOLE';
+    color: #f8f9fa;
+}
+
+.navInicial {
+    z-index: 1000;
+    height: 75px;
+    transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    justify-content: start;
+    flex-wrap: nowrap;
+}
+
+.navInicial>* {
+    transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.botoesNav {
+    display: flex;
+    flex: 1;
+    margin-right: 1rem;
+    padding: 1px;
+    border-radius: 50px 0 0px 50px;
+}
+
+.scrolled {
+    background: #000dff;
+}
+
+.btn-outline-light {
+    white-space: nowrap;
+}
+
+#more-dropdown {
+    left: auto !important;
+    right: 0 !important;
 }
