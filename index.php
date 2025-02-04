@@ -19,8 +19,9 @@
     <style>
         #myVideo {
             width: 100%;
-            height: auto;
+            height: 100%;
             margin: 0;
+            object-fit: cover;
         }
 
         /* Estilo do contêiner de botões */
@@ -48,15 +49,15 @@
     opacity: 0;
     transform: translateY(400px);
     transition: opacity 0.3s, transform 0.4s, font-size 0.3s, box-shadow .6s ease-out, color 1s ease-out;
-    border-radius: 4px;
-    font-family: cursive;
-    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
     min-height: 50px;
     min-width: 150px;
 }
 
         .slide_diagonal:hover {
             box-shadow: inset 400px 20px 0 0 #643602;
+            letter-spacing: 1px;
             color:wheat;
             font-size: 35px;
             transition: box-shadow 1.4s ease-out, color 1.5s ease-out, font-size .1s ease-out;
@@ -70,13 +71,14 @@
         }
 
         .videoInicial {
+            width: 100%;
+
             transition: margin-top 1s cubic-bezier(0.68, -0.55, 0.27, 1.55), height 0.5s ease-in-out, opacity 0.5s ease-in-out;
             overflow: hidden;
         }
 
         .videoInicial.show {
             margin-top: 0 !important;
-            height: auto;
             opacity: 1;
         }
 
@@ -102,11 +104,17 @@
                 flex-direction: column;
                 top: 40%;
             }
-
-            #myVideo {
-                height: 99vh;
-                object-fit: fill;
+            .videoInicial {
+                height: 500px;
             }
+        }
+        @media screen and (min-width: 768px) {
+            .videoInicial {
+                height: calc(100vh - 120px);
+        min-height: 600px;
+        max-height: 900px;
+            }   
+            
         }
     </style>
 </head>
@@ -117,8 +125,10 @@
         <?php include_once('naoeindex/HF-pages/header.php'); ?>
         <div class="position-relative videoInicial">
             <!-- <video id="myVideo" src="naoeindex/gifentrada.mp4" class="videoPrnc" muted autoplay></video> -->
-            <video id="myVideo" src="naoeindex/imgvid/Gifentrada.mp4" class="videoPrnc" muted autoplay></video>
-
+            <video id="myVideo" src="naoeindex/imgvid/Gifentrada.mp4" class="videoPrnc" style="display: none;" muted autoplay></video>
+<div class="position-absolute textoCentroMain "style="">
+    <h1 class="">BumberShoot</h1>
+</div>
             <div class="btn-container">
             </div>
         </div>

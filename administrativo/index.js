@@ -12,7 +12,8 @@ var Divs = {
         BtnDosAdmiro: {
             BtnPostarPagina: $('#BtnPostar'),
             BtnNovaPagina: $('#BtnNovaPagina')
-        }
+        },
+        areaBMAIS: $('#areaBotaoMais'),
     },
     Texto: {
         textImgAdm: {
@@ -169,6 +170,33 @@ $(window).on("load", function() {
     AtualizaImagensFundo();
     $('#InputFileFundoAdm').on('change', AtualizaImagensFundo);
     VerficaOsParemetrosDeUrlEfazAlgumaCoisa()
+
+    const menu = document.getElementById("areaBotaoMais");
+    const moreMenu = document.getElementById("more-menu");
+    const moreDropdown = document.getElementById("more-dropdown");
+    const itemsMenu = Array.from(menu.children).filter(item => item.id !== "more-menu");
+
+    function adjustMenu() {
+        console.log(itemsMenu)
+        let availableWidth = menu.clientWidth - moreMenu.clientWidth;
+        let totalWidth = 0;
+
+        moreDropdown.innerHTML = "";
+        moreMenu.classList.add("d-none");
+
+        itemsMenu.forEach(item => {
+            totalWidth += item.offsetWidth;
+            if (totalWidth > availableWidth) {
+                moreDropdown.appendChild(item);
+                moreMenu.classList.remove("d-none");
+            }
+        });
+    }
+
+    window.addEventListener("resize", adjustMenu);
+    adjustMenu();
+
+
 });
 
 function AtualizaListaDeUsuarios(input) {
@@ -328,6 +356,7 @@ function EnviarFormPagina() {
         formData.append('pageSubtitulo', formData.get('pageSubtitulo'));
         formData.append('pageInfo', formData.get('pageInfo'));
         formData.append('pageAutorSelect', formData.get('pageAutorSelect'));
+        formData.append('pageVersionS', formData.get('pageVersionS'));
         formData.append('pageInicioS', formData.get('pageInicioS'));
         formData.append('pagepageInicioSelect', formData.get('pageInicioSelect'));
 
@@ -353,6 +382,7 @@ function EnviarFormPagina() {
 }
 
 const radioAdicionarPagina = document.getElementById('validationFormCheck2');
+const radioVersao = document.getElementById('validationFormCheck3');
 const selectMenu = document.getElementById('labelsInicio');
 
 // Função para desabilitar ou habilitar o select
@@ -364,8 +394,19 @@ function atualizarEstadoSelect() {
     }
 }
 
+function atualizarEstadoSelectV() {
+    document.querySelectorAll('.VersNone').forEach((x) => {
+        if (!radioVersao.checked) {
+            x.disabled = false
+        } else {
+            x.disabled = true
+        }
+    })
+}
+
 // Adiciona event listener para os botões de rádio
 radioAdicionarPagina.addEventListener('change', atualizarEstadoSelect);
+radioVersao.addEventListener('change', atualizarEstadoSelectV);
 
 function NovaPaginaBtn() {
     let autores = $('#menuSelecaoAut')

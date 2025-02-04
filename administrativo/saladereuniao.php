@@ -85,13 +85,13 @@ if ($_SESSION['poder'] < 100) {
                         </div>
                         <div class="mb-1">
                             <label for="exampleInputSub1" class="form-label">Subtitulo:</label>
-                            <input type="text" class="form-control" name="pageSubtitulo" id="exampleInputSub1"
+                            <input type="text" class="form-control VersNone" name="pageSubtitulo" id="exampleInputSub1"
                                 aria-describedby="sub" required>
                             <div id="sub" class="form-text">Digite o subtitulo</div>
                         </div>
                         <div class="mb-1">
                             <label for="validationTextarea" class="form-label">Informações sobre a Página</label>
-                            <textarea class="form-control" id="validationTextarea"
+                            <textarea class="form-control VersNone" id="validationTextarea"
                                 placeholder="Qual é o objetivo da Página" name="pageInfo" required></textarea>
                             <div class="invalid-feedback">
                                 Preencha o espaço
@@ -105,6 +105,10 @@ if ($_SESSION['poder'] < 100) {
                             <div class="invalid-feedback">Preencha</div>
                         </div>
 
+                        <div class="form-check">
+                            <input type="checkbox" name="pageVersionS" class="form-check-input" id="validationFormCheck3" name="radio-stacked">
+                            <label class="form-check-label" for="validationFormCheck3">Essa pagina é uma versao?</label>
+                        </div>
                         <div class="form-check">
                             <input type="checkbox" name="pageInicioS" class="form-check-input" id="validationFormCheck2" name="radio-stacked">
                             <label class="form-check-label" for="validationFormCheck2">Adicionar Página ao
@@ -121,6 +125,16 @@ if ($_SESSION['poder'] < 100) {
                             <div class="invalid-feedback">Preencha</div>
                             <label class="mb-1 form-text">Tela inical</label>
                         </div>
+                        <div class="my-2">
+                            <select class="form-select" id="LabelsVersoes" required aria-label="select example" name="LabelsVersoes" disabled>
+                                <option value="">Menu de seleçäo</option>
+                                <option value="1">Primeiro</option>
+                                <option value="2">Segundo</option>
+                                <option value="3">Terceiro</option>
+                            </select>
+                            <div class="invalid-feedback">Preencha</div>
+                            <label class="mb-1 form-text">Tela inical</label>
+                        </div>
 
                         <div class="mb-1">
                             <input type="file" class="form-control" id="pageFile" name="pageFile" aria-label="file example" required webkitdirectory>
@@ -128,7 +142,7 @@ if ($_SESSION['poder'] < 100) {
                             <label class="mb-1 form-text">Pasta site</label>
                         </div>
                         <div class="mb-3">
-                            <input type="file" class="form-control" id="pageImg" name="pageImg" aria-label="file example">
+                            <input type="file" class="form-control VersNone" id="pageImg" name="pageImg" aria-label="file example">
                             <div class="invalid-feedback">Preencha</div>
                             <label class="mb-1 form-text">Imagem(opcional)</label>
                         </div>
