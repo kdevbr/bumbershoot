@@ -1,6 +1,6 @@
 <?php include_once('form.html'); ?>
 
-<nav class="navbar position-fixed w-100 top-0 navInicial" style="" data-bs-theme="dark">
+<nav class="navbar position-fixed w-100 top-0 navInicial" id="navInicial" style="" data-bs-theme="dark">
     <a class="navbar-brand ms-2 p-1 fs-6 " style="font-family: 'FONTETITOLE';"
         href="https://bumbershoot.com.br/">BumberShoot</a>
     <div class="botoesNav" id="divDosBtnMembroComum">

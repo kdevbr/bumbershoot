@@ -54,6 +54,8 @@ $(window).on("load", function() {
 
 
     adjustMenu()
+    adjustMenu()
+
 });
 if (window.location.pathname == '/') {
 
@@ -509,6 +511,7 @@ $.ajax({
 });
 
 const menu = document.getElementById("divDosBtnMembroComum");
+const menuPai = document.getElementById("navInicial");
 const moreMenu = document.getElementById("more-menu");
 const moreDropdown = document.getElementById("more-dropdown");
 const itemsMenu = Array.from(menu.children).filter(item => item.id !== "more-menu");
@@ -530,8 +533,10 @@ function adjustMenu() {
     });
 
     moreMenu.style.display = moreDropdown.children.length > 0 ? "block" : "none";
-    if (moreDropdown.children.length > 5) {
-
+    if (moreDropdown.children.length > itemsMenu.length - 1) {
+        menuPai.classList.add('zoom7');
+    } else {
+        menuPai.classList.remove('zoom7');
     }
 }
 
