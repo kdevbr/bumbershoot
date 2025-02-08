@@ -502,7 +502,7 @@ $.ajax({
         // Exibir ou processar o resultado final
         console.log(resultadoFinal);
         resultadoFinal.forEach((e, i) => {
-            $('.btn-container').append(`<a onclick="BotoesInicial('${e.linkURL}')"><button id="myButton${e.TelaInicial}" class="btnn slide_diagonal">${e.titulo}</button></a>`)
+            $('.btn-container').append(`<a onclick="BotoesInicial('${e.linkURL}')"><button id="myButton${e.TelaInicial}" class="slide_diagonal glow-on-hover">${e.titulo}</button></a>`)
         })
     },
     error: function(jqXHR, textStatus, errorThrown) {
