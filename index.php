@@ -48,19 +48,22 @@
     cursor: pointer;
     opacity: 0;
     transform: translateY(400px);
-    transition: opacity 0.3s, transform 0.4s, font-size 0.3s, box-shadow .6s ease-out, color 1s ease-out;
+    transition: opacity 0.3s, transform 0.4s, font-size 0.3s, box-shadow .6s ease-out, color 1s ease-out, letter-spacing 1s ease-out;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: normal;
     min-height: 50px;
     min-width: 150px;
 }
-
+.slide_diagonal{
+    font-size: 20px;
+    transition: box-shadow 1.4s ease-out, color 1.5s ease-out, font-size .1s ease-out, letter-spacing 1s ease-out;
+    font-weight: bold;
+}
         .slide_diagonal:hover {
-            box-shadow: inset 400px 20px 0 0 #643602;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             color:wheat;
-            font-size: 35px;
-            transition: box-shadow 1.4s ease-out, color 1.5s ease-out, font-size .1s ease-out;
+            font-size: 22px;
+            transition: box-shadow 1.4s ease-out, color 1.5s ease-out, font-size .1s ease-out, letter-spacing 1s ease-out;
         }
 
         /* Classe para animar os botões */
@@ -94,8 +97,7 @@
             }
 
             .slide_diagonal:hover {
-                box-shadow: inset 400px 50px 0 0 #8d4c01;
-                color: wheat;
+
                 font-size: 12px;
                 transition: box-shadow 0.8s ease-out, color 0.2s ease-out;
             }
