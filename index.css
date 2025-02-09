@@ -17,7 +17,7 @@ body {
 }
 
 main {
-    background-image: linear-gradient(180deg, rgba(230, 113, 3, 0.718) 25%, rgb(90, 23, 0) 75%);
+    background-image: linear-gradient(180deg, rgb(33 37 41) 25%, rgb(33 37 41) 105%);
     min-height: 100vh;
 }
 
@@ -124,7 +124,7 @@ main {
 
 .containerMain {
     min-height: calc(100vh);
-    background: #0d00ff00;
+    background: #0000007c;
     position: relative;
     padding: 0;
     overflow: hidden;
@@ -133,7 +133,7 @@ main {
 .CabecaContainerMain {
     width: 100%;
     min-height: 100px;
-    background: rgba(6, 9, 181, 0);
+    background: rgb(0, 4, 255);
 }
 
 .textoCentroMain {
