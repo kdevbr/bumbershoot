@@ -124,7 +124,7 @@ main {
 
 .containerMain {
     min-height: calc(100vh);
-    background: #000000fa;
+    background: #1e1b5a00;
     position: relative;
     padding: 0;
     overflow: hidden;
