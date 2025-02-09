@@ -100,7 +100,7 @@ function loadContent(path) {
             contentDiv.load('naoeindex/paginaInicialMain.php')
         }, 800)
     } else {
-        document.querySelector('main').scrollIntoView({ behavior: 'smooth' });
+        document.querySelector('.CabecaContainerMain').scrollIntoView({ behavior: 'smooth' });
         $.ajax({
             url: 'naoeindex/carregaConteudo.php',
             method: 'GET',
