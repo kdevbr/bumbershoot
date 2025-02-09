@@ -124,7 +124,7 @@ main {
 
 .containerMain {
     min-height: calc(100vh);
-    background: #1e1b5a;
+    background: #0d00ff00;
     position: relative;
     padding: 0;
     overflow: hidden;
@@ -133,7 +133,7 @@ main {
 .CabecaContainerMain {
     width: 100%;
     min-height: 100px;
-    background: rgba(6, 9, 181, 0.627);
+    background: rgba(6, 9, 181, 0);
 }
 
 .textoCentroMain {
