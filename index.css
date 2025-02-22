@@ -16,11 +16,6 @@ body {
     height: 100%;
 }
 
-main {
-    background-image: linear-gradient(180deg, rgb(33 37 41) 2%, rgb(255, 255, 255) 120%);
-    min-height: 100vh;
-}
-
 .mainAdm {
     display: flex;
     flex-direction: row;
@@ -124,10 +119,15 @@ main {
 
 .containerMain {
     min-height: calc(100vh);
-    background: #0000007c;
+    background: #212529;
     position: relative;
     padding: 0;
     overflow: hidden;
+}
+
+main {
+    background-image: linear-gradient(180deg, rgb(33 37 41) 1%, rgb(0 4 255) 90%);
+    min-height: 100vh;
 }
 
 .CabecaContainerMain {
