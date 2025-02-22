@@ -1,14 +1,14 @@
 <?php
-
+include('../../naoeindex/bd.php');
 if(isset($_POST['dados'])){
     $dados = $_POST['dados'];
     $save = $_POST['save'];
     $iduser = $_SESSION['userId'];
 }
 
-include('../../naoeindex/bd.php');
 
 if(isset($_GET['Verifica'])){
+
 if(isset($_SESSION['logade'])){
 
 echo json_encode($_SESSION['username']);
