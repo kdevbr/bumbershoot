@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pusher Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
+    <style>
+        .dropdown-item:hover {
+            background-color: rgba(255, 255, 255, 0.141)!important;
+            /* Remove o fundo branco */
+            color: rgb(255, 255, 255) !important;
+            /* Mantém o texto branco */
+        }
+        
+        .UlPrabaixo {
+            flex-direction: column;
+        }
+        
+        @media (max-width: 992px) {
+            /* Tamanho LG ou menor */
+            .TituloGrande {
+                font-size: 50pt !important;
+                letter-spacing: 3px;
+            }
+            .TituloPequeno {
+                font-size: 20pt !important;
+                letter-spacing: 3px;
+            }
+            #InputText {
+                font-size: 30pt !important;
+            }
+            .column-lg-carlos {
+                flex-direction: column !important;
+            }
+            .max350pxHeight {
+                max-height: calc(65px + 10vh) !important;
+            }
+            .UlPrabaixo {
+                flex-direction: column-reverse;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-black" style="min-height: 100vh;">
+    <div class="container-xl d-flex flex-column p-3" style="min-height: 100vh;">
+
+        <div class="d-flex justify-content-between border border-2 border-danger p-2" style="gap: 10px;">
+            <div class="dropdown">
+                <button class="TituloPequeno btn btn-outline-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" id="BotaoTitleChatAtual" aria-expanded="false">
+              Chat geral
+            </button>
+                <ul class="dropdown-menu bg-transparent border" id="MenuComTodosOsChats">
+                    <li><a class="TituloPequeno dropdown-item text-white" href="#">...</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown  ">
+                <button class="TituloPequeno btn btn-outline-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <strong class="text-white">User: </strong><span class="fst-italic" id="BotaoNomeDeUsuario"></span>
+                </button>
+                <ul class="dropdown-menu bg-transparent border" id="MenuComTodosAsFunPerf">
+                    <li><a class="TituloPequeno dropdown-item text-white" href="#">...</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="d-flex column-lg-carlos justify-content-between flex-wrap mt-2 py-2 flex-grow-1" style="gap: 10px;">
+            <!-- Primeira coluna (Chat) -->
+            <div class="d-flex flex-column" style="gap: 10px; flex: 1; ">
+                <div class="UlPrabaixo overflow-auto d-flex border border-2 border-danger" style="flex: 1 1 0px;">
+
+                    <ul class="mb-2 list-group list-group-flush overflow-auto d-flex  w-100" style="" id="ChatAtual">
+                        <li class="TituloGrande list-group-item bg-transparent text-white fs-5 fst-italic text-center">Bem-vindo ao chat</li>
+                    </ul>
+                </div>
+
+                <div class="input-group  w-100 text-white border border-2 p-1 border-danger">
+                    <input type="text" id="InputText" class="form-control rounded-0 bg-black border-0 border text-warning" placeholder="Envie com enter" aria-label="Recipient's username" aria-describedby="button-addon2">
+                </div>
+            </div>
+
+            <!-- Segunda coluna (Usuários) -->
+            <div class="max350pxHeight align-self-start d-flex flex-column col-12 col-lg-2 border overflow-auto border-2 border-danger py-2" style="gap: 10px;">
+                <h6 class="TituloGrande list-group-item m-0 p-0 bg-transparent text-white fs-5 fst-italic text-center">Usuários
+                    <br>
+                    <p class="TituloPequeno fs-6 fw-normal text-center text-white-50 m-0 p-0" id="numeroUsers" style="transform: translateY(-3px);"></p>
+                </h6>
+
+                <ol class="list-group list-group-flush w-100 list-group-numbered" style="flex: 1 1 0px;" id="UsersAtual">
+                </ol>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+        <script src=" https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js " integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r " crossorigin="anonymous "></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js " integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy " crossorigin="anonymous "></script>
+        <script>
+            class Chat {
+                constructor(channelName, pusherKey, cluster, authEndpoint) {
+                    this.channelName = channelName;
+                    this.pusher = new Pusher(pusherKey, {
+                        cluster: cluster,
+                        authEndpoint: authEndpoint,
+                        auth: {
+                            params: {
+                                username: this.verificaUser()
+                            }
+                        }
+                    });
+                    this.canal = this.pusher.subscribe(this.channelName);
+                    this.Users = [];
+                    this.username = null;
+
+                    this.canal.bind("pusher:subscription_succeeded", this.onSubscriptionSucceeded.bind(this));
+                    this.canal.bind("pusher:member_added", this.onMemberAdded.bind(this));
+                    this.canal.bind("pusher:member_removed", this.onMemberRemoved.bind(this));
+                    this.canal.bind("zap", this.onMessageReceived.bind(this));
+                }
+
+                verificaUser() {
+                    return localStorage.getItem("Username") || null;
+                }
+
+                onSubscriptionSucceeded(membros) {
+                    console.log("Usuários conectados:", membros);
+                    if (this.verificaUser() == null) {
+                        localStorage.setItem("Username", membros.myID);
+                    }
+                    this.Users = [];
+                    membros.each(member => this.Users.push(member));
+                    this.username = membros.me;
+                    $("#BotaoNomeDeUsuario").text(this.username.info.name);
+                    this.msg("Você entrou no chat").sys();
+                    this.listarUsuarios()
+                }
+
+                onMemberAdded(membro) {
+                    this.Users.push(membro);
+                    this.msg(membro.info.name + " entrou!").sys();
+                    this.listarUsuarios()
+                }
+
+                onMemberRemoved(membro) {
+                    this.Users = this.Users.filter(user => user.id != membro.id);
+                    this.msg(membro.info.name + " saiu!").sys();
+                    this.listarUsuarios()
+                }
+
+                onMessageReceived(data) {
+                    console.log("Mensagem recebida:", data);
+                    $("#ChatAtual").append(`<li class="TituloPequeno border border-1 rounded-5 my-2 list-group-item bg-black text-light"><b>${data.username}: </b>${data.message}</li>`);
+                    $('#ChatAtual').scrollTop($('#ChatAtual')[0].scrollHeight);
+                }
+
+                msg(msg) {
+                    return {
+                        sys: () => $("#ChatAtual").append(`<li class="TituloPequeno list-group-item bg-black text-white-50 fs-6 fst-italic text-center">${msg}</li>`),
+                        send: () => {
+
+                            $.ajax({
+                                type: "POST",
+                                url: "index.php",
+                                data: {
+                                    msg: msg,
+                                    username: this.username.info.name
+                                },
+                                dataType: "json",
+                                success: function(response) {
+
+                                }
+                            });
+                        }
+                    }
+                }
+                listarUsuarios() {
+                    $("#UsersAtual").html("");
+                    $("#numeroUsers").html("");
+                    let cont = 0;
+                    this.Users.forEach((x, i) => {
+                        if (this.username.info.name == x["info"].name) {
+                            $("#UsersAtual").prepend(`
+                            <li class="TituloPequeno list-group-item text-white bg-black fs-6 fw-bold">${x['id']}</li>
+                            `);
+                        } else {
+                            cont++;
+                            $("#UsersAtual").append(`
+                            <li class="TituloPequeno list-group-item bg-black text-white fs-6">${x['id']}</li>
+                            `);
+                        }
+                    });
+                    cont == 0 ? $("#numeroUsers").append(`não há usuarios online`) : $("#numeroUsers").append(`${cont+1} usuario(s)`)
+                }
+            }
+
+            Pusher.logToConsole = true;
+            console.log("Tentando conectar ao Pusher...");
+
+            const chat = new Chat('presence-geraldo', '44b4d3f9ece01dfa8fb6', 'sa1', '/Pusher%20Channels/auth.php');
+
+            $("#InputText").on("keypress", function(e) {
+                if (e.which == 13) {
+                    chat.msg($(this).val()).send();
+                    $(this).val("");
+                }
+            });
+        </script>
+</body>
+
+</html>
+
+</html>

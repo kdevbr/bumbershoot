@@ -1,5 +1,17 @@
 {
+    "name": "usuario/bumbershoot",
+    "autoload": {
+        "psr-4": {
+            "Usuario\\Bumbershoot\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "KarlosFodaoBr",
+            "email": "johndoe@example.com"
+        }
+    ],
     "require": {
-        "cboden/ratchet": "^0.4.4"
+        "pusher/pusher-php-server": "^7.2"
     }
 }
