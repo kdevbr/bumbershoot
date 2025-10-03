@@ -72,6 +72,7 @@ function EstasLogado() {
         }
         Divs.BtnHeaderLoginRegistro.hide();
         Divs.Btn.BtnDosMembros.BtnDesconecta.show();
+        $('#DropLogados').show();
 
         document.querySelectorAll('.nomeUser').forEach((x) => {
             x.innerHTML = DadosUser.username;
@@ -79,6 +80,7 @@ function EstasLogado() {
     } else {
         Divs.Btn.BtnDosMembros.BtnDesconecta.hide();
         Divs.BtnHeaderLoginRegistro.show();
+        $('#DropLogados').hide();
     }
 
 }
@@ -152,8 +154,7 @@ function loadContent(path) {
                             <h1 class="m-0">${response['dados'].titulo}</h1>
                             <h6 class="m-0">${response['dados'].conteudo.subtitulo}</h6>
                             <a href="${response['dados'].link}" class="btn p-1 mt-1 fw-medium fs-4 btn-success text-start rounded-1">Acessar a ultima versao <i class="bi bi-box-arrow-up-right" style="
-                                vertical-align: 0px;
-                            "></i></a>
+                                vertical-align: 0px;"></i></a>
                             <div class="dropdown">
                                 <a class="btn p-1 my-1 w-100 fw-medium fs-4 btn-dark text-start rounded-1 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" disabled>
                                     Outras versoes

@@ -16,10 +16,31 @@
         </div>
     </div>
 
-    <div class=" me-2">
-        <button data-bs-toggle="modal" data-bs-target="#ModalLogin" class="btn btn-outline-light border-0 rounded-0 fw-bold"
-            id="BtnHeaderLoginRegistro" style="display: none;" type="button">Login & Register</button>
-        <a id="BtnDesconecta" href="/desconectar" class="btn text-bg-primary border-0 rounded-0 fw-bold active mb-1"
-            style="display: none;">desconectar</a>
+    <div class="me-2">
+        <button data-bs-toggle="modal" data-bs-target="#ModalLogin"
+            class="btn btn-outline-light border-0 rounded-0 fw-bold" id="BtnHeaderLoginRegistro" style="display: none;"
+            type="button">Login & Register</button>
+
+        <!-- Example split danger button -->
+        <div id="DropLogados" class="btn-group">
+            <a id="BtnDesconecta" href="" class="btn btn-outline-light border-0 rounded-0 fw-bold  "
+                style="display: none;">Usuario: <span class="nomeUser fw-bold"></span></a>
+            <button type="button" id=""
+                class="btn btn-outline-light dropdown-toggle border-0 ms-1 border-black rounded-0 dropdown-toggle-split"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu rounded-0" style="transform: translateX(-19%);">
+                <li><button class="dropdown-item" onclick="alert('15')" href="#">7+8</button></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="/desconectar">Sair <i style="vertical-align: -1px;"
+                            class="bi bi-box-arrow-right"></i></a></li>
+            </ul>
+        </div>
+
+
+
     </div>
 </nav>

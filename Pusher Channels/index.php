@@ -12,7 +12,6 @@
     $options
   );
 
-
 $pusher->trigger('presence-geraldo', 'zap', array('message' => $_POST['msg'], 'username' => $_POST['username']));
 
 ?>
