@@ -40,7 +40,7 @@ $('#DivDosLogadosHeaders').hide();
 $(window).on("load", function() {
 
     Divs.Header.append(`
-            <button data-bs-toggle="modal" data-bs-target="#ModalNovaPagina" onclick="NovaPaginaBtn()" id="BtnNovaPagina" class="btn btn-light border-2 p-2 mx-2 px-3 rounded-5 fw-bold" style="box-shadow: inset 0 0 15px #525151, 0 0 20px #d9d4d5;">Nova Pagina</button>
+            <button data-bs-toggle="modal" data-bs-target="#ModalNovaPagina" onclick="NovaPaginaBtn()" id="BtnNovaPagina" class="btn btn-outline-light border-0 rounded-5 fw-bold">Nova Pagina</button>
         `)
 
     $('#gifLogin').hide();

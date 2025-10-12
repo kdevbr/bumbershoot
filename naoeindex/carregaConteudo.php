@@ -25,7 +25,7 @@ if ($res->num_rows > 0) {
         'conteudo' => [
             'img' => $rou['linkIMG'],
             'subtitulo' => $rou['subtitulo'],
-            'desc' => utf8_encode($rou['data']) 
+            'desc' => ($rou['data']) 
         ],
         'link' => $rou['corpo']
     ];

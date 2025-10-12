@@ -15,7 +15,9 @@
             <ul class="dropdown-menu" id="more-dropdown"></ul>
         </div>
     </div>
-
+                    <div class="botoesNav" id="BtnAdms">
+                        <a href="/administrativo" id="" class="btn btn-danger border-2 p-2 px-3 rounded-5 fw-bold" style="box-shadow: inset 0 0 15px rgb(53, 0, 7), 0 0 20px #c0001a; display: none;">Area Administrativa</a>
+                    </div>
     <div class="me-2">
         <button data-bs-toggle="modal" data-bs-target="#ModalLogin"
             class="btn btn-outline-light border-0 rounded-0 fw-bold" id="BtnHeaderLoginRegistro" style="display: none;"
@@ -43,4 +45,5 @@
 
 
     </div>
+
 </nav>
