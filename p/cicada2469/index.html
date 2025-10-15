@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Carregar Fase</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <style>
+    .loader-item {
+      color: #fff;
+      font-size: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px 20px;
+      border-radius: 5px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+
+    .loader-item.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body class="vh-100 m-0 d-flex flex-column">
+
+  <div class="flex-grow-1 d-flex justify-content-center align-items-center">
+
+    <div id="loaderList" class="d-flex flex-column translate-middle-y align-items-center w-100">
+    </div>
+    <div id="conteudo" style="display:none;">
+      <h1>Bem-vindo ao jogo!</h1>
+    </div>
+  </div>
+  </div>
+  <footer class="w-100" style="height:48px; background:#000; z-index:1000;"></footer>
+</body>
+
+<script>
+  let loaderItem = $("#loaderList");
+  let loaderItemArray = loaderItem.children();
+  save = {
+    nivel: 1,
+    aura: 0
+  }
+
+  function addItemLoader(title) {
+  loaderItem.append(`
+        <div class="d-flex justify-content-between ">
+          <p class="m-0 lh-lg">${title}</p>
+          <div class="spinner-border mx-2 text-primary" id="loader" role="status"></div>
+        </div>
+  `)
+  loaderItemArray = loaderItem.children();
+  }
+  function lastItemError() {
+    let lastItem = loaderItemArray.last();
+    lastItem.find("#loader").attr("class", "fs-4");
+    lastItem.find("#loader").html(`<i class=" mx-2 bi bi-x-circle text-danger"></i>`);
+  }
+  function lastItemSuccess() {
+    let lastItem = loaderItemArray.last();
+    lastItem.find("#loader").attr("class", "fs-4");
+    lastItem.find("#loader").html(`<i class=" mx-2 bi bi-check-circle text-success"></i>`);
+  }
+  $(function () {
+
+
+async function verificaLogin() {
+  try {
+    addItemLoader("Verificando Login...");
+
+    const data = await $.get("../../naoeindex/verificaLogin.php");
+
+    if (data === "1") {
+      lastItemSuccess();
+      return true;
+    } else {
+      lastItemError();
+      return false;
+    }
+  } catch (error) {
+    addItemLoader("Erro ao verificar login");
+    lastItemError();
+    console.error("Erro na verificação de login:", error);
+    return false;
+  }
+}
+
+async function carregandoDados() {
+  try {
+    addItemLoader("Carregando Dados...");
+
+    const data = await $.get("bdcicada.php");
+console.log(data);
+    if (data.dados === "Usuario Criado") {
+      lastItemSuccess();
+      return true;
+    } else {
+      console.log(data.dados.nivel);
+      lastItemSuccess();
+      save = data.dados;
+      return true;
+    }
+  } catch (error) {
+    addItemLoader("Erro ao carregar dados");
+    lastItemError();
+    console.error("Erro ao carregar dados:", error);
+    return false;
+  }
+}
+
+async function iniciarJogo() {
+    const etapas = [verificaLogin, carregandoDados];
+
+    for (let etapa of etapas) {
+        let ok = await etapa();
+        if (!ok) {
+            // Se der erro, interrompe o fluxo
+            addItemLoader("Processo interrompido ❌", "error");
+            return;
+        }
+    }
+
+    // Se todas passarem
+    addItemLoader("Tudo pronto, iniciando o jogo!", "success");
+    setTimeout(() => {
+        $("#loader-wrapper").fadeOut(600, () => $("#conteudo").fadeIn(500));
+    }, 1500);
+}
+
+iniciarJogo()
+  });
+
+
+
+</script>
+
+</html>
