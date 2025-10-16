@@ -24,6 +24,16 @@
       opacity: 1;
       transform: translateY(0);
     }
+    .fadein{
+      opacity: 0;
+      animation: fadeInAnimation 1s forwards;
+      animation-delay: 0s; /* Delay before the animation starts */
+    }
+    @keyframes fadeInAnimation {
+      to {
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 
@@ -32,6 +42,9 @@
   <div class="flex-grow-1 d-flex justify-content-center align-items-center">
 
     <div id="loaderList" class="d-flex flex-column translate-middle-y align-items-center w-100">
+    </div>
+    <div class="ani">
+      <video ></video>
     </div>
     <div id="conteudo" style="display:none;">
       <h1>Bem-vindo ao jogo!</h1>
@@ -81,11 +94,14 @@ async function verificaLogin() {
       lastItemSuccess();
       return true;
     } else {
+          loaderItem.append(`
+    <a class="btn btn-dark mt-3 btn-sm fadein" href="https://furmigueiro.cyou">Fazer Login</a>
+      `)
       lastItemError();
       return false;
     }
   } catch (error) {
-    addItemLoader("Erro ao verificar login");
+
     lastItemError();
     console.error("Erro na verificação de login:", error);
     return false;
@@ -108,7 +124,6 @@ console.log(data);
       return true;
     }
   } catch (error) {
-    addItemLoader("Erro ao carregar dados");
     lastItemError();
     console.error("Erro ao carregar dados:", error);
     return false;
@@ -122,16 +137,22 @@ async function iniciarJogo() {
         let ok = await etapa();
         if (!ok) {
             // Se der erro, interrompe o fluxo
-            addItemLoader("Processo interrompido ❌", "error");
-            return;
+            //return;
         }
     }
 
     // Se todas passarem
-    addItemLoader("Tudo pronto, iniciando o jogo!", "success");
-    setTimeout(() => {
-        $("#loader-wrapper").fadeOut(600, () => $("#conteudo").fadeIn(500));
-    }, 1500);
+    addItemLoader("Tudo pronto, iniciando o jogo!");
+
+        loaderItem.fadeOut(1500, function() {
+          $(this).remove();           // remove o loader do DOM após a animação
+          let video = $(".ani video").get(0);
+          video.src = `nivel1.mp4`
+          video.load()
+          video.muted = true;
+          video.play()
+        });
+
 }
 
 iniciarJogo()
