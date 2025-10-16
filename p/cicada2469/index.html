@@ -19,7 +19,9 @@
       transform: translateY(20px);
       transition: all 0.5s ease;
     }
-
+body{
+  color: wheat;
+}
     .loader-item.show {
       opacity: 1;
       transform: translateY(0);
@@ -37,7 +39,7 @@
   </style>
 </head>
 
-<body class="vh-100 m-0 d-flex flex-column">
+<body class="bg-black vh-100 m-0 d-flex flex-column">
 
   <div class="flex-grow-1 d-flex justify-content-center align-items-center">
 
@@ -51,7 +53,10 @@
     </div>
   </div>
   </div>
-  <footer class="w-100" style="height:48px; background:#000; z-index:1000;"></footer>
+  <footer class="pt-2 border-top w-100 d-flex justify-content-between px-5" style="height:48px; background:#000; z-index:1000;">
+    <p class="h5">0 <i class="bi bi-fire"></i></p>
+    <p class="h5">nivel 1</p>
+  </footer>
 </body>
 
 <script>
@@ -144,21 +149,26 @@ async function iniciarJogo() {
     // Se todas passarem
     addItemLoader("Tudo pronto, iniciando o jogo!");
 
-        loaderItem.fadeOut(1500, function() {
-          $(this).remove();           // remove o loader do DOM após a animação
+          loaderItem.remove();           // remove o loader do DOM após a animação
           let video = $(".ani video").get(0);
           video.src = `nivel1.mp4`
           video.load()
           video.muted = true;
           video.play()
+
+        $(".ani").fadeOut(1000, function() {
+          $("#conteudo").fadeIn(400); // mostra o conteúdo do jogo
+          $("#conteudo").html(`
+            <h1>Bem-vindo ao jogo!</h1>
+            <p>Nível: ${save.nivel}</p>
+            <p>Aura: ${save.aura}</p> 
+          `)
         });
 
 }
 
 iniciarJogo()
   });
-
-
 
 </script>
 
