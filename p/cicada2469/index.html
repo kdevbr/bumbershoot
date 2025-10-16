@@ -53,8 +53,9 @@ body{
     </div>
   </div>
   </div>
-  <footer class="pt-2 border-top w-100 d-flex justify-content-between px-5" style="height:48px; background:#000; z-index:1000;">
+  <footer class="py-2 border-top w-100 d-flex justify-content-between px-5" style="height:48px; background:#000; z-index:1000;">
     <p class="h5">0 <i class="bi bi-fire"></i></p>
+    <input type="text" name="code" id="code" placeholder="digite o codigo">
     <p class="h5">nivel 1</p>
   </footer>
 </body>
@@ -158,18 +159,26 @@ async function iniciarJogo() {
 
         $(".ani").fadeOut(1000, function() {
           $("#conteudo").fadeIn(400); // mostra o conteúdo do jogo
-          $("#conteudo").html(`
-            <h1>Bem-vindo ao jogo!</h1>
-            <p>Nível: ${save.nivel}</p>
-            <p>Aura: ${save.aura}</p> 
-          `)
+carregarniveljquery(1)
         });
 
 }
 
+
+$("#code").on("change", function(){
+  let code = $(this).val();
+  if(code === "cesar"){
+carregarniveljquery(2)
+  } else {
+    alert("Codigo invalido");
+    $(this).val("");
+  }
+})
 iniciarJogo()
   });
-
+function carregarniveljquery(nivel){
+$("#conteudo").load(`nivel${nivel}.html`);
+}
 </script>
 
 </html>
