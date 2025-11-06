@@ -19,18 +19,23 @@
       transform: translateY(20px);
       transition: all 0.5s ease;
     }
-body{
-  color: wheat;
-}
+
+    body {
+      color: wheat;
+    }
+
     .loader-item.show {
       opacity: 1;
       transform: translateY(0);
     }
-    .fadein{
+
+    .fadein {
       opacity: 0;
       animation: fadeInAnimation 1s forwards;
-      animation-delay: 0s; /* Delay before the animation starts */
+      animation-delay: 0s;
+      /* Delay before the animation starts */
     }
+
     @keyframes fadeInAnimation {
       to {
         opacity: 1;
@@ -46,14 +51,17 @@ body{
     <div id="loaderList" class="d-flex flex-column translate-middle-y align-items-center w-100">
     </div>
     <div class="ani">
-      <video ></video>
+
+      <div class="word fst-italic text-bg-light" style="font-size: 20vh;"></div>
     </div>
     <div id="conteudo" style="display:none;">
       <h1>Bem-vindo ao jogo!</h1>
+
     </div>
   </div>
   </div>
-  <footer class="py-2 border-top w-100 d-flex justify-content-between px-5" style="height:48px; background:#000; z-index:1000;">
+  <footer class="py-2 border-top w-100 d-flex justify-content-between px-5"
+    style="height:48px; background:#000; z-index:1000;">
     <p class="h5">0 <i class="bi bi-fire"></i></p>
     <input type="text" name="code" id="code" placeholder="digite o codigo">
     <p class="h5">nivel 1</p>
@@ -69,13 +77,13 @@ body{
   }
 
   function addItemLoader(title) {
-  loaderItem.append(`
+    loaderItem.append(`
         <div class="d-flex justify-content-between ">
           <p class="m-0 lh-lg">${title}</p>
           <div class="spinner-border mx-2 text-primary" id="loader" role="status"></div>
         </div>
   `)
-  loaderItemArray = loaderItem.children();
+    loaderItemArray = loaderItem.children();
   }
   function lastItemError() {
     let lastItem = loaderItemArray.last();
@@ -90,95 +98,166 @@ body{
   $(function () {
 
 
-async function verificaLogin() {
-  try {
-    addItemLoader("Verificando Login...");
+    async function verificaLogin() {
+      try {
+        addItemLoader("Verificando Login...");
 
-    const data = await $.get("../../naoeindex/verificaLogin.php");
+        const data = await $.get("../../naoeindex/verificaLogin.php");
 
-    if (data === "1") {
-      lastItemSuccess();
-      return true;
-    } else {
+        if (data === "1") {
+          lastItemSuccess();
+          return true;
+        } else {
           loaderItem.append(`
     <a class="btn btn-dark mt-3 btn-sm fadein" href="https://furmigueiro.cyou">Fazer Login</a>
       `)
-      lastItemError();
-      return false;
+          lastItemError();
+          return false;
+        }
+      } catch (error) {
+
+        lastItemError();
+        console.error("Erro na verificação de login:", error);
+        return false;
+      }
     }
-  } catch (error) {
 
-    lastItemError();
-    console.error("Erro na verificação de login:", error);
-    return false;
-  }
-}
+    async function carregandoDados() {
+      try {
+        addItemLoader("Carregando Dados...");
 
-async function carregandoDados() {
-  try {
-    addItemLoader("Carregando Dados...");
-
-    const data = await $.get("bdcicada.php");
-console.log(data);
-    if (data.dados === "Usuario Criado") {
-      lastItemSuccess();
-      return true;
-    } else {
-      console.log(data.dados.nivel);
-      lastItemSuccess();
-      save = data.dados;
-      return true;
+        let data = await $.getJSON("bdcicada.php");
+        if (data.dados === "Usuario Criado") {
+          lastItemSuccess();
+          return true;
+        } else {
+          console.log(data.dados.nivel);
+          lastItemSuccess();
+          save = data.dados;
+          return true;
+        }
+      } catch (error) {
+        lastItemError();
+        console.error("Erro ao carregar dados:", error);
+        return false;
+      }
     }
-  } catch (error) {
-    lastItemError();
-    console.error("Erro ao carregar dados:", error);
-    return false;
-  }
-}
 
-async function iniciarJogo() {
-    const etapas = [verificaLogin, carregandoDados];
+    async function iniciarJogo() {
+      const etapas = [verificaLogin, carregandoDados];
 
-    for (let etapa of etapas) {
+      for (let etapa of etapas) {
         let ok = await etapa();
         if (!ok) {
-            // Se der erro, interrompe o fluxo
-            //return;
+          // Se der erro, interrompe o fluxo
+          return;
         }
+      }
+
+      // Se todas passarem
+      addItemLoader("Tudo pronto, iniciando o jogo!");
+      loaderItem.remove();
+
+      videoAnimation()
+
+    }
+    function videoAnimation(text) {
+      if ($("#conteudo").is(":visible")) {
+        $("#conteudo").fadeOut(1, function () {
+          $(".ani").fadeIn(1, function () {
+        wordflick(['Nivel ' + (save.nivel), 'Aura: ' + (save.aura)], aniOut());
+          });
+        });
+      } else {
+        wordflick(['Nivel ' + (save.nivel), 'Aura: ' + (save.aura)], aniOut());
+      }
+
+      function aniOut() {
+        $(".ani").fadeOut(1000, () => {
+          $("#conteudo").fadeIn(400); // mostra o conteúdo do jogo
+          carregarniveljquery(save.nivel)
+        });
+      }
     }
 
-    // Se todas passarem
-    addItemLoader("Tudo pronto, iniciando o jogo!");
 
-          loaderItem.remove();           // remove o loader do DOM após a animação
-          let video = $(".ani video").get(0);
-          video.src = `nivel1.mp4`
-          video.load()
-          video.muted = true;
-          video.play()
+    $("#code").on("change", function () {
 
-        $(".ani").fadeOut(1000, function() {
-          $("#conteudo").fadeIn(400); // mostra o conteúdo do jogo
-carregarniveljquery(1)
-        });
+      let code = $(this).val();
+      $(this).val("");
 
-}
+      $.post("bdcicada.php", { code: code },
+        function (data, textStatus, jqXHR) {
+          if (data.Check = true) {
+            save = data.Save
+            videoAnimation()
+          }
+          if (data.Check = false) {
+            alert("Codigo invalido");
+          }
+        },
+        "json"
+      );
 
-
-$("#code").on("change", function(){
-  let code = $(this).val();
-  if(code === "cesar"){
-carregarniveljquery(2)
-  } else {
-    alert("Codigo invalido");
-    $(this).val("");
-  }
-})
-iniciarJogo()
+      if (code === "cesar") {
+        carregarniveljquery(2)
+        $(this).val("");
+      } else {
+        alert("Codigo invalido");
+        $(this).val("");
+      }
+    })
+    iniciarJogo()
   });
-function carregarniveljquery(nivel){
-$("#conteudo").load(`nivel${nivel}.html`);
-}
+  function carregarniveljquery(nivel) {
+    $("#conteudo").append(`nivel${nivel}.html`);
+  }
+
+
+  var part,
+    i = 0,
+    offset = 0,
+    forwards = true,
+    skip_count = 0,
+    skip_delay = 15,
+    speed = 100;
+  var wordflick = function (words, callback) {
+    let len = words.length
+    let letrinhas = setInterval(function () {
+      if (forwards) {
+        if (offset >= words[i].length) {
+          ++skip_count;
+          if (skip_count == skip_delay) {
+            forwards = false;
+            skip_count = 0;
+          }
+        }
+      }
+      else {
+        if (offset == 0) {
+          forwards = true;
+          i++;
+          offset = 0;
+          if (i >= len) {
+            i = 0;
+            clearInterval(letrinhas);
+            if (callback) callback();
+          }
+        }
+      }
+      part = words[i].substr(0, offset);
+      if (skip_count == 0) {
+        if (forwards) {
+          offset++;
+        }
+        else {
+          offset--;
+        }
+      }
+      $('.word').text(part);
+    }, speed);
+  };
+
 </script>
 
 </html>
