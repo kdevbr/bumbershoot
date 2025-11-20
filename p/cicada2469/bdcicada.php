@@ -55,8 +55,15 @@ if($res->num_rows == 0){
         codigoInvalido();
     }
 
+if($conn->query("SELECT * FROM cicada2469")->num_rows < ($jsonSave->nivel+1)){
+    $jsonSave->fim = true;
+    echo json_encode(['Check' => true, 'Save' => $jsonSave], JSON_UNESCAPED_UNICODE);
+    exit;
+}else{
+    unset($jsonSave->fim);
     $jsonSave->nivel++;
     $jsonSave->aura++;
+}
 
     $newSave = $conn->real_escape_string(json_encode($jsonSave, JSON_UNESCAPED_UNICODE));
     $conn->query("UPDATE `usuarios_page` SET `save` = '$newSave' WHERE `usuarios_id` = '$id' AND `paginas_id` = 68");

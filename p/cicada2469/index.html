@@ -56,21 +56,24 @@
     </div>
     <div id="conteudo" style="display:none;">
       <h1>Bem-vindo ao jogo!</h1>
-
     </div>
   </div>
   </div>
   <footer class="py-2 border-top w-100 d-flex justify-content-between px-5"
     style="height:48px; background:#000; z-index:1000;">
-    <p class="h5">0 <i class="bi bi-fire"></i></p>
+    <p class="h5"><span id="auraSpan"></span> <i class="bi bi-fire"></i></p>
     <input type="text" name="code" id="code" placeholder="digite o codigo">
-    <p class="h5">nivel 1</p>
+    <p class="h5" id="nivelSpan"></p>
+
   </footer>
+
 </body>
 
 <script>
   let loaderItem = $("#loaderList");
   let loaderItemArray = loaderItem.children();
+  let auraSpan = $("#auraSpan");
+  let nivelSpan = $("#nivelSpan");
   save = {
     nivel: 1,
     aura: 0
@@ -163,19 +166,19 @@
     }
     function videoAnimation(text) {
       if ($("#conteudo").is(":visible")) {
-        $("#conteudo").fadeOut(1, function () {
-          $(".ani").fadeIn(1, function () {
-        wordflick(['Nivel ' + (save.nivel), 'Aura: ' + (save.aura)], aniOut());
+        $("#conteudo").fadeOut(1000, function () {
+          $(".ani").fadeIn(100, function () {
+        wordflick(['Nivel ' + (save.nivel), 'Aura: ' + (save.aura)], aniOut);
           });
         });
       } else {
-        wordflick(['Nivel ' + (save.nivel), 'Aura: ' + (save.aura)], aniOut());
+        wordflick(['Nivel ' + (save.nivel), 'Aura: ' + (save.aura)], aniOut);
       }
 
       function aniOut() {
         $(".ani").fadeOut(1000, () => {
           $("#conteudo").fadeIn(400); // mostra o conteúdo do jogo
-          carregarniveljquery(save.nivel)
+          carregarniveljquery(String(save.nivel))
         });
       }
     }
@@ -188,28 +191,31 @@
 
       $.post("bdcicada.php", { code: code },
         function (data, textStatus, jqXHR) {
-          if (data.Check = true) {
+          if (data.Check == true) {
             save = data.Save
             videoAnimation()
           }
-          if (data.Check = false) {
+          if (data.Check == false) {
             alert("Codigo invalido");
+          }
+
+          if(data.Save.fim){
+          save.fim = true;
+          }else{
+            save.fim = false;
           }
         },
         "json"
       );
-
-      if (code === "cesar") {
-        carregarniveljquery(2)
-        $(this).val("");
-      } else {
-        alert("Codigo invalido");
-        $(this).val("");
-      }
     })
     iniciarJogo()
   });
   function carregarniveljquery(nivel) {
+    nivelSpan.text("nivel " + nivel);
+    auraSpan.text(save.aura);
+    if(save.fim){
+      alert("Parabens, você chegou ao fim do Cicada 2469!");
+    }
     $("#conteudo").append(`nivel${nivel}.html`);
   }
 
@@ -241,6 +247,7 @@
           if (i >= len) {
             i = 0;
             clearInterval(letrinhas);
+
             if (callback) callback();
           }
         }
