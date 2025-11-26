@@ -6,8 +6,7 @@ ini_set('upload_max_filesize', '100M');
 ini_set('post_max_size', '500M');
 
 
-$nome = $_POST['pageName'];
-$subtitulo = $_POST['pageSubtitulo'];
+$nome = $_POST['enigmaName'];
 $autor = $_POST['pageAutorSelect'];
 $pageInicioS = $_POST['pageInicioS'];
 if($pageInicioS == "on"){

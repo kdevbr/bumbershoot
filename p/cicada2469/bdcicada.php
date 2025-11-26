@@ -38,8 +38,9 @@ $json_string = $conn->real_escape_string(json_encode($json_string, JSON_UNESCAPE
         }
     }
 }
+
 if(isset($_POST['code'])){
-$res = $conn->query("SELECT `save` FROM `usuarios_page` WHERE `usuarios_id` = 63");
+$res = $conn->query("SELECT `save` FROM `usuarios_page` WHERE `paginas_id` = 68 AND `usuarios_id` = '$id'");
 if($res->num_rows == 0){
     codigoInvalido();
 }
@@ -52,7 +53,7 @@ if($res->num_rows == 0){
 }
     $resposta = $res->fetch_assoc()['resposta'];
     if($resposta !== $_POST['code']){
-        codigoInvalido();
+        codigoInvalido($nivel);
     }
 
 if($conn->query("SELECT * FROM cicada2469")->num_rows < ($jsonSave->nivel+1)){
@@ -75,7 +76,7 @@ if($conn->query("SELECT * FROM cicada2469")->num_rows < ($jsonSave->nivel+1)){
 
 }
 
-function codigoInvalido() {
-    echo json_encode(['Check' => false], JSON_UNESCAPED_UNICODE);
+function codigoInvalido($d = "") {
+    echo json_encode(['Check' => false, 'debug' => $d], JSON_UNESCAPED_UNICODE);
     exit;
 }

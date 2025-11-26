@@ -51,7 +51,6 @@
     <div id="loaderList" class="d-flex flex-column translate-middle-y align-items-center w-100">
     </div>
     <div class="ani">
-
       <div class="word fst-italic text-bg-light" style="font-size: 20vh;"></div>
     </div>
     <div id="conteudo" style="display:none;">
@@ -59,12 +58,12 @@
     </div>
   </div>
   </div>
-  <footer class="py-2 border-top w-100 d-flex justify-content-between px-5"
-    style="height:48px; background:#000; z-index:1000;">
+
+  <footer class="py-2 border-top w-100 d-flex justify-content-between px-5" style="height:48px; background:#000; z-index:1000;">
     <p class="h5"><span id="auraSpan"></span> <i class="bi bi-fire"></i></p>
+    <button class="btn btn-outline-light lh-1">dica: 1 aura</button>
     <input type="text" name="code" id="code" placeholder="digite o codigo">
     <p class="h5" id="nivelSpan"></p>
-
   </footer>
 
 </body>
@@ -162,13 +161,12 @@
       loaderItem.remove();
 
       videoAnimation()
-
     }
     function videoAnimation(text) {
       if ($("#conteudo").is(":visible")) {
         $("#conteudo").fadeOut(1000, function () {
           $(".ani").fadeIn(100, function () {
-        wordflick(['Nivel ' + (save.nivel), 'Aura: ' + (save.aura)], aniOut);
+            wordflick(['Nivel ' + (save.nivel), 'Aura: ' + (save.aura)], aniOut);
           });
         });
       } else {
@@ -191,32 +189,38 @@
 
       $.post("bdcicada.php", { code: code },
         function (data, textStatus, jqXHR) {
+
           if (data.Check == true) {
             save = data.Save
-            videoAnimation()
+            if (save.fim) {
+              $("#conteudo").append(`VOCE PASSOU TODOS OS NIVEIS 🎆🎆🎆`);
+            } else {
+              videoAnimation()
+            }
           }
           if (data.Check == false) {
             alert("Codigo invalido");
           }
 
-          if(data.Save.fim){
-          save.fim = true;
-          }else{
+          if (data.Save.fim) {
+            save.fim = true;
+          } else {
             save.fim = false;
           }
         },
         "json"
       );
+
     })
     iniciarJogo()
   });
   function carregarniveljquery(nivel) {
     nivelSpan.text("nivel " + nivel);
     auraSpan.text(save.aura);
-    if(save.fim){
+    if (save.fim) {
       alert("Parabens, você chegou ao fim do Cicada 2469!");
     }
-    $("#conteudo").append(`nivel${nivel}.html`);
+    $("#conteudo").load("niveis/"+nivel+"/index.html");
   }
 
 
