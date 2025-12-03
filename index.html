@@ -4,17 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Folgas</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+.main{
+    display: flex;
+    flex-direction: column;
+    background-color: brown;
+    padding: 10px;
+}
+.days{
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+
+}
+li{
+    list-style-type: none;
+    border: 1px black solid;
+    padding: 10px;
+}
+#hoje{
+    background-color: blue;
+}
+    </style>
 </head>
 <body>
     <h1>Próximas folgas (5 por 1) a partir de 21/11:</h1>
-    <ul id="offDaysList"></ul>
 
     <h2>Verificar data</h2>
     <label for="inputDate">Insira uma data (dd/mm):</label>
     <input type="text" id="inputDate" placeholder="03/12">
     <button id="checkDateButton">Verificar</button>
     <p id="result"></p>
+<div class="main">
+<ul id="offDaysList" class="days">
 
+</ul>
+</div>
     <script>
         // Função para calcular as próximas folgas
         function calculateOffDays(startDate, intervalWorkDays, intervalOffDays, totalDays = 30) {
@@ -53,11 +84,8 @@
 
         // Exibe as folgas na página
         const offDaysList = document.getElementById('offDaysList');
-        offDays.forEach(day => {
-            const listItem = document.createElement('li');
-            listItem.textContent = day.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
-            offDaysList.appendChild(listItem);
-        });
+        let total = offDays.length
+atualizaLista(startDate, "Data inicial")
 
         // Verifica entre quais folgas uma data está
         const checkDateButton = document.getElementById('checkDateButton');
@@ -68,14 +96,11 @@
             const timeDifference = Math.abs(userDate - startDate);
             const dayDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
             alert(`Diferença em dias: ${dayDifference}`);
-            offDays = calculateOffDays(startDate, intervalWorkDays, intervalOffDays, dayDifference+7);
+            offDays = calculateOffDays(startDate, intervalWorkDays, intervalOffDays, dayDifference*2);
 
         offDaysList.innerHTML = ''; // Limpa a lista antes de adicionar novos itens
-        offDays.forEach(day => {
-            const listItem = document.createElement('li');
-            listItem.textContent = day.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
-            offDaysList.appendChild(listItem);
-        });
+        
+atualizaLista(userDate, "Selecionado")
 
             const result = findBetweenOffDays(userDate, offDays);
             const resultElement = document.getElementById('result');
@@ -86,6 +111,27 @@
                 resultElement.textContent = 'A data não está entre duas folgas calculadas.';
             }
         });
+
+        function atualizaLista(d, textP){
+            let adder = 0
+        offDays.forEach((day, index) => {
+            if(day > d && adder == 0){
+            adder++
+                const novoItem = document.createElement('li');
+                novoItem.textContent = d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+                let br = document.createElement('br');
+                let p = document.createElement('p');
+                novoItem.append(br)
+                p.textContent= textP
+                novoItem.append(p)
+                novoItem.id = "hoje"
+                offDaysList.append(novoItem); // Use append() ou appendChild() aqui.
+            }
+            const listItem = document.createElement('li');
+            listItem.textContent = day.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
+            offDaysList.appendChild(listItem);
+        });
+        }
     </script>
 </body>
 </html>
