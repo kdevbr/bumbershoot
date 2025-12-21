@@ -1,0 +1,229 @@
+@font-face {
+    font-family: 'fi';
+    src: url(Thundara.otf);
+}
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+        
+}
+
+body {
+        overflow: hidden;
+    background: #000000;
+    background: radial-gradient(circle, rgba(0, 0, 0, 1) 20%, rgba(18, 18, 18, 1) 58%, rgba(26, 26, 26, 1) 71%, rgba(23, 23, 23, 1) 84%, rgba(48, 48, 48, 1) 93%, rgba(107, 107, 107, 1) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items:center; 
+    flex-direction: column;
+    
+}
+
+.dad {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 100pt;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.son {
+    background: linear-gradient(to top, #000000, #000000, #333333, #333333);
+    background-size: cover;
+    background-size: 100% 4px;
+    border: 10px rgb(5, 66, 13);
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+    color: white;
+    font-family: 'fi';
+    letter-spacing: 5px;
+    font-weight: 100;
+    font-size: 80px;
+    animation: pulsate 1s ease-in-out infinite alternate, crtFlicker 0.0025s infinite alternate;
+}
+
+@keyframes pulsate {
+
+    100% {
+
+        text-shadow:
+            0 0 4px #fff,
+            0 0 11px #fff,
+            0 0 19px #fff,
+            0 0 40px #5271ff,
+            0 0 80px #5271ff,
+            0 0 90px #5271ff,
+            0 0 100px #5271ff,
+            0 0 150px #5271ff;
+
+    }
+
+    0% {
+
+        text-shadow:
+            0 0 4px #fff,
+            0 0 10px #fff,
+            0 0 18px #fff,
+            0 0 38px #5271ff,
+            0 0 73px #5271ff,
+            0 0 80px #5271ff,
+            0 0 94px #5271ff,
+            0 0 140px #5271ff;
+
+    }
+}
+#h22{
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    animation: pulsate2 0.11s ease-in-out infinite alternate, crtFlicker 0.0025s infinite alternate;
+}
+@keyframes pulsate2 {
+    
+  100% {
+
+      text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px #f09,
+      0 0 80px #f09,
+      0 0 90px #f09,
+      0 0 100px #f09,
+      0 0 1500px #f09;
+  
+  }
+  
+  0% {
+
+    text-shadow:
+    0 0 4px #fff,
+    0 0 10px #fff,
+    0 0 18px #fff,
+    0 0 38px #f09,
+    0 0 73px #f09,
+    0 0 80px #f09,
+    0 0 94px #f09,
+    0 0 1400px #f09;
+
+}}
+
+.rabbitEnteredTheHole{
+    scale: 1.1;
+    border:4px #ffffff solid;
+    box-sizing: content-box;
+    margin: -5px 5px;
+
+}
+.rabbitEnteredTheHole p{
+        color: white;
+        mix-blend-mode: overlay;
+}
+
+
+@keyframes crtFlicker {
+    0% {
+        opacity: 0.27861;
+    }
+    15% {
+        opacity: 0.90626;
+    }
+    20% {
+        opacity: 0.18128;
+    }
+    25% {
+        opacity: 1;
+    }
+    30% {
+        opacity: 0.65583;
+    }
+    35% {
+        opacity: 1;
+    }
+    40% {
+        opacity: 0.26559;
+    }
+    45% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.96019;
+    }
+    55% {
+        opacity: 0.08594;
+    }
+    70% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 0.71428;
+    }
+    85% {
+        opacity: 0.70419;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes crtFlicker1 {
+    0% {
+        opacity: .2;
+    }
+
+    50% {
+        opacity: 1;
+    }
+    100%{
+        opacity: .2;
+    }
+}
+@media screen{
+  .rabbitEnteredTheHole {
+    animation: scanlines infinite .5s linear, crtFlicker1 .7s infinite ease-in-out;
+    color: #bcbcbc;
+  }
+} 
+@keyframes scanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 -10px;
+  }
+}
+
+img{
+position: absolute;
+bottom: 80px;
+left: 50%;
+opacity: 0;
+transition: all .1s ease-in;
+pointer-events: none;
+}
+
+#rain2{
+transform: translateX(-120%) rotateZ(0deg);
+bottom: 90px;
+}
+#rain1{
+width: 800px;
+transform: translateX(10%) rotateZ(10deg);
+bottom: -70px;
+}
+#rain3{
+width: 500px;
+transform: translateX(-30%) rotateZ(0deg);
+bottom: 0px;
+}
