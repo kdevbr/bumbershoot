@@ -7,7 +7,6 @@ let dad = document.getElementById('dad')
 let selecionado = 0;
 let maximo = childrens.length - 1;
 
-dad.style.transform = `translateX(calc(-${160*selecionado+80}px + 50%))`
 
 window.addEventListener('keypress',(x)=>{
  if (x.code  === 'KeyA') {

@@ -30,6 +30,7 @@ body {
     font-size: 100pt;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     gap: 10px;
+    transform: translateX(calc(50% - 80px));
 }
 
 .son {
