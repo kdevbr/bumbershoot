@@ -27,21 +27,22 @@ body {
     height: 100px;
     display: flex;
     justify-content: center;
-    gap: 10px;
     font-size: 100pt;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    gap: 10px;
 }
 
 .son {
     background: linear-gradient(to top, #000000, #000000, #333333, #333333);
     background-size: cover;
     background-size: 100% 4px;
-    border: 10px rgb(5, 66, 13);
     width: 150px;
     height: 150px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 0px rgb(255, 255, 255) solid;
+    transition: border 1s ease-in-out, scale 1s ease-in-out;
 }
 
 h2 {
@@ -119,13 +120,16 @@ h2 {
     0 0 1400px #f09;
 
 }}
-
+@keyframes mover-borda {
+  to {
+    border-dashoffset: -100px; 
+  }
+}
 .rabbitEnteredTheHole{
     scale: 1.1;
     border:4px #ffffff solid;
-    box-sizing: content-box;
-    margin: -5px 5px;
-
+    transition: scale .1s ease-in-out, border 1s ease-in-out;
+    animation: mover-borda 4s linear infinite;
 }
 .rabbitEnteredTheHole p{
         color: white;
