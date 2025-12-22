@@ -22,10 +22,10 @@ if (is_xampp()) {
     $dbName = "mckevin";
 } else {
     // Configurações do banco de dados para outro servidor
-    $dbHost = 'sql313.infinityfree.com';
-    $dbUser = 'if0_34909276';
-    $dbPassword = 'V1VIXpNpLm';
-    $dbName = 'if0_34909276_bancodedados';
+    $dbHost = "localhost";
+    $dbUser = "root";
+    $dbPassword = "123";
+    $dbName = "mckevin";
 }
 
 
