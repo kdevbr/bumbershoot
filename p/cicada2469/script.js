@@ -6,8 +6,10 @@ let footer = $("footer");
 footer.toggleClass("d-none");
 save = {
     nivel: 1,
-    aura: 0
+    aura: 0,
+    dicasCompradas: []
 }
+let dicaNivel = "";
 
 function addItemLoader(title) {
     loaderItem.append(`
@@ -67,6 +69,17 @@ $(function () {
                 console.log(data.dados.nivel);
                 lastItemSuccess();
                 save = data.dados;
+                if(save.dicasCompradas[save.nivel] == true){
+            $.get("dica.php", {},
+        function (data, textStatus, jqXHR) {
+                dicaNivel = data.dica;
+
+        },
+        "json",
+    );
+                
+                    
+    }
                 return true;
             }
         } catch (error) {
@@ -144,11 +157,15 @@ $(function () {
 
     })
     iniciarJogo()
-function comprarDica(auraCusto = 1) {
+function comprarDica() {
+        if(save.dicasCompradas[save.nivel] == true){
+            alert('A dica é : ' + dicaNivel);
+        return;
+    }
     $.get("dica.php", {},
         async function (data, textStatus, jqXHR) {
             if (data.dica) {
-                alert("Dica: " + data.dica);
+                dicaNivel = data.dica;
                 let ok = await carregandoDados()
                 if (ok) {
    carregarniveljquery(String(save.nivel))
@@ -156,7 +173,7 @@ function comprarDica(auraCusto = 1) {
             }
         },
         "json",
-    ).fail(function (jqXHR, textStatus, errorThrown) {
+    ).fail(function (jqXHR) {
         if (400 === jqXHR.status) {
             alert("Dica não encontrada.");
         }
@@ -170,6 +187,9 @@ function carregarniveljquery(nivel) {
     nivelSpan.text("nivel " + nivel);
     auraSpan.text(save.aura);
 
+    if(save.dicasCompradas[nivel] == true){
+        $("#footer").find("button").html(dicaNivel)
+    }
     if (save.fim) {
         alert("Parabens, você chegou ao fim do Cicada 2469!");
     }
