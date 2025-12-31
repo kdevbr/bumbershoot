@@ -190,7 +190,15 @@ function carregarniveljquery(nivel) {
     if (save.fim) {
         alert("Parabens, você chegou ao fim do Cicada 2469!");
     }
-    $("#conteudo").load("niveis/" + nivel + "/index.html");
+    $.get("getNivelLink.php", { nivel: nivel }, function (data) {
+        if (data.link) {
+            $("#conteudo").load(data.link);
+        } else {
+            console.error("Erro ao obter o link do nível.");
+        }
+    }, "json").fail(function () {
+        console.error("Falha na requisição para obter o link do nível.");
+    });
 }
 
 

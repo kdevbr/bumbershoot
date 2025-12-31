@@ -22,7 +22,8 @@ if (empty($_POST)) {
 
 $json_string = [
     'nivel' => 1,
-    'aura' => 0
+    'aura' => 0,
+    'dicasCompradas' => []
 ];
 
 // encode the array as JSON and escape for the SQL query
