@@ -191,13 +191,13 @@ function carregarniveljquery(nivel) {
         alert("Parabens, você chegou ao fim do Cicada 2469!");
     }
     $.get("getNivelLink.php", { nivel: nivel }, function (data) {
-        if (data.link) {
-            $("#conteudo").load(data.link);
+        if (data.conteudo) {
+            $("#conteudo").html(data.conteudo);
         } else {
-            console.error("Erro ao obter o link do nível.");
+            console.error("Erro ao obter o conteúdo do nível.");
         }
     }, "json").fail(function () {
-        console.error("Falha na requisição para obter o link do nível.");
+        console.error("Falha na requisição para obter o conteúdo do nível.");
     });
 }
 
