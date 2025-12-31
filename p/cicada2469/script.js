@@ -69,17 +69,14 @@ $(function () {
                 console.log(data.dados.nivel);
                 lastItemSuccess();
                 save = data.dados;
-                if(save.dicasCompradas[save.nivel] == true){
-            $.get("dica.php", {},
-        function (data, textStatus, jqXHR) {
-                dicaNivel = data.dica;
-
-        },
-        "json",
-    );
-                
-                    
-    }
+                if (save.dicasCompradas[save.nivel] == true) {
+                    $.get("dica.php", {},
+                        function (data, textStatus, jqXHR) {
+                            dicaNivel = data.dica;
+                        },
+                        "json",
+                    );
+                }
                 return true;
             }
         } catch (error) {
@@ -157,37 +154,37 @@ $(function () {
 
     })
     iniciarJogo()
-function comprarDica() {
-        if(save.dicasCompradas[save.nivel] == true){
+    function comprarDica() {
+        if (save.dicasCompradas[save.nivel] == true) {
             alert('A dica é : ' + dicaNivel);
-        return;
-    }
-    $.get("dica.php", {},
-        async function (data, textStatus, jqXHR) {
-            if (data.dica) {
-                dicaNivel = data.dica;
-                let ok = await carregandoDados()
-                if (ok) {
-   carregarniveljquery(String(save.nivel))
-                }
-            }
-        },
-        "json",
-    ).fail(function (jqXHR) {
-        if (400 === jqXHR.status) {
-            alert("Dica não encontrada.");
+            return;
         }
-    });
+        $.get("dica.php", {},
+            async function (data, textStatus, jqXHR) {
+                if (data.dica) {
+                    dicaNivel = data.dica;
+                    let ok = await carregandoDados()
+                    if (ok) {
+                        carregarniveljquery(String(save.nivel))
+                    }
+                }
+            },
+            "json",
+        ).fail(function (jqXHR) {
+            if (400 === jqXHR.status) {
+                alert("Dica não encontrada.");
+            }
+        });
 
-}
-$("#footer").find("button").on("click", comprarDica);
+    }
+    $("#footer").find("button").on("click", comprarDica);
 });
 function carregarniveljquery(nivel) {
     footer.removeClass("d-none");
     nivelSpan.text("nivel " + nivel);
     auraSpan.text(save.aura);
 
-    if(save.dicasCompradas[nivel] == true){
+    if (save.dicasCompradas[nivel] == true) {
         $("#footer").find("button").html(dicaNivel)
     }
     if (save.fim) {
