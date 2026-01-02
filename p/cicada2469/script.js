@@ -208,7 +208,7 @@ var part,
     forwards = true,
     skip_count = 0,
     skip_delay = 15,
-    speed = 10;
+    speed = 100;
 var wordflick = function (words, callback) {
     let len = words.length
     let letrinhas = setInterval(function () {
