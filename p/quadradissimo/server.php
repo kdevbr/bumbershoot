@@ -10,32 +10,47 @@ require __DIR__ . '../../../vendor/autoload.php';
 
 class Chat implements MessageComponentInterface
 {
-    protected $clients;
-
-    public function __construct()
-    {
-        $this->clients = new \SplObjectStorage;
-        echo "Servidor WS iniciado...\n";
-    }
+    protected array $clients = [];
+    protected array $players = [];
 
     public function onOpen(ConnectionInterface $conn)
     {
-        $this->clients->attach($conn);
-        echo "Nova conexão: {$conn->resourceId}\n";
+        $this->clients[$conn->resourceId] = $conn;
+
+        $conn->send(json_encode([
+            "type" => "START",
+            "id" => $conn->resourceId
+        ]));
     }
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        echo "Mensagem de {$from->resourceId}: $msg\n";
+$passosbemlentos = json_decode($msg, true);
 
-        foreach ($this->clients as $client) {
-            $client->send($msg); // broadcast
+        if ($passosbemlentos['type'] === 'state') {
+
+                    $this->players[$passosbemlentos["id"]] = [
+                    "x" => $passosbemlentos["player"]["x"],
+                    "y" => $passosbemlentos["player"]["y"],
+                    "nome" => $passosbemlentos["player"]["nome"],
+                    "id" => $passosbemlentos["player"]["id"]
+                ];
+                
+            }
+            $filteredPlayers = array_filter($this->players, function ($player) use ($from) {
+                return $player['id'] !== $from->resourceId;
+            });
+
+            $this->clients[$from->resourceId]->send(json_encode([
+                "type" => "UPDATE",
+                "players" => $filteredPlayers
+            ]));
         }
-    }
+    
 
     public function onClose(ConnectionInterface $conn)
     {
-        $this->clients->detach($conn);
+        unset($this->clients[$conn->resourceId]);
         echo "Conexão fechada: {$conn->resourceId}\n";
     }
 
