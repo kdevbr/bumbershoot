@@ -1,28 +1,166 @@
 <!DOCTYPE html>
-<html>
-<body>
+<html class="h-100">
+<head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quadradíssimo - Cliente</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css"></head>
+<body class="h-100 m-0 p-0"><canvas class="w-100 h-100 d-block"></canvas><script>
+//canvas
 
-<input id="msg" placeholder="Digite algo">
-<button onclick="send()">Enviar</button>
+function resizeCanvasToDisplaySize(canva) {
+    const dpr = window.devicePixelRatio; // Proporção de pixels do dispositivo
+    const displayWidth = Math.round(canva.clientWidth * dpr);
+    const displayHeight = Math.round(canva.clientHeight * dpr);
 
-<pre id="log"></pre>
-
-<script>
-const log = document.getElementById("log");
-
-const ws = new WebSocket("ws://localhost:8080");
-
-ws.onopen = () => log.innerText += "Conectado\n";
-
-ws.onmessage = e => {
-  log.innerText += "Recebido: " + e.data + "\n";
-};
-
-function send() {
-  const m = document.getElementById("msg").value;
-  ws.send(m);
+    if (canva.width !== displayWidth || canva.height !== displayHeight) {
+        canva.width = displayWidth;
+        canva.height = displayHeight;
+    }
 }
-</script>
 
-</body>
-</html>
+const canva = document.getElementsByTagName('canvas')[0]
+resizeCanvasToDisplaySize(canva);
+
+
+const d = canva.getContext("2d")
+
+//tamanho
+
+//teclas 😎
+let key = {}
+window.addEventListener("keydown", e =>{
+  key[e.key.toLowerCase()] = true;
+})
+window.addEventListener("keyup", e =>{
+  key[e.key.toLowerCase()] = false;
+})
+
+//playerProtagonista
+let speed = 5;
+
+players = {
+  prota: {
+    x: PosisaoAleatora().x,
+    y: PosisaoAleatora().y,
+    speed: speed+10,
+    nome: "Você"
+  },
+  inimigo: []
+}
+
+function gameLoop(){
+  d.clearRect(0,0, canva.width, canva. height)
+  
+  //fundo
+  d.fillStyle = "lightgrey"
+  d.fillRect(0,0, canva.width, canva.height)
+
+    DesenharProta()
+    MovimentasaoInsana()//do prota
+    
+    DesenharInimigos()
+    MoverInimigos()
+
+  requestAnimationFrame(gameLoop)
+}
+function PosisaoAleatora(){
+    return{
+        x: ((canva.width-50)*Math.random()-50)+50,
+        y: ((canva.height-50)*Math.random()-50)+50
+    }
+}
+
+function DesenharProta(){
+  d.fillStyle = "blue"
+  d.fillRect(players.prota.x, players.prota.y, 50, 50)
+
+  DesenharNome(players.prota.x, players.prota.y, players.prota.nome)
+}
+
+function DesenharInimigos(){
+    
+    for(let i = 0; i < players.inimigo.length; i++){
+        const p = players.inimigo[i]
+        
+    d.fillStyle = "red"
+    d.fillRect(p.x, p.y, 50, 50)
+
+    DesenharNome(p.x, p.y, p.nome)
+  }
+}
+
+
+function MovimentasaoInsana(){
+  let dx = 0, dy = 0
+
+  if(key['a']) dx--
+  if(key['d']) dx++
+  if(key['w']) dy--
+  if(key['s']) dy++
+
+  const len = Math.hypot(dx, dy)
+
+  if(len > 0){
+    dx /= len
+    dy /= len
+
+    players.prota.x += dx * players.prota.speed
+    players.prota.y += dy * players.prota.speed
+  }
+}
+
+let contadorInimigos = 1
+
+function AdicionarInimigo(){
+  players.inimigo.push({
+    x: PosisaoAleatora().x,
+    y: PosisaoAleatora().y,
+    s: speed,
+    nome: "Inimigo " + contadorInimigos++
+  })
+}
+
+
+function DesenharNome(x, y, nome){
+  d.fillStyle = "black"
+  d.font = "20px Arial"
+  d.textAlign = "center"
+  d.fillText(nome, x + 25, y - 10)
+}
+function MoverInimigos(){
+  for(let i = 0; i < players.inimigo.length; i++){
+    const inimigo = players.inimigo[i]
+
+    // vetor direção → do inimigo até o player
+    let dx = players.prota.x - inimigo.x
+    let dy = players.prota.y - inimigo.y
+
+    // distância
+    const dist = Math.hypot(dx, dy)
+
+    // evita divisão por zero
+    if(dist === 0) continue
+
+    // normaliza direção
+    dx /= dist
+    dy /= dist
+
+    // aplica velocidade
+    inimigo.x += dx * inimigo.s
+    inimigo.y += dy * inimigo.s
+  }
+}
+
+AdicionarInimigo()
+gameLoop()
+
+//const ws = new WebSocket("ws://localhost:8080");
+
+//ws.onopen = () => log.innerText += "Conectado\n";//entrou
+//ws.send(m); enviar
+
+//ws.onmessage = e => {log.innerText += "Recebido: " + e.data + "\n";};
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script></body></html>
