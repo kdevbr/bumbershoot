@@ -1,17 +1,16 @@
 {
-    "name": "usuario/bumbershoot",
+    "name": "karlo123pepsi/html",
     "autoload": {
         "psr-4": {
-            "Usuario\\Bumbershoot\\": "src/"
+            "Karlo123pepsi\\Html\\": "src/"
         }
     },
     "authors": [
         {
-            "name": "KarlosFodaoBr",
-            "email": "johndoe@example.com"
+            "name": "karlos"
         }
     ],
     "require": {
-        "pusher/pusher-php-server": "^7.2"
+        "cboden/ratchet": "^0.4.4"
     }
 }
