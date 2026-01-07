@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fff;
+            font-family: 'Karla', sans-serif;
+        }
+        
+        h1>a {
+            text-decoration: none;
+            color: #fff !important;
+        }
+        
+        .intro-section {
+            background-image: url(https://www.publicdomainpictures.net/pictures/560000/nahled/cute-kitten-puppies-17034006411zO.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 75px 95px;
+            min-height: 100vh;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            flex-direction: column;
+            color: #ffffff;
+        }
+        
+        @media (max-width: 991px) {
+            .intro-section {
+                padding-left: 50px;
+                padding-rigth: 50px;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .intro-section {
+                padding: 28px;
+            }
+        }
+        
+        @media (max-width: 575px) {
+            .intro-section {
+                min-height: auto;
+            }
+        }
+        
+        .brand-wrapper .logo {
+            height: 35px;
+        }
+        
+        @media (max-width: 767px) {
+            .brand-wrapper {
+                margin-bottom: 35px;
+            }
+        }
+        
+        .intro-content-wrapper {
+            width: 410px;
+            max-width: 100%;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        
+        .intro-content-wrapper .intro-title {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 17px;
+        }
+        
+        .intro-content-wrapper .intro-text {
+            font-size: 19px;
+            line-height: 1.37;
+        }
+        
+        .intro-content-wrapper .btn-read-more {
+            background-color: #fff;
+            padding: 5px 20px;
+            border-radius: 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+        }
+        
+        .intro-content-wrapper .btn-read-more:hover {
+            background-color: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+        }
+        
+        @media (max-width: 767px) {
+            .intro-section-footer {
+                margin-top: 35px;
+            }
+        }
+        
+        .intro-section-footer .footer-nav a {
+            font-size: 20px;
+            font-weight: bold;
+            color: inherit;
+        }
+        
+        @media (max-width: 767px) {
+            .intro-section-footer .footer-nav a {
+                font-size: 14px;
+            }
+        }
+        
+        .intro-section-footer .footer-nav a+a {
+            margin-left: 30px;
+        }
+        
+        .form-section {
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+        }
+        
+        @media (max-width: 767px) {
+            .form-section {
+                padding: 35px;
+            }
+        }
+        
+        .login-wrapper {
+            width: 300px;
+            max-width: 100%;
+        }
+        
+        @media (max-width: 575px) {
+            .login-wrapper {
+                width: 100%;
+            }
+        }
+        
+        .login-wrapper .form-control {
+            border: 0;
+            border-bottom: 1px solid #e7e7e7;
+            border-radius: 0;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 15px 10px;
+            margin-bottom: 7px;
+        }
+        
+        .login-wrapper .form-control::-webkit-input-placeholder {
+            color: #b0adad;
+        }
+        
+        .login-wrapper .form-control::-moz-placeholder {
+            color: #b0adad;
+        }
+        
+        .login-wrapper .form-control:-ms-input-placeholder {
+            color: #b0adad;
+        }
+        
+        .login-wrapper .form-control::-ms-input-placeholder {
+            color: #b0adad;
+        }
+        
+        .login-wrapper .form-control::placeholder {
+            color: #b0adad;
+        }
+        
+        .login-title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .login-btn {
+            padding: 5px 20px;
+            border-radius: 0.25rem;
+            font-size: 20px;
+            font-weight: bold;
+            color: rgb(2, 2, 2);
+            background-color: #ffffff;
+        }
+        
+        .login-btn:hover {
+            background-color: #000000;
+            color: wheat;
+            border-color: #ff8800;
+        }
+        
+        .forgot-password-link {
+            font-size: 14px;
+            color: #080808;
+            text-decoration: underline;
+        }
+        
+        .social-login-title {
+            font-size: 15px;
+            color: #919aa3;
+            display: -webkit-box;
+            display: flex;
+            margin-bottom: 23px;
+        }
+        
+        .social-login-title::before,
+        .social-login-title::after {
+            content: "";
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#f4f4f4));
+            background-image: linear-gradient(#f4f4f4, #f4f4f4);
+            -webkit-box-flex: 1;
+            flex-grow: 1;
+            background-size: calc(100% - 20px) 1px;
+            background-repeat: no-repeat;
+        }
+        
+        .social-login-title::before {
+            background-position: center left;
+        }
+        
+        .social-login-title::after {
+            background-position: center right;
+        }
+        
+        .social-login-links {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .social-login-link img {
+            width: 40px;
+            height: 40px;
+            -o-object-fit: contain;
+            object-fit: contain;
+        }
+        
+        .social-login-link+.socia-login-link {
+            margin-left: 16px;
+        }
+        
+        .login-wrapper-footer-text {
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .tw:hover {
+            border-color: #00aaec;
+        }
+        
+        .ds:hover {
+            border-color: #5865f2;
+        }
+        
+        .gg:hover {
+            border-color: #eb4335;
+        }
+        
+        .btnapp:hover {
+            background-color: #000000;
+            color: wheat;
+        }
+        
+        .btnapp {
+            color: rgb(2, 2, 2);
+            background-color: #ffffff;
+        }
+        
+        @media (max-width: 450px) {
+            .mincel {
+                min-height: 65vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 col-md-7 intro-section">
+                <div class="brand-wrapper">
+                    <h1><a href="../" class="text-bg-warning">McKevin</a></h1>
+                </div>
+                <div class="intro-content-wrapper">
+                    <h1 class="intro-title">BEM VINDO AO MCKEVIN</h1>
+                    <p class="intro-text fw-semibold">Eu gosto de gatos</p>
+                    <a href="#!" class="btn btn-read-more rounded-1">Saiba mais</a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-5 form-section mincel text-light bg-dark">
+                <div class="col-sm-8 col-xxl-5 col-12 ">
+                    <h2 class="login-title">Sign in</h2>
+                    <form action="#!">
+                        <div class="form-group">
+                            <label for="text" class="sr-only">Username</label>
+                            <input type="text" name="email" id="username" class="form-control" placeholder="Username">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="password" class="sr-only">Password</label>
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <input name="login" onclick="submitForm()" id="login" class="btn login-btn" type="button" value="Login">
+                            <a href="#!" class="forgot-password-link text-light">Password?</a>
+                        </div>
+                    </form>
+                    <div class="d-flex flex-column">
+
+                        <button onclick="appsbtn(2)" class="flex items-center btn btnapp ds rounded-lg rounded-1 mb-2  shadow-md px-6 py-2 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                         
+                          <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                              width="20px" height="20px" viewBox="0 -28.5 256 256" version="1.1" preserveAspectRatio="xMidYMid">
+                              <g>
+                                  <path
+                                      d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z"
+                                      fill="#5865F2" fill-rule="nonzero">
+                  
+                                  </path>
+                              </g>
+                          </svg>
+                  
+                          <span>Continue with Discord</span>
+                  
+                      </button>
+
+                        <button onclick="appsbtn(1)" class="flex items-center btn btnapp gg rounded-lg rounded-1 mb-2 shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+    <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20px" height="20px" viewBox="-0.5 0 48 48" version="1.1">
+
+        <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Color-" transform="translate(-401.000000, -860.000000)">
+                <g id="Google" transform="translate(401.000000, 860.000000)">
+                    <path
+                        d="M9.82727273,24 C9.82727273,22.4757333 10.0804318,21.0144 10.5322727,19.6437333 L2.62345455,13.6042667 C1.08206818,16.7338667 0.213636364,20.2602667 0.213636364,24 C0.213636364,27.7365333 1.081,31.2608 2.62025,34.3882667 L10.5247955,28.3370667 C10.0772273,26.9728 9.82727273,25.5168 9.82727273,24"
+                        id="Fill-1" fill="#FBBC05"> </path>
+                    <path
+                        d="M23.7136364,10.1333333 C27.025,10.1333333 30.0159091,11.3066667 32.3659091,13.2266667 L39.2022727,6.4 C35.0363636,2.77333333 29.6954545,0.533333333 23.7136364,0.533333333 C14.4268636,0.533333333 6.44540909,5.84426667 2.62345455,13.6042667 L10.5322727,19.6437333 C12.3545909,14.112 17.5491591,10.1333333 23.7136364,10.1333333"
+                        id="Fill-2" fill="#EB4335"> </path>
+                    <path
+                        d="M23.7136364,37.8666667 C17.5491591,37.8666667 12.3545909,33.888 10.5322727,28.3562667 L2.62345455,34.3946667 C6.44540909,42.1557333 14.4268636,47.4666667 23.7136364,47.4666667 C29.4455,47.4666667 34.9177955,45.4314667 39.0249545,41.6181333 L31.5177727,35.8144 C29.3995682,37.1488 26.7323182,37.8666667 23.7136364,37.8666667"
+                        id="Fill-3" fill="#34A853"> </path>
+                    <path
+                        d="M46.1454545,24 C46.1454545,22.6133333 45.9318182,21.12 45.6113636,19.7333333 L23.7136364,19.7333333 L23.7136364,28.8 L36.3181818,28.8 C35.6879545,31.8912 33.9724545,34.2677333 31.5177727,35.8144 L39.0249545,41.6181333 C43.3393409,37.6138667 46.1454545,31.6490667 46.1454545,24"
+                        id="Fill-4" fill="#4285F4"> </path>
+                </g>
+            </g>
+        </g>
+    </svg>
+    <span>Continue with Google</span>
+</button>
+                        <button onclick="appsbtn(3)" class="flex items-center btn btnapp tw rounded-lg rounded-1 mb-2 shadow-md max-w-xs px-6 py-2 text-sm font-medium hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+    <svg class="h-6 w-6 mr-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 -4 48 48" version="1.1" width="20px" height="20px">
+        <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Color-" transform="translate(-300.000000, -164.000000)" fill="#00AAEC">
+                <path
+                    d="M348,168.735283 C346.236309,169.538462 344.337383,170.081618 342.345483,170.324305 C344.379644,169.076201 345.940482,167.097147 346.675823,164.739617 C344.771263,165.895269 342.666667,166.736006 340.418384,167.18671 C338.626519,165.224991 336.065504,164 333.231203,164 C327.796443,164 323.387216,168.521488 323.387216,174.097508 C323.387216,174.88913 323.471738,175.657638 323.640782,176.397255 C315.456242,175.975442 308.201444,171.959552 303.341433,165.843265 C302.493397,167.339834 302.008804,169.076201 302.008804,170.925244 C302.008804,174.426869 303.747139,177.518238 306.389857,179.329722 C304.778306,179.280607 303.256911,178.821235 301.9271,178.070061 L301.9271,178.194294 C301.9271,183.08848 305.322064,187.17082 309.8299,188.095341 C309.004402,188.33225 308.133826,188.450704 307.235077,188.450704 C306.601162,188.450704 305.981335,188.390033 305.381229,188.271578 C306.634971,192.28169 310.269414,195.2026 314.580032,195.280607 C311.210424,197.99061 306.961789,199.605634 302.349709,199.605634 C301.555203,199.605634 300.769149,199.559408 300,199.466956 C304.358514,202.327194 309.53689,204 315.095615,204 C333.211481,204 343.114633,188.615385 343.114633,175.270495 C343.114633,174.831347 343.106181,174.392199 343.089276,173.961719 C345.013559,172.537378 346.684275,170.760563 348,168.735283"
+                    id="Twitter">
+
+                </path>
+            </g>
+        </g>
+    </svg>
+
+    <span>Continue with Twitter</span>
+</button>
+                    </div>
+                    <p class="login-wrapper-footer-text">Precisa de uma conta? <a href="registrar.html" class="text-reset">Signup here</a></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toastContainer" class="position-fixed bottom-0 start-50 translate-middle-x p-3" data-bs-theme="dark" style="z-index: 1060;">
+    </div>
+    <script>
+        function appsbtn(i) {
+            switch (i) {
+                case 1:
+                    window.open('LoginApps/google.php', '_self');
+                    break;
+                case 2:
+                    window.open('LoginApps/discord.php?action=login', '_self');
+                    break;
+                case 3:
+                    window.open('LoginApps/twitter.php', '_self');
+                    break;
+            }
+        }
+
+        function submitForm() {
+            // Capturar dados do formulário
+            var username = $('#username').val();
+            var password = $('#password').val();
+
+            // Criar objeto com os dados a serem enviados
+            var data = {
+                user: username,
+                pass: password
+            };
+
+            // Fazer a requisição AJAX usando jQuery
+            $.ajax({
+                type: 'POST',
+                url: 'inicio/index.php?id=1',
+                data: data,
+                dataType: 'json',
+                success: function(response) {
+                    if (response == 'logado') {
+                        showToast('Você Entrou', 'Alerta');
+                        setTimeout(() => {
+                            window.open('../', '_self');
+                        }, 1500)
+                    }
+                    if (response == 'invalidos') {
+                        showToast('Senha ou usuario invalidos', 'Erro');
+                    }
+                },
+                error: function(error) {
+                    console.log('Erro na requisição AJAX:', error);
+                }
+            });
+        }
+
+        function showToast(message, title, autohide = true, delay = 8000) {
+            // Crie um novo elemento de toast
+            var toastElement = document.createElement('div');
+            toastElement.classList.add('toast');
+            toastElement.innerHTML = `
+        <div class="toast-header">
+            <strong class="me-auto">${title}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body text-light">
+            ${message}
+        </div>
+    `;
+
+            // Adicione o toast ao contêiner
+            document.getElementById('toastContainer').appendChild(toastElement);
+
+            toastElement.style.zIndex = '1050 !important';
+            toastElement.style.visibility = 'visible';
+
+
+            // Inicialize o objeto de toast do Bootstrap
+            var toast = new bootstrap.Toast(toastElement, {
+                autohide: autohide,
+                delay: delay
+            });
+
+            // Mostre o toast
+            toast.show();
+
+            // Remova o toast do DOM após ser ocultado
+            toastElement.addEventListener('hidden.bs.toast', function() {
+                toastElement.remove();
+            });
+        }
+    </script>
+    <script src="https://unpkg.com/flatted"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
