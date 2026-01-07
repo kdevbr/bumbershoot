@@ -6,8 +6,37 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css"></head>
 <body class="h-100 m-0 p-0"><canvas class="w-100 h-100 d-block"></canvas><script>
-//canvas
+const ws = new WebSocket("ws://localhost:8080");
 
+ws.onopen = () => console.log("Conectado ao servidor WebSocket!");//entrou
+
+let aberto = false;
+
+ws.addEventListener("open", e => {
+  aberto = true;
+  
+});
+
+//ws.send(m); enviar
+let meuId = null
+
+ws.onmessage = e => {
+
+  const data = JSON.parse(e.data)
+
+  if(data.type === "START"){
+    meuId = data.id
+    players.prota.id = meuId
+  }
+
+  // atualização de players
+  if(data.type === "UPDATE"){
+    players.inimigo = data.players
+  }
+}
+
+
+//canvas
 function resizeCanvasToDisplaySize(canva) {
     const dpr = window.devicePixelRatio; // Proporção de pixels do dispositivo
     const displayWidth = Math.round(canva.clientWidth * dpr);
@@ -39,14 +68,17 @@ window.addEventListener("keyup", e =>{
 //playerProtagonista
 let speed = 5;
 
+const nome = prompt("Digite seu nome:", "Jogador");
+
 players = {
   prota: {
     x: PosisaoAleatora().x,
     y: PosisaoAleatora().y,
     speed: speed+10,
-    nome: "Você"
+    nome: nome,
+    id: meuId
   },
-  inimigo: []
+  inimigo: {}
 }
 
 function gameLoop(){
@@ -58,6 +90,7 @@ function gameLoop(){
 
     DesenharProta()
     MovimentasaoInsana()//do prota
+    if (players.prota.id) EnviarEstado()
     
     DesenharInimigos()
     MoverInimigos()
@@ -80,14 +113,11 @@ function DesenharProta(){
 
 function DesenharInimigos(){
     
-    for(let i = 0; i < players.inimigo.length; i++){
-        const p = players.inimigo[i]
-        
-    d.fillStyle = "red"
-    d.fillRect(p.x, p.y, 50, 50)
+for (const inimigo of Object.values(players.inimigo)) {
+  d.fillRect(inimigo.x, inimigo.y, 50, 50);
+  DesenharNome(inimigo.x, inimigo.y, inimigo.nome)
+}
 
-    DesenharNome(p.x, p.y, p.nome)
-  }
 }
 
 
@@ -109,18 +139,13 @@ function MovimentasaoInsana(){
     players.prota.y += dy * players.prota.speed
   }
 }
-
-let contadorInimigos = 1
-
-function AdicionarInimigo(){
-  players.inimigo.push({
-    x: PosisaoAleatora().x,
-    y: PosisaoAleatora().y,
-    s: speed,
-    nome: "Inimigo " + contadorInimigos++
-  })
+function EnviarEstado(){
+  ws.send(JSON.stringify({
+    type: "state",
+    id: meuId,
+    player: players.prota
+  }))
 }
-
 
 function DesenharNome(x, y, nome){
   d.fillStyle = "black"
@@ -152,15 +177,11 @@ function MoverInimigos(){
   }
 }
 
-AdicionarInimigo()
 gameLoop()
 
-//const ws = new WebSocket("ws://localhost:8080");
 
-//ws.onopen = () => log.innerText += "Conectado\n";//entrou
-//ws.send(m); enviar
 
-//ws.onmessage = e => {log.innerText += "Recebido: " + e.data + "\n";};
+
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script></body></html>
