@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'karlo123pepsi/html',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => 'd5a26fecb122cfd29cfe124d8c7d0e282849e084',
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => '3f5d39a3116516fadbc4c0c8841c3335957c29fe',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -38,9 +38,9 @@
             'dev_requirement' => false,
         ),
         'karlo123pepsi/html' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => 'd5a26fecb122cfd29cfe124d8c7d0e282849e084',
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '3f5d39a3116516fadbc4c0c8841c3335957c29fe',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
