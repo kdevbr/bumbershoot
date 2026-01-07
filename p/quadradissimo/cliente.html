@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<input id="msg" placeholder="Digite algo">
+<button onclick="send()">Enviar</button>
+
+<pre id="log"></pre>
+
+<script>
+const log = document.getElementById("log");
+
+const ws = new WebSocket("ws://localhost:8080");
+
+ws.onopen = () => log.innerText += "Conectado\n";
+
+ws.onmessage = e => {
+  log.innerText += "Recebido: " + e.data + "\n";
+};
+
+function send() {
+  const m = document.getElementById("msg").value;
+  ws.send(m);
+}
+</script>
+
+</body>
+</html>
