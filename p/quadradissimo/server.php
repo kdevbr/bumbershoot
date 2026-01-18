@@ -5,6 +5,8 @@ use Ratchet\ConnectionInterface;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
 use Ratchet\Server\IoServer;
+use React\EventLoop\Loop;
+use React\Socket\SocketServer;
 
 require __DIR__ . '../../../vendor/autoload.php';
 
@@ -21,53 +23,79 @@ class Chat implements MessageComponentInterface
             "type" => "START",
             "id" => $conn->resourceId
         ]));
+
+        echo "Nova conexão: {$conn->resourceId}\n";
     }
 
     public function onMessage(ConnectionInterface $from, $msg)
     {
-$passosbemlentos = json_decode($msg, true);
+        $data = json_decode($msg, true);
 
-        if ($passosbemlentos['type'] === 'state') {
+        if ($data['type'] === 'state') {
+            $this->players[$data["id"]] = [
+                "x" => $data["player"]["x"],
+                "y" => $data["player"]["y"],
+                "nome" => $data["player"]["nome"],
+                "id" => $data["player"]["id"],
+                "s" => 3
+            ];
+        }
+    }
 
-                    $this->players[$passosbemlentos["id"]] = [
-                    "x" => $passosbemlentos["player"]["x"],
-                    "y" => $passosbemlentos["player"]["y"],
-                    "nome" => $passosbemlentos["player"]["nome"],
-                    "id" => $passosbemlentos["player"]["id"]
-                ];
-                
-            }
-            $filteredPlayers = array_filter($this->players, function ($player) use ($from) {
-                return $player['id'] !== $from->resourceId;
+    public function gameLoop()
+    {
+        echo "Tick - Players ativos: " . count($this->players) . "\n";
+        
+        if (empty($this->clients)) return;
+
+        foreach ($this->clients as $client) {
+            $filteredPlayers = array_filter($this->players, function ($player) use ($client) {
+                return $player['id'] !== $client->resourceId;
             });
 
-            $this->clients[$from->resourceId]->send(json_encode([
+            $client->send(json_encode([
                 "type" => "UPDATE",
-                "players" => $filteredPlayers
+                "players" => array_values($filteredPlayers)
             ]));
         }
-    
+    }
 
     public function onClose(ConnectionInterface $conn)
     {
         unset($this->clients[$conn->resourceId]);
+        unset($this->players[$conn->resourceId]);
         echo "Conexão fechada: {$conn->resourceId}\n";
     }
 
     public function onError(ConnectionInterface $conn, \Exception $e)
     {
-            echo "Erro: {$e->getMessage()}\n";
-            $conn->close();
+        echo "Erro: {$e->getMessage()}\n";
+        $conn->close();
     }
 }
 
-$server = IoServer::factory(
+// Cria o loop
+$loop = Loop::get();
+
+$chat = new Chat();
+
+// Adiciona o timer ANTES de criar o servidor
+$loop->addPeriodicTimer(0.05, function() use ($chat) {
+    $chat->gameLoop();
+});
+
+// Cria o socket server manualmente com o loop
+$socket = new SocketServer('0.0.0.0:8080', [], $loop);
+
+$server = new IoServer(
     new HttpServer(
-        new WsServer(
-            new Chat()
-        )
+        new WsServer($chat)
     ),
-    8080
+    $socket,
+    $loop
 );
 
-$server->run();
+echo "Servidor rodando na porta 8080\n";
+
+// Roda o loop
+$loop->run();
