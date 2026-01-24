@@ -18,7 +18,17 @@ class Chat implements MessageComponentInterface
     public function onOpen(ConnectionInterface $conn)
     {
         $this->clients[$conn->resourceId] = $conn;
-
+        $this->players[$conn->resourceId] = [
+            "attributos" => [
+                'x' => rand(0, 800),
+                'y' => rand(0, 600),
+                'speed' => 300,
+                'nome' => null,
+                'hp' => 100
+            ],
+            "id" => $conn->resourceId,
+            "teclasPrecionadas" => null
+            ];
         $conn->send(json_encode([
             "type" => "START",
             "id" => $conn->resourceId
@@ -27,36 +37,53 @@ class Chat implements MessageComponentInterface
         echo "Nova conexão: {$conn->resourceId}\n";
     }
 
-    public function onMessage(ConnectionInterface $from, $msg)
+    public function onMessage(ConnectionInterface $conn, $msg)
     {
         $data = json_decode($msg, true);
 
         if ($data['type'] === 'state') {
-            $this->players[$data["id"]] = [
-                "x" => $data["player"]["x"],
-                "y" => $data["player"]["y"],
-                "nome" => $data["player"]["nome"],
-                "id" => $data["player"]["id"],
-                "s" => 3
-            ];
+
+            $this->players[$conn->resourceId]["teclasPrecionadas"] = $data['key'];
         }
     }
 
     public function gameLoop()
     {
-        echo "Tick - Players ativos: " . count($this->players) . "\n";
+        //echo "Tick - Players ativos: " . count($this->players) . "\n";
         
         if (empty($this->clients)) return;
 
+foreach ($this->players as $id => &$player) {
+            if (isset($player['teclasPrecionadas'])) {
+                $keys = $player['teclasPrecionadas'];
+                $speed = $player['attributos']['speed'] * 0.05; // Ajusta a velocidade com base no tempo do loop
+
+if (!empty($keys['w'])) {
+    $player['attributos']['y'] -= $speed;
+}
+if (!empty($keys['s'])) {
+    $player['attributos']['y'] += $speed;
+}
+if (!empty($keys['a'])) {
+    $player['attributos']['x'] -= $speed;
+}
+if (!empty($keys['d'])) {
+    $player['attributos']['x'] += $speed;
+}
+            }
+        }
+
         foreach ($this->clients as $client) {
-            $filteredPlayers = array_filter($this->players, function ($player) use ($client) {
-                return $player['id'] !== $client->resourceId;
-            });
 
             $client->send(json_encode([
                 "type" => "UPDATE",
-                "players" => array_values($filteredPlayers)
+                "players" => array_values($this->players)
             ]));
+        }
+
+        if(isset($this->players)){
+            // Limpa o array de players após enviar os dados
+            //print_r($this->players);
         }
     }
 
@@ -80,11 +107,10 @@ $loop = Loop::get();
 $chat = new Chat();
 
 // Adiciona o timer ANTES de criar o servidor
-$loop->addPeriodicTimer(0.05, function() use ($chat) {
+$loop->addPeriodicTimer(0.01, function() use ($chat) {
     $chat->gameLoop();
 });
 
-// Cria o socket server manualmente com o loop
 $socket = new SocketServer('0.0.0.0:8080', [], $loop);
 
 $server = new IoServer(

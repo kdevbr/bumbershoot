@@ -31,7 +31,19 @@ ws.onmessage = e => {
 
   // atualização de players
   if(data.type === "UPDATE"){
-    players.inimigo = data.players
+    const inimigosTemp = [];
+for (const p of data.players) {
+      if (p.id === players.prota.id) {
+        // 🔥 aqui sim você atualiza o prota
+        players.prota.x = p.attributos.x;
+        players.prota.y = p.attributos.y;
+      } else {
+        // 🔥 aqui você guarda inimigos
+        inimigosTemp.push(p);
+      }
+    }
+
+    players.inimigo = inimigosTemp;
   }
 }
 
@@ -66,19 +78,16 @@ window.addEventListener("keyup", e =>{
 })
 
 //playerProtagonista
-let speed = 5;
 
 const nome = prompt("Digite seu nome:", "Jogador");
 
 players = {
   prota: {
-    x: PosisaoAleatora().x,
-    y: PosisaoAleatora().y,
-    speed: speed+10,
+    x: null,
+    y: null,
     nome: nome,
     id: meuId
-  },
-  inimigo: {}
+  }
 }
 
 function gameLoop(){
@@ -88,62 +97,40 @@ function gameLoop(){
   d.fillStyle = "lightgrey"
   d.fillRect(0,0, canva.width, canva.height)
 
-    DesenharProta()
-    MovimentasaoInsana()//do prota
+  setTimeout(()=>{
     if (players.prota.id) EnviarEstado()
-    
+  }, 100)
+  
     DesenharInimigos()
+    DesenharProta()
     //MoverInimigos()
 
   requestAnimationFrame(gameLoop)
-}
-function PosisaoAleatora(){
-    return{
-        x: ((canva.width-50)*Math.random()-50)+50,
-        y: ((canva.height-50)*Math.random()-50)+50
-    }
 }
 
 function DesenharProta(){
   d.fillStyle = "blue"
   d.fillRect(players.prota.x, players.prota.y, 50, 50)
-
   DesenharNome(players.prota.x, players.prota.y, players.prota.nome)
 }
 
-function DesenharInimigos(){
-    
-for (const inimigo of Object.values(players.inimigo)) {
-  d.fillRect(inimigo.x, inimigo.y, 50, 50);
-  DesenharNome(inimigo.x, inimigo.y, inimigo.nome)
-}
+function DesenharInimigos(){ 
+  if  (!players.inimigo) return;
+  for (const enemy of players.inimigo) {
 
-}
+    const attr = enemy.attributos;
 
-
-function MovimentasaoInsana(){
-  let dx = 0, dy = 0
-
-  if(key['a']) dx--
-  if(key['d']) dx++
-  if(key['w']) dy--
-  if(key['s']) dy++
-
-  const len = Math.hypot(dx, dy)
-
-  if(len > 0){
-    dx /= len
-    dy /= len
-
-    players.prota.x += dx * players.prota.speed
-    players.prota.y += dy * players.prota.speed
+    d.fillStyle = "red"
+    d.fillRect(attr.x, attr.y, 50, 50);
+    DesenharNome(attr.x, attr.y, attr.nome ?? "Inimigo");
   }
 }
+
+
 function EnviarEstado(){
   ws.send(JSON.stringify({
     type: "state",
-    id: meuId,
-    player: players.prota
+    key: key
   }))
 }
 
@@ -152,29 +139,6 @@ function DesenharNome(x, y, nome){
   d.font = "20px Arial"
   d.textAlign = "center"
   d.fillText(nome, x + 25, y - 10)
-}
-function MoverInimigos(){
-  for(let i = 0; i < players.inimigo.length; i++){
-    const inimigo = players.inimigo[i]
-
-    // vetor direção → do inimigo até o player
-    let dx = players.prota.x - inimigo.x
-    let dy = players.prota.y - inimigo.y
-
-    // distância
-    const dist = Math.hypot(dx, dy)
-
-    // evita divisão por zero
-    if(dist === 0) continue
-
-    // normaliza direção
-    dx /= dist
-    dy /= dist
-
-    // aplica velocidade
-    inimigo.x += dx * inimigo.s
-    inimigo.y += dy * inimigo.s
-  }
 }
 
 gameLoop()
