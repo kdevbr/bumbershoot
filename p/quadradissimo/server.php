@@ -20,11 +20,13 @@ class Chat implements MessageComponentInterface
         $this->clients[$conn->resourceId] = $conn;
         $this->players[$conn->resourceId] = [
             "attributos" => [
-                'x' => rand(0, 800),
-                'y' => rand(0, 600),
-                'speed' => 300,
+                'x' => 150,
+                'y' => 150,
+                'speed' => 100,
                 'nome' => null,
-                'hp' => 100
+                'hp' => 500,
+                'maxHp' => 500,
+                'tamanho' => 50
             ],
             "id" => $conn->resourceId,
             "teclasPrecionadas" => null

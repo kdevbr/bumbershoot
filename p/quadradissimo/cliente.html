@@ -37,6 +37,9 @@ for (const p of data.players) {
         // 🔥 aqui sim você atualiza o prota
         players.prota.x = p.attributos.x;
         players.prota.y = p.attributos.y;
+        players.prota.hp = p.attributos.hp;
+        players.prota.maxHp = p.attributos.maxHp;
+        players.prota.tamanho = p.attributos.tamanho;
       } else {
         // 🔥 aqui você guarda inimigos
         inimigosTemp.push(p);
@@ -62,12 +65,7 @@ function resizeCanvasToDisplaySize(canva) {
 
 const canva = document.getElementsByTagName('canvas')[0]
 resizeCanvasToDisplaySize(canva);
-
-
 const d = canva.getContext("2d")
-
-//tamanho
-
 //teclas 😎
 let key = {}
 window.addEventListener("keydown", e =>{
@@ -78,7 +76,6 @@ window.addEventListener("keyup", e =>{
 })
 
 //playerProtagonista
-
 const nome = prompt("Digite seu nome:", "Jogador");
 
 players = {
@@ -86,32 +83,151 @@ players = {
     x: null,
     y: null,
     nome: nome,
-    id: meuId
+    hp: 10,
+    maxHp: null,
+    id: meuId,
+    tamanho: 50
   }
 }
 
 function gameLoop(){
-  d.clearRect(0,0, canva.width, canva. height)
-  
-  //fundo
-  d.fillStyle = "lightgrey"
-  d.fillRect(0,0, canva.width, canva.height)
+  // 1. Limpeza
+  d.setTransform(1, 0, 0, 1, 0, 0);
+  d.clearRect(0, 0, canva.width, canva.height);
 
-  setTimeout(()=>{
+  // Fundo fixo (opcional)
+  d.fillStyle = "lightgrey";
+  d.fillRect(0, 0, canva.width, canva.height);
+
+  // --- CAMADA DO MUNDO (Move com a câmera) ---
+  let camX = 0;
+  let camY = 0;
+
+  if(players.prota.x !== null){
+    // Calcula a câmera
+    camX = players.prota.x - (canva.width / 2) + 25;
+    camY = players.prota.y - (canva.height / 2) + 25;
+
+    // Aplica o movimento
+    d.translate(-camX, -camY);
+  }
+
+  // Desenha coisas do mundo
+  DesenharGrid();
+  DesenharInimigos(); // Desenha os quadrados normais quando visíveis
+  DesenharProta();
+
+  // --- CAMADA DE UI (Fixa na tela) ---
+  
+  // IMPORTANTE: Resetamos a transformação para desenhar na tela do jogador
+  d.setTransform(1, 0, 0, 1, 0, 0);
+
+  // Passamos o camX e camY calculados lá em cima para saber a matemática
+  DesenharIndicadores(camX, camY);
+  
+  requestAnimationFrame(gameLoop);
+}
+function DesenharGrid() {
+    d.strokeStyle = "black"; // Cor da linha
+    d.lineWidth = 1;
+
+    // Define o tamanho da célula da grade
+    const gridSize = 100; 
+
+    // Precisamos saber onde a câmera "começa" e "termina" para desenhar o grid só onde a gente vê
+    // Mas para simplificar, vamos desenhar baseado na posição do player
+    if(players.prota.x === null) return;
+
+    // Pega o arredondamento da posição do player para alinhar a grade
+    const startX = Math.floor((players.prota.x - canva.width) / gridSize) * gridSize;
+    const endX = startX + canva.width * 2;
+    
+    const startY = Math.floor((players.prota.y - canva.height) / gridSize) * gridSize;
+    const endY = startY + canva.height * 2;
+
+    d.beginPath();
+    
+    // Linhas Verticais
+    for (let x = startX; x <= endX; x += gridSize) {
+        d.moveTo(x, startY);
+        d.lineTo(x, endY);
+    }
+
+    // Linhas Horizontais
+    for (let y = startY; y <= endY; y += gridSize) {
+        d.moveTo(startX, y);
+        d.lineTo(endX, y);
+    }
+    
+    d.stroke();
+}
+function DesenharIndicadores(camX, camY) {
+    if (!players.inimigo) return;
+
+    const padding = 40; // Distância da borda da tela
+    const cx = canva.width / 2; // Centro X da tela
+    const cy = canva.height / 2; // Centro Y da tela
+
+    for (const enemy of players.inimigo) {
+        const attr = enemy.attributos;
+
+        // 1. Onde o inimigo estaria na tela agora?
+        // (Posição no mundo - Posição da camera)
+        const screenX = attr.x - camX;
+        const screenY = attr.y - camY;
+
+        // 2. Verifica se ele está FORA da tela
+        // (Consideramos uma margem de segurança para não piscar)
+        const estaFora = 
+            screenX < 0 || 
+            screenX > canva.width || 
+            screenY < 0 || 
+            screenY > canva.height;
+
+        if (estaFora) {
+            // 3. Matemática para achar a posição na borda
+            
+            // Limitamos (Clamp) a posição X e Y para ficarem dentro das bordas da tela
+            // Math.max(padding, ...) garante que não saia pela esquerda/topo
+            // Math.min(width - padding, ...) garante que não saia pela direita/baixo
+            let arrowX = Math.max(padding, Math.min(canva.width - padding, screenX));
+            let arrowY = Math.max(padding, Math.min(canva.height - padding, screenY));
+
+            // 4. Calcular o ângulo para girar a setinha
+            // Math.atan2 retorna o ângulo em radianos entre o centro e o inimigo
+            const angle = Math.atan2(screenY - cy, screenX - cx);
+
+            // --- Desenho da Seta ---
+            d.save(); // Salva o estado atual
+            
+            d.translate(arrowX, arrowY); // Vai para a posição da borda
+            d.rotate(angle); // Gira em direção ao inimigo
+
+            d.fillStyle = "red";
+            d.beginPath();
+            d.moveTo(10, 0);   // Ponta
+            d.lineTo(-10, 10); // Base esquerda
+            d.lineTo(-10, -10);// Base direita
+            d.fill();
+
+            // Opcional: Desenhar o nome ou distância
+            // d.rotate(-angle); // Desvira o texto para ler normal
+            // d.fillText("!", 0, 0);
+
+            d.restore(); // Restaura para não estragar o próximo desenho
+        }
+    }
+}
+
+  setInterval(()=>{
     if (players.prota.id) EnviarEstado()
   }, 100)
-  
-    DesenharInimigos()
-    DesenharProta()
-    //MoverInimigos()
-
-  requestAnimationFrame(gameLoop)
-}
 
 function DesenharProta(){
   d.fillStyle = "blue"
   d.fillRect(players.prota.x, players.prota.y, 50, 50)
   DesenharNome(players.prota.x, players.prota.y, players.prota.nome)
+  DesenharBarraDeVida(players.prota.x, players.prota.y, players.prota.hp, players.prota.maxHp, players.prota.tamanho);
 }
 
 function DesenharInimigos(){ 
@@ -123,9 +239,46 @@ function DesenharInimigos(){
     d.fillStyle = "red"
     d.fillRect(attr.x, attr.y, 50, 50);
     DesenharNome(attr.x, attr.y, attr.nome ?? "Inimigo");
+    DesenharBarraDeVida(attr.x, attr.y, attr.hp, attr.maxHp, attr.tamanho);
   }
 }
 
+function DesenharBarraDeVida(x, y, hp, maxHp, tamanho = 50){
+const largura = 100;
+const altura = 15;
+
+const hpDivididoMaxHp = hp / maxHp;
+const porcentagemDeVida = Math.max(0, Math.min(1, hpDivididoMaxHp));
+
+const posiçãoX = x + tamanho/2 - (largura / 2);
+const posiçãoY = y - 20;
+
+d.fillStyle = "black";
+d.fillRect(posiçãoX, posiçãoY, largura, altura);
+
+d.fillStyle = "green";
+d.fillRect(posiçãoX, posiçãoY, largura * porcentagemDeVida, altura);
+
+d.strokeStyle = "black";
+//criar linhas a cada 100 de vida
+if (maxHp < 3000){
+  for (let i = 1; i < maxHp / 100; i++) {
+    if(i % 10 == 0  ) continue; //pular a linha do 1000
+      const linhaX = posiçãoX + (largura * (i * 100) / maxHp);
+      d.beginPath();
+      d.moveTo(linhaX, posiçãoY);
+      d.lineTo(linhaX, posiçãoY + altura/2.5);
+      d.stroke();
+  }
+}
+for (let i = 0; i < maxHp / 1000; i++) {
+    const linhaX = posiçãoX + (largura * (i * 1000) / maxHp);
+    d.beginPath();
+    d.moveTo(linhaX, posiçãoY);
+    d.lineTo(linhaX, posiçãoY + altura);
+    d.stroke();
+}
+}
 
 function EnviarEstado(){
   ws.send(JSON.stringify({
@@ -138,7 +291,7 @@ function DesenharNome(x, y, nome){
   d.fillStyle = "black"
   d.font = "20px Arial"
   d.textAlign = "center"
-  d.fillText(nome, x + 25, y - 10)
+  d.fillText(nome, x + 25, y - 30)
 }
 
 gameLoop()
