@@ -162,61 +162,45 @@ function DesenharGrid() {
     d.stroke();
 }
 function DesenharIndicadores(camX, camY) {
-    if (!players.inimigo) return;
+  if (!players.inimigo) return;
 
-    const padding = 40; // Distância da borda da tela
-    const cx = canva.width / 2; // Centro X da tela
-    const cy = canva.height / 2; // Centro Y da tela
+  const padding = 40;
+  const cx = canva.width / 2;
+  const cy = canva.height / 2;
 
-    for (const enemy of players.inimigo) {
-        const attr = enemy.attributos;
+  for (const enemy of players.inimigo) {
+    const attr = enemy.attributos;
 
-        // 1. Onde o inimigo estaria na tela agora?
-        // (Posição no mundo - Posição da camera)
-        const screenX = attr.x - camX;
-        const screenY = attr.y - camY;
+    const screenX = attr.x - camX;
+    const screenY = attr.y - camY;
 
-        // 2. Verifica se ele está FORA da tela
-        // (Consideramos uma margem de segurança para não piscar)
-        const estaFora = 
-            screenX < 0 || 
-            screenX > canva.width || 
-            screenY < 0 || 
-            screenY > canva.height;
+    const estaFora = 
+      screenX < 0 || 
+      screenX > canva.width || 
+      screenY < 0 || 
+      screenY > canva.height;
 
-        if (estaFora) {
-            // 3. Matemática para achar a posição na borda
-            
-            // Limitamos (Clamp) a posição X e Y para ficarem dentro das bordas da tela
-            // Math.max(padding, ...) garante que não saia pela esquerda/topo
-            // Math.min(width - padding, ...) garante que não saia pela direita/baixo
-            let arrowX = Math.max(padding, Math.min(canva.width - padding, screenX));
-            let arrowY = Math.max(padding, Math.min(canva.height - padding, screenY));
+    if (estaFora) {
+      let arrowX = Math.max(padding, Math.min(canva.width - padding, screenX));
+      let arrowY = Math.max(padding, Math.min(canva.height - padding, screenY));
 
-            // 4. Calcular o ângulo para girar a setinha
-            // Math.atan2 retorna o ângulo em radianos entre o centro e o inimigo
-            const angle = Math.atan2(screenY - cy, screenX - cx);
+      const angle = Math.atan2(screenY - cy, screenX - cx);
 
-            // --- Desenho da Seta ---
-            d.save(); // Salva o estado atual
-            
-            d.translate(arrowX, arrowY); // Vai para a posição da borda
-            d.rotate(angle); // Gira em direção ao inimigo
+      d.save();
+      
+      d.translate(arrowX, arrowY);
+      d.rotate(angle);
 
-            d.fillStyle = "red";
-            d.beginPath();
-            d.moveTo(10, 0);   // Ponta
-            d.lineTo(-10, 10); // Base esquerda
-            d.lineTo(-10, -10);// Base direita
-            d.fill();
+      d.fillStyle = "red";
+      d.beginPath();
+      d.moveTo(10, 0);
+      d.lineTo(-10, 10);
+      d.lineTo(-10, -10);
+      d.fill();
 
-            // Opcional: Desenhar o nome ou distância
-            // d.rotate(-angle); // Desvira o texto para ler normal
-            // d.fillText("!", 0, 0);
-
-            d.restore(); // Restaura para não estragar o próximo desenho
-        }
+      d.restore();
     }
+  }
 }
 
   setInterval(()=>{
@@ -260,6 +244,7 @@ d.fillStyle = "green";
 d.fillRect(posiçãoX, posiçãoY, largura * porcentagemDeVida, altura);
 
 d.strokeStyle = "black";
+
 //criar linhas a cada 100 de vida
 if (maxHp < 3000){
   for (let i = 1; i < maxHp / 100; i++) {
@@ -271,6 +256,7 @@ if (maxHp < 3000){
       d.stroke();
   }
 }
+//criar linhas a cada 1000 de vida
 for (let i = 0; i < maxHp / 1000; i++) {
     const linhaX = posiçãoX + (largura * (i * 1000) / maxHp);
     d.beginPath();
