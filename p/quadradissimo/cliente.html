@@ -10,7 +10,7 @@
 // Define a URL base dependendo do ambiente
 const wsURL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
     ? "ws://localhost:8080" 
-    : "wss://furmigueiro.cyou:8080";
+    : "wss://furmigueiro.cyou/ws/";
 
 const ws = new WebSocket(wsURL);
 
