@@ -6,7 +6,13 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css"></head>
 <body class="h-100 m-0 p-0"><canvas class="w-100 h-100 d-block"></canvas><script>
-const ws = new WebSocket("ws://26.60.57.127:8080");
+
+// Define a URL base dependendo do ambiente
+const wsURL = (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+    ? "ws://localhost:8080" 
+    : "wss://furmigueiro.cyou:8080";
+
+const ws = new WebSocket(wsURL);
 
 ws.onopen = () => console.log("Conectado ao servidor WebSocket!");//entrou
 

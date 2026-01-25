@@ -102,7 +102,6 @@ if (!empty($keys['d'])) {
         $conn->close();
     }
 }
-
 // Cria o loop
 $loop = Loop::get();
 
