@@ -112,7 +112,7 @@ $loop->addPeriodicTimer(0.01, function() use ($chat) {
     $chat->gameLoop();
 });
 
-$socket = new SocketServer('0.0.0.1:8080', [], $loop);
+$socket = new SocketServer('127.0.0.1:8080', [], $loop);
 
 $server = new IoServer(
     new HttpServer(
