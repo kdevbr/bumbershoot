@@ -44,7 +44,7 @@ $(function () {
                 return true;
             } else {
                 loaderItem.append(`
-    <a class="btn btn-dark mt-3 btn-sm fadein" href="https://furmigueiro.cyou">Fazer Login</a>
+    <a class="btn btn-dark mt-3 btn-sm fadein" href="javascript:history.back()">Fazer Login</a>
       `)
                 lastItemError();
                 return false;

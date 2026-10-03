@@ -25,6 +25,10 @@ ws.addEventListener("open", e => {
 
 //ws.send(m); enviar
 let meuId = null
+let ultimoAtaque = 0;
+const tempoRecargaAtaque = 400;
+let ataqueEmAndamento = 0;
+const duracaoAnimacaoAtaque = 180;
 
 ws.onmessage = e => {
 
@@ -40,14 +44,14 @@ ws.onmessage = e => {
     const inimigosTemp = [];
 for (const p of data.players) {
       if (p.id === players.prota.id) {
-        // 🔥 aqui sim você atualiza o prota
+        // atualizar o prota
         players.prota.x = p.attributos.x;
         players.prota.y = p.attributos.y;
         players.prota.hp = p.attributos.hp;
         players.prota.maxHp = p.attributos.maxHp;
         players.prota.tamanho = p.attributos.tamanho;
       } else {
-        // 🔥 aqui você guarda inimigos
+        // guardar inimigos
         inimigosTemp.push(p);
       }
     }
@@ -72,14 +76,20 @@ function resizeCanvasToDisplaySize(canva) {
 const canva = document.getElementsByTagName('canvas')[0]
 resizeCanvasToDisplaySize(canva);
 const d = canva.getContext("2d")
-//teclas 😎
+//teclas
 let key = {}
 window.addEventListener("keydown", e =>{
   key[e.key.toLowerCase()] = true;
+  if (e.code === "Space") {
+    SolicitarAtaque();
+  }
 })
 window.addEventListener("keyup", e =>{
   key[e.key.toLowerCase()] = false;
 })
+window.addEventListener("pointerdown", () => {
+  SolicitarAtaque();
+});
 
 //playerProtagonista
 const nome = prompt("Digite seu nome:", "Jogador");
@@ -97,15 +107,13 @@ players = {
 }
 
 function gameLoop(){
-  // 1. Limpeza
+  const agora = performance.now();
   d.setTransform(1, 0, 0, 1, 0, 0);
   d.clearRect(0, 0, canva.width, canva.height);
 
-  // Fundo fixo (opcional)
   d.fillStyle = "lightgrey";
   d.fillRect(0, 0, canva.width, canva.height);
 
-  // --- CAMADA DO MUNDO (Move com a câmera) ---
   let camX = 0;
   let camY = 0;
 
@@ -120,8 +128,10 @@ function gameLoop(){
 
   // Desenha coisas do mundo
   DesenharGrid();
+  DesenharAlcanceAtaque(agora);
   DesenharInimigos(); // Desenha os quadrados normais quando visíveis
   DesenharProta();
+  DesenharAnimacaoAtaque(agora);
 
   // --- CAMADA DE UI (Fixa na tela) ---
   
@@ -140,8 +150,6 @@ function DesenharGrid() {
     // Define o tamanho da célula da grade
     const gridSize = 100; 
 
-    // Precisamos saber onde a câmera "começa" e "termina" para desenhar o grid só onde a gente vê
-    // Mas para simplificar, vamos desenhar baseado na posição do player
     if(players.prota.x === null) return;
 
     // Pega o arredondamento da posição do player para alinhar a grade
@@ -277,6 +285,61 @@ function EnviarEstado(){
     type: "state",
     key: key
   }))
+}
+
+function SolicitarAtaque(){
+  if (!aberto || !players.prota.id) return;
+
+  const agora = Date.now();
+  if (agora - ultimoAtaque < tempoRecargaAtaque) return;
+  ultimoAtaque = agora;
+  ataqueEmAndamento = performance.now();
+
+  ws.send(JSON.stringify({
+    type: "attack"
+  }));
+}
+
+function DesenharAlcanceAtaque(agora){
+  if (!players.prota.id || players.prota.x === null) return;
+
+  const tempoDesdeAtaque = agora - ataqueEmAndamento;
+  const opacidade = tempoDesdeAtaque < duracaoAnimacaoAtaque ? 0.25 : 0.1;
+  const alcance = 80;
+
+  const centroX = players.prota.x + (players.prota.tamanho / 2);
+  const centroY = players.prota.y + (players.prota.tamanho / 2);
+
+  d.save();
+  d.beginPath();
+  d.strokeStyle = `rgba(0, 0, 255, ${opacidade})`;
+  d.lineWidth = 3;
+  d.arc(centroX, centroY, alcance, 0, Math.PI * 2);
+  d.stroke();
+  d.restore();
+}
+
+function DesenharAnimacaoAtaque(agora){
+  if (!players.prota.id || players.prota.x === null) return;
+
+  const tempoDesdeAtaque = agora - ataqueEmAndamento;
+  if (tempoDesdeAtaque > duracaoAnimacaoAtaque) return;
+
+  const progresso = tempoDesdeAtaque / duracaoAnimacaoAtaque;
+  const alcanceBase = 80;
+  const alcanceAnimado = alcanceBase + (12 * progresso);
+  const alpha = Math.max(0, 0.6 - (0.6 * progresso));
+
+  const centroX = players.prota.x + (players.prota.tamanho / 2);
+  const centroY = players.prota.y + (players.prota.tamanho / 2);
+
+  d.save();
+  d.beginPath();
+  d.strokeStyle = `rgba(255, 165, 0, ${alpha})`;
+  d.lineWidth = 4;
+  d.arc(centroX, centroY, alcanceAnimado, 0, Math.PI * 2);
+  d.stroke();
+  d.restore();
 }
 
 function DesenharNome(x, y, nome){

@@ -2,14 +2,12 @@
 include_once('bd.php');
 $res = $conn->query("SELECT * FROM `paginas`");
 
-// Pega a data da última vez que a pasta 'p' foi modificada
 $caminhoPasta = '../p'; 
 
 if (file_exists($caminhoPasta)) {
-    // Formata no padrão brasileiro dia/mês/ano (ex: 03/10/2026)
     $ultimaAtualizacao = date("d/m/Y", filemtime($caminhoPasta));
 } else {
-    $ultimaAtualizacao = date("d/m/Y"); // Caso a pasta não seja achada
+    $ultimaAtualizacao = date("d/m/Y"); 
 }
 ?>
 <div class="CabecaContainerMain">
