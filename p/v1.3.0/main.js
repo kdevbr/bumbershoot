@@ -162,7 +162,7 @@ class Game {
         Conta
         </button>
         <button class="btn btn-primary rounded-1 fw-semibold" style="--bs-btn-padding-y: .18rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .90rem;" data-bs-target="#ModalLeaderboard" data-bs-toggle="modal">
-        Leaderboard <img src="img/leaderboard.png" style="height:20px;">
+        Leaderboard
         </button>
         
         </div>
@@ -329,10 +329,9 @@ class Game {
 
             upgradeElement.innerHTML = `
                 <div class="p-2 border-black ${upgrade.efeito.multiplayer ? 'roxobonitao' : upgrade.efeito.click ? 'verdebonitao' : 'azulbonitao'} border rounded-1 mb-2 position-relative">
-                    <h5 class="position-absolute text-start mx-auto text-black" style="left:80px; top: 5px;">${upgrade.nome}</h5>
-                    <p id="upgradetext${index}" class="position-absolute fs-5 fst-italic fw-semibold" style="left:80px; bottom: -5px;">${formatarNumero(upgrade.cost)}</p>
+                    <h5 class="position-absolute text-start mx-auto text-black" style="left:10px; top: 5px;">${upgrade.nome}</h5>
+                    <p id="upgradetext${index}" class="position-absolute fs-5 fst-italic fw-semibold" style="left:10px; bottom: -5px;">${formatarNumero(upgrade.cost)}</p>
                     <p class="position-absolute text-black fs-5 fst-italic fw-semibold" style="right: 15px; bottom: -5px;">${Disponivel8002}</p>
-                    <img class="" src="${upgrade.img}" width="60px" height="60px">
                 </div>
             `;
 
@@ -439,11 +438,9 @@ class Game {
 
             upgradeElement.innerHTML = `
                 <div class="p-2 bg-dark-subtle border rounded-1 mb-2 position-relative">
-                    <h5 class="position-absolute text-start mx-auto text-black" style="left:80px; top: 5px;">${upgrade.nome}</h5>
-                    <p id="upgradetext${index}" class="position-absolute fs-6 fst-italic fw-semibold text-bg-dark" style="left:80px; bottom: -5px;">${formatarNumero(upgrade.cost)}</p>
+                    <h5 class="position-absolute text-start mx-auto text-black" style="left:10px; top: 5px;">${upgrade.nome}</h5>
+                    <p id="upgradetext${index}" class="position-absolute fs-6 fst-italic fw-semibold text-bg-dark" style="left:10px; bottom: -5px;">${formatarNumero(upgrade.cost)}</p>
                     <p class="position-absolute text-black fs-5 fst-italic fw-bolder" style="right: 15px; bottom: -5px;">${Disponivel8002}</p>
-                    <img class="" src="${upgrade.img}" width="60px" height="60px">
-                    <img src="certo.jpg" alt="Ícone Certo" class="imagem-certo upgrade-comprado" style="top:11px;left:9px;" width="55px" height="55px">
                     </div>
             `;
 
@@ -487,8 +484,8 @@ class Game {
             upgradeElement.style.minHeight = "232px"
             upgradeElement.id = "upgradejs";
             let especial = false
-            if (upgrade.name === 'Auxilio Emergencial' && this.especial.auxilio) { especial = true }
-            if (upgrade.name === 'Carabina' && this.especial.carabina) { especial = true }
+            if (upgrade.name === 'Booster Diário' && this.especial.auxilio) { especial = true }
+            if (upgrade.name === 'Faísca' && this.especial.carabina) { especial = true }
 
 
             upgradeElement.innerHTML = `
@@ -497,7 +494,6 @@ class Game {
             </div>
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <div class="d-flex align-items-center">
-                        <img src="${upgrade.img}" class="img-fluid me-3 ms-3 border border-1 border-dark" style="width: 100px; height:80px;">
                         <p class="precoconstrucao fs-3 fw-semibold m-0 border-bottom border-1 border-black" style="text-shadow: 1px 1px 2px rgb(0, 0, 0), 0 0 1em rgb(0, 0, 0), 0 0 0.2em rgb(0, 0, 0);"><span id="custocostrucao${index}" ">P$: ${formatarNumero(upgrade.custCalculado)}</span></p>
                 </div>
                 <p class="quantconstrucao fs-1 m-0 me-2 text-light" style="text-shadow: 2px 1px 3px rgba(66, 66, 66, 0.575), 0 0 1em rgb(0, 128, 255), 0 0 0.2em rgb(0, 128, 255);">${upgrade.quantidade}</p>
@@ -647,8 +643,8 @@ class Game {
 
     }
     initializeUI() {
-        //quando voce clica na imagem do bolsonaro ele chama a funçao "click();"
-        document.getElementById("BOZOIMG").addEventListener("click", () => {
+        // quando você clica no botão principal ele chama a função "click();"
+        document.getElementById("CLICK_TARGET").addEventListener("click", () => {
             this.click();
             const mouseX = event.clientX;
             const mouseY = event.clientY;
@@ -974,76 +970,76 @@ const game = new Game();
 
 setTimeout(game.loadGame.bind(game), 1000);
 
-game.buildings.push(new Building(game, 'Carabina', 22, 1, 0.2, "img/icons/Construcoes/carabina.png"));
-game.buildings.push(new Building(game, 'Auxilio Emergencial', 100, 10, 1, "img/icons/Construcoes/auxilio-emergencial.jpg"));
-game.buildings.push(new Building(game, 'Leite Condensado', 1050, 150, 8, "img/icons/Construcoes/Leite-condensado.jpg"));
-game.buildings.push(new Building(game, 'Cloroquila', 13000, 1500, 52, "img/icons/Construcoes/cloroquila.jpg"));
-game.buildings.push(new Building(game, 'Fake news', 123000, 300000, 312, "img/icons/Construcoes/fakenews.jpeg"));
-game.buildings.push(new Building(game, 'Nordeste', 1007022, 7000000, 1872, "img/icons/Construcoes/nordeste.jpg"));
-game.buildings.push(new Building(game, 'greve dos caminhoneiros', 25008528, 168000000, 7488, "img/icons/Construcoes/greve.webp"));
-game.buildings.push(new Building(game, 'Bolsonaro Old', 500170560, 4032000000, 44928, "img/icons/Construcoes/bolsonaroOld.jpg"));
-game.buildings.push(new Building(game, 'Medicos Comunistas', 10003411200, 28224000000, 269568, "img/icons/Construcoes/medicosComunistas.webp"));
-game.buildings.push(new Building(game, 'Concresso', 75003411200, 197568000000, 5201420, "img/icons/Construcoes/Concresso.jpeg", 25));
+game.buildings.push(new Building(game, 'Faísca', 22, 1, 0.2, ""));
+game.buildings.push(new Building(game, 'Booster Diário', 100, 10, 1, ""));
+game.buildings.push(new Building(game, 'Leite Condensado', 1050, 150, 8, ""));
+game.buildings.push(new Building(game, 'Laboratório', 13000, 1500, 52, ""));
+game.buildings.push(new Building(game, 'Central de Sinais', 123000, 300000, 312, ""));
+game.buildings.push(new Building(game, 'Usina Solar', 1007022, 7000000, 1872, ""));
+game.buildings.push(new Building(game, 'Frota Rápida', 25008528, 168000000, 7488, ""));
+game.buildings.push(new Building(game, 'Núcleo Vintage', 500170560, 4032000000, 44928, ""));
+game.buildings.push(new Building(game, 'Equipe Técnica', 10003411200, 28224000000, 269568, ""));
+game.buildings.push(new Building(game, 'Centro Global', 75003411200, 197568000000, 5201420, "", 25));
 
-game.upgrades.push(new Upgrade(game, 'Gatilho Imbrochável', 517, 10, { click: 1, Alvo: "A" }, "img/icons/upgrades/Click/imbroxavel.jpg", '&quot;fuzilar a petralhada&quot;', 'Dobra o click'))
-game.upgrades.push(new Upgrade(game, '5 milimetros', 5777, 20, { click: 2, Alvo: "A" }, "img/icons/upgrades/Click/imbroxavelinvert.jpg", '&quot;fuzilar a petralhada&quot;', 'Dobra o dobro'))
-game.upgrades.push(new Upgrade(game, '7 milimetos', 10717, 40, { click: 4, Alvo: "A" }, "img/icons/upgrades/Click/imbroxavelinvert2.jpeg", '&quot;fuzilar a petralhada&quot;', 'Quadrilhica o dobro'))
-game.upgrades.push(new Upgrade(game, 'Gatilho Lendario', 52217, 117, { click: 1, Alvo: "M" }, "img/icons/upgrades/Click/b.jpg", '&quot;Armas aprovadas na camera&quot;', 'Ganha 1% do PPs como click'))
-game.upgrades.push(new Upgrade(game, 'Gatilho Le-GENDARIO', 5022017, 2017, { click: 1, Alvo: "M" }, "img/icons/upgrades/Click/c.jpeg", '&quot;Armas sem impostos&quot;', 'Ganha 1% do PPs como click'))
-game.upgrades.push(new Upgrade(game, 'Crianças armadas', 75020170, 95800, { click: 2, Alvo: "M" }, "img/icons/upgrades/Click/d.jpg", '&quot;Crianças sao permitidas de armas&quot;', 'Ganha 2% do PPs como click'))
-game.upgrades.push(new Upgrade(game, 'Crianças armadas2', 750201700, 1000000, { clickP: 25, click: 20000, Alvo: "P" }, "img/icons/upgrades/Click/d.jpg", '&quot;Crianças sao permitidas de armas&quot;', 'Ganha 2% do PPs como click'))
+game.upgrades.push(new Upgrade(game, 'Clique Inicial', 517, 10, { click: 1, Alvo: "A" }, "", '&quot;Um impulso rápido para começar.&quot;', 'Dobra o click'))
+game.upgrades.push(new Upgrade(game, 'Clique Reforçado', 5777, 20, { click: 2, Alvo: "A" }, "", '&quot;Mais precisão no clique.&quot;', 'Dobra o dobro'))
+game.upgrades.push(new Upgrade(game, 'Clique Avançado', 10717, 40, { click: 4, Alvo: "A" }, "", '&quot;Melhoria estável de toque.&quot;', 'Quadruplica o click'))
+game.upgrades.push(new Upgrade(game, 'Toque Lendário', 52217, 117, { click: 1, Alvo: "M" }, "", '&quot;Automação de produção ativada.&quot;', 'Ganha 1% do PPs como click'))
+game.upgrades.push(new Upgrade(game, 'Toque Supremo', 5022017, 2017, { click: 1, Alvo: "M" }, "", '&quot;Escalonamento de clique habilitado.&quot;', 'Ganha 1% do PPs como click'))
+game.upgrades.push(new Upgrade(game, 'Toque Dinâmico', 75020170, 95800, { click: 2, Alvo: "M" }, "", '&quot;Cadeia de cliques acelerada.&quot;', 'Ganha 2% do PPs como click'))
+game.upgrades.push(new Upgrade(game, 'Toque Dinâmico Plus', 750201700, 1000000, { clickP: 25, click: 20000, Alvo: "P" }, "", '&quot;Explosão de toque por produção.&quot;', 'Ganha 2% do PPs como click'))
 
-game.upgrades.push(new Upgrade(game, 'Armando a populazao.', 151.7, 1, { Construcao: 2.5, Alvo: 0 }, "img/icons/upgrades/Cartucho-Carabina/cartuxodecarabinaN2.png", '&quot;Bolsonaro começa a distribuir armas para burguesia&quot;', 'Dobra a produção da carabina'))
-game.upgrades.push(new Upgrade(game, 'Cartuxo De Carabina.', 4517, 15, { Construcao: 4, Alvo: 0 }, "img/icons/upgrades/Cartucho-Carabina/cartuxodecarabinaN3.png", '&quot;Fica mais eficiente se você conseguir atirar&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + 'por 3 vezes'))
-game.upgrades.push(new Upgrade(game, 'Carabina com mira 2x2', 100000, 25, { Construcao: 5.5, Alvo: 0, carabina: 10 }, "img/icons/upgrades/Cartucho-Carabina/cartuxodecarabinaN4.png", '&quot;Consegue atirar de longe&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + 'por 4 vezes e add mais 10% por cada construçao possuida'))
-game.upgrades.push(new Upgrade(game, 'Carabina com mira 4x2', 15000000, 50, { Construcao: 6.5, Alvo: 0, carabina: 50 }, "img/icons/upgrades/Cartucho-Carabina/cartuxodecarabinaN5.png", '&quot;Consegue mirar ate a puta que te pariu&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + 'por 5 vezes e 50%'))
-game.upgrades.push(new Upgrade(game, 'Carabina com mira 8x2', 450000000, 100, { Construcao: 7.5, Alvo: 0, carabina: 210 }, "img/icons/upgrades/Cartucho-Carabina/cartuxodecarabinaN6.png", '&quot;Vai ate a casa do caralho&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + 'por 6 vezes 150%'))
-game.upgrades.push(new Upgrade(game, 'Carabina com mira 16x2', 10000000000, 150, { Construcao: 8.5, Alvo: 0, carabina: 1100 }, "img/icons/upgrades/Cartucho-Carabina/cartuxodecarabinaN7.png", '&quot;Da a volta na terra 10 vezes&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + 'por 7 vezes e 300%'))
-game.upgrades.push(new Upgrade(game, 'Carabina com mira 32x2', 100000000000, 200, { Construcao: 9.5, Alvo: 0, carabina: 5250 }, "img/icons/upgrades/Cartucho-Carabina/cartuxodecarabinaN7.png", '&quot;Da a volta na terra 10 vezes&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + 'por 7 vezes e 300%'))
+game.upgrades.push(new Upgrade(game, 'Faísca Ajustada', 151.7, 1, { Construcao: 2.5, Alvo: 0 }, "", '&quot;Ajuste fino de potência.&quot;', 'Dobra a produção da Faísca'))
+game.upgrades.push(new Upgrade(game, 'Faísca Evoluída', 4517, 15, { Construcao: 4, Alvo: 0 }, "", '&quot;Componentes de melhor qualidade.&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + ' por 3 vezes'))
+game.upgrades.push(new Upgrade(game, 'Faísca Óptica', 100000, 25, { Construcao: 5.5, Alvo: 0, carabina: 10 }, "", '&quot;Mais alcance para sua produção.&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + ' por 4 vezes e add mais 10% por cada construçao possuida'))
+game.upgrades.push(new Upgrade(game, 'Faísca de Elite', 15000000, 50, { Construcao: 6.5, Alvo: 0, carabina: 50 }, "", '&quot;Processo refinado de energia.&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + ' por 5 vezes e 50%'))
+game.upgrades.push(new Upgrade(game, 'Faísca Ultra', 450000000, 100, { Construcao: 7.5, Alvo: 0, carabina: 210 }, "", '&quot;Nível industrial de desempenho.&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + ' por 6 vezes 150%'))
+game.upgrades.push(new Upgrade(game, 'Faísca Mega', 10000000000, 150, { Construcao: 8.5, Alvo: 0, carabina: 1100 }, "", '&quot;Capacidade máxima de foco.&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + ' por 7 vezes e 300%'))
+game.upgrades.push(new Upgrade(game, 'Faísca Infinita', 100000000000, 200, { Construcao: 9.5, Alvo: 0, carabina: 5250 }, "", '&quot;Escala total de produção.&quot;', 'Multiplica a produçao de ' + game.buildings[0].name + ' por 7 vezes e 300%'))
 
-game.upgrades.push(new Upgrade(game, 'Melhor que bolsa Familia..', 1930, 5, { Construcao: 2, Alvo: 1 }, "img/icons/upgrades/Alixilio/b.jpg", '&quot;agora da pra compra uma calça para uma garota de 16 anos&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + '2 vezes'))
-game.upgrades.push(new Upgrade(game, 'Agora, pobres sao cidadoes..', 9650, 15, { Construcao: 2.5, Alvo: 1 }, "img/icons/upgrades/Alixilio/c.jpg", '&quot;Pobre mamam o bolsonaro&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + 'por 2.5'))
-game.upgrades.push(new Upgrade(game, 'pobres dominam as ruas.', 5965000, 75, { Construcao: 5, Alvo: 1 }, "img/icons/upgrades/Alixilio/c.jpg", '&quot;Pobre mamam o bolsonaro&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + 'por 2.5'))
-game.upgrades.push(new Upgrade(game, 'Pobres pobres pobres...', 3256875000, 125, { Construcao: 5, Alvo: 1 }, "img/icons/upgrades/Alixilio/c.jpg", '&quot;Pobre mamam o bolsonaro&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + 'por 2.5'))
+game.upgrades.push(new Upgrade(game, 'Bônus Local', 1930, 5, { Construcao: 2, Alvo: 1 }, "", '&quot;Ajuda inicial para o motor diário.&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + ' 2 vezes'))
+game.upgrades.push(new Upgrade(game, 'Bônus de Bairro', 9650, 15, { Construcao: 2.5, Alvo: 1 }, "", '&quot;Fluxo de energia constante.&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + ' por 2.5'))
+game.upgrades.push(new Upgrade(game, 'Bônus da Cidade', 5965000, 75, { Construcao: 5, Alvo: 1 }, "", '&quot;Rede ampliada de suporte.&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + ' por 2.5'))
+game.upgrades.push(new Upgrade(game, 'Bônus Regional', 3256875000, 125, { Construcao: 5, Alvo: 1 }, "", '&quot;Crescimento em larga escala.&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + ' por 2.5'))
 
-game.upgrades.push(new Upgrade(game, 'Auxilia tudo.', 96500, 25, { Construcao: 2, Alvo: 1, auxilio: 1, AlvoAux: 2 }, "img/icons/upgrades/Alixilio/c.jpg", '&quot;Pobre mamam o bolsonaro&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + 'por 3'))
-game.upgrades.push(new Upgrade(game, 'Auxilio divino.', 965000, 50, { Construcao: 2, Alvo: 1, auxilio: 1, AlvoAux: 3 }, "img/icons/upgrades/Alixilio/c.jpg", '&quot;Pobre mamam o bolsonaro&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + 'por 3'))
-game.upgrades.push(new Upgrade(game, 'Auxilia a fake news.', 14475000, 75, { Construcao: 2, Alvo: 1, auxilio: 1, AlvoAux: 4 }, "img/icons/upgrades/Alixilio/c.jpg", '&quot;Pobre mamam o bolsonaro&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + 'por 3'))
-game.upgrades.push(new Upgrade(game, 'Auxilia o nordeste.', 217125000, 100, { Construcao: 2, Alvo: 1, auxilio: 1, AlvoAux: 5 }, "img/icons/upgrades/Alixilio/c.jpg", '&quot;Pobre mamam o bolsonaro&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + 'por 3'))
-game.upgrades.push(new Upgrade(game, 'Auxilia a greve.', 3256875000, 125, { Construcao: 2, Alvo: 1, auxilio: 1, AlvoAux: 6 }, "img/icons/upgrades/Alixilio/c.jpg", '&quot;Pobre mamam o bolsonaro&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + 'por 3'))
+game.upgrades.push(new Upgrade(game, 'Rede Integrada', 96500, 25, { Construcao: 2, Alvo: 1, auxilio: 1, AlvoAux: 2 }, "", '&quot;Conecta bônus entre estruturas.&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + ' por 3'))
+game.upgrades.push(new Upgrade(game, 'Rede Expansiva', 965000, 50, { Construcao: 2, Alvo: 1, auxilio: 1, AlvoAux: 3 }, "", '&quot;Distribui desempenho em camadas.&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + ' por 3'))
+game.upgrades.push(new Upgrade(game, 'Rede Sincronizada', 14475000, 75, { Construcao: 2, Alvo: 1, auxilio: 1, AlvoAux: 4 }, "", '&quot;Ajuste automático entre módulos.&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + ' por 3'))
+game.upgrades.push(new Upgrade(game, 'Rede Contínua', 217125000, 100, { Construcao: 2, Alvo: 1, auxilio: 1, AlvoAux: 5 }, "", '&quot;Manutenção ativa de conexões.&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + ' por 3'))
+game.upgrades.push(new Upgrade(game, 'Rede Total', 3256875000, 125, { Construcao: 2, Alvo: 1, auxilio: 1, AlvoAux: 6 }, "", '&quot;Integração completa dos buffs.&quot;', 'Multiplica a produçao de ' + game.buildings[1].name + ' por 3'))
 
-game.upgrades.push(new Upgrade(game, 'hmmm gotoso', 20220, 5, { Construcao: 2, Alvo: 2 }, "img/icons/upgrades/leitecondensado/a.jpg", '&quot;Da pra fazer brigadeiro&quot;', 'Multiplica a produçao de ' + game.buildings[2].name + ' por 2 '))
-game.upgrades.push(new Upgrade(game, 'Brigadeiro recheado', 101100, 15, { Construcao: 2.5, Alvo: 2 }, "img/icons/upgrades/leitecondensado/a.jpg", '&quot;Da pra fazer brigadeiro&quot;', 'Multiplica a produçao de ' + game.buildings[2].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Militares Condensados', 1011000, 25, { Construcao: 2.5, Alvo: 2 }, "img/icons/upgrades/leitecondensado/c.jpg", '&quot;Da pra fazer brigadeiro&quot;', 'Multiplica a produçao de ' + game.buildings[2].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Militares Condensados2', 10110000, 50, { Construcao: 2.5, Alvo: 2 }, "img/icons/upgrades/leitecondensado/c.jpg", '&quot;Da pra fazer brigadeiro&quot;', 'Multiplica a produçao de ' + game.buildings[2].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Receita Clássica', 20220, 5, { Construcao: 2, Alvo: 2 }, "", '&quot;Doce e eficiente.&quot;', 'Multiplica a produçao de ' + game.buildings[2].name + ' por 2 '))
+game.upgrades.push(new Upgrade(game, 'Receita Premium', 101100, 15, { Construcao: 2.5, Alvo: 2 }, "", '&quot;Textura perfeita para produção.&quot;', 'Multiplica a produçao de ' + game.buildings[2].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Receita Industrial', 1011000, 25, { Construcao: 2.5, Alvo: 2 }, "", '&quot;Processo em alta escala.&quot;', 'Multiplica a produçao de ' + game.buildings[2].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Receita Industrial Plus', 10110000, 50, { Construcao: 2.5, Alvo: 2 }, "", '&quot;Linha de montagem otimizada.&quot;', 'Multiplica a produçao de ' + game.buildings[2].name + ' por 2.5 '))
 
-game.upgrades.push(new Upgrade(game, 'Toma e confia', 250000, 5, { Construcao: 2, Alvo: 3 }, "img/icons/upgrades/cloroquina/a.webp", '&quot;Ao tempo em que expôs sua opinião sobre o potencial auxílio da hidroxicloroquina e da ivermectina para evitar ao menos 140 mil mortes de brasileiros decorrentes do novo coronavírus, pontuou que o uso medicamentoso ainda pendia de comprovação médico-científica&quot;', 'Multiplica a produçao de ' + game.buildings[3].name + ' por 2 '))
-game.upgrades.push(new Upgrade(game, 'Confia e toma', 1250000, 15, { Construcao: 2.5, Alvo: 3 }, "img/icons/upgrades/cloroquina/b.jpeg", '&quot;Cloroquina não tem efeito colateral afirma Bolsonaro&quot;', 'Multiplica a produçao de ' + game.buildings[3].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Comprovaçao falsa', 12500000, 25, { Construcao: 2.5, Alvo: 3 }, "img/icons/upgrades/cloroquina/c.jpg", '&quot;Com recomendaçao medica falsa&quot;', 'Multiplica a produçao de ' + game.buildings[3].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Comprovaçao falsa2', 125000000, 50, { Construcao: 2.5, Alvo: 3 }, "img/icons/upgrades/cloroquina/c.jpg", '&quot;Com recomendaçao medica falsa&quot;', 'Multiplica a produçao de ' + game.buildings[3].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Teste de Fórmula', 250000, 5, { Construcao: 2, Alvo: 3 }, "", '&quot;Método validado em bancada.&quot;', 'Multiplica a produçao de ' + game.buildings[3].name + ' por 2 '))
+game.upgrades.push(new Upgrade(game, 'Fórmula Estável', 1250000, 15, { Construcao: 2.5, Alvo: 3 }, "", '&quot;Resultados consistentes.&quot;', 'Multiplica a produçao de ' + game.buildings[3].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Fórmula Reforçada', 12500000, 25, { Construcao: 2.5, Alvo: 3 }, "", '&quot;Nova geração de reagentes.&quot;', 'Multiplica a produçao de ' + game.buildings[3].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Fórmula Reforçada Plus', 125000000, 50, { Construcao: 2.5, Alvo: 3 }, "", '&quot;Controle avançado de qualidade.&quot;', 'Multiplica a produçao de ' + game.buildings[3].name + ' por 2.5 '))
 
-game.upgrades.push(new Upgrade(game, 'Folha de sp', 2360000, 5, { Construcao: 2, Alvo: 4 }, "img/icons/upgrades/fakenews/a.jpeg", '&quot;FAKEE NEWS TA OK!? &quot;', 'Multiplica a produçao de ' + game.buildings[4].name + ' por 2 '))
-game.upgrades.push(new Upgrade(game, 'Rachadinha', 11800000, 15, { Construcao: 2.5, Alvo: 4 }, "img/icons/upgrades/fakenews/b.jpg", '&quot;RACHADINHA ÉEEEEE FAKEE NEWS, TA OK!? &quot;', 'Multiplica a produçao de ' + game.buildings[4].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Chefe e porta-voz', 118000000, 25, { Construcao: 2.5, Alvo: 4 }, "img/icons/upgrades/fakenews/c.jpeg", '&quot;Organização que espalha fake news pelo Brasil&quot;', 'Multiplica a produçao de ' + game.buildings[4].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Chefe e porta-voz2', 1180000000, 50, { Construcao: 2.5, Alvo: 4 }, "img/icons/upgrades/fakenews/c.jpeg", '&quot;Organização que espalha fake news pelo Brasil&quot;', 'Multiplica a produçao de ' + game.buildings[4].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Sinal Curto', 2360000, 5, { Construcao: 2, Alvo: 4 }, "", '&quot;Amplifica o alcance inicial.&quot;', 'Multiplica a produçao de ' + game.buildings[4].name + ' por 2 '))
+game.upgrades.push(new Upgrade(game, 'Sinal Médio', 11800000, 15, { Construcao: 2.5, Alvo: 4 }, "", '&quot;Melhora a propagação da rede.&quot;', 'Multiplica a produçao de ' + game.buildings[4].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Sinal Forte', 118000000, 25, { Construcao: 2.5, Alvo: 4 }, "", '&quot;Alta intensidade de transmissão.&quot;', 'Multiplica a produçao de ' + game.buildings[4].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Sinal Extremo', 1180000000, 50, { Construcao: 2.5, Alvo: 4 }, "", '&quot;Cobertura total de dados.&quot;', 'Multiplica a produçao de ' + game.buildings[4].name + ' por 2.5 '))
 
-game.upgrades.push(new Upgrade(game, 'Nordeste explusoo', 19400000, 5, { Construcao: 2, Alvo: 5 }, "img/icons/upgrades/nordeste/a.jpg", '&quot;Bolsonaro expulsa o nordeste e agora o idh subiu em 700% &quot;', 'Multiplica a produçao de ' + game.buildings[5].name + ' por 2 '))
-game.upgrades.push(new Upgrade(game, 'Aguaa pro nordeste', 97000000, 15, { Construcao: 2.5, Alvo: 5 }, "img/icons/upgrades/nordeste/b.jpg", '&quot;Bolsonaro coloca agua no nordeste e ele volra pro brazil &quot;', 'Multiplica a produçao de ' + game.buildings[5].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Chega energia pro nordeste', 970000000, 25, { Construcao: 2.5, Alvo: 5 }, "img/icons/upgrades/nordeste/Arte.webp", '&quot;É descobnerto energia e o bolsonaro ganha fãs&quot;', 'Multiplica a produçao de ' + game.buildings[5].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Chega energia pro nordeste2', 9700000000, 50, { Construcao: 2.5, Alvo: 5 }, "img/icons/upgrades/nordeste/Arte.webp", '&quot;É descobnerto energia e o bolsonaro ganha fãs&quot;', 'Multiplica a produçao de ' + game.buildings[5].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Pulso Solar I', 19400000, 5, { Construcao: 2, Alvo: 5 }, "", '&quot;Captação de energia ampliada.&quot;', 'Multiplica a produçao de ' + game.buildings[5].name + ' por 2 '))
+game.upgrades.push(new Upgrade(game, 'Pulso Solar II', 97000000, 15, { Construcao: 2.5, Alvo: 5 }, "", '&quot;Painéis com maior eficiência.&quot;', 'Multiplica a produçao de ' + game.buildings[5].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Pulso Solar III', 970000000, 25, { Construcao: 2.5, Alvo: 5 }, "", '&quot;Rede elétrica otimizada.&quot;', 'Multiplica a produçao de ' + game.buildings[5].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Pulso Solar IV', 9700000000, 50, { Construcao: 2.5, Alvo: 5 }, "", '&quot;Distribuição sem perdas.&quot;', 'Multiplica a produçao de ' + game.buildings[5].name + ' por 2.5 '))
 
-game.upgrades.push(new Upgrade(game, 'Greve do disel', 481500000, 5, { Construcao: 2, Alvo: 6 }, "img/icons/upgrades/caminhoneiros/1.jpeg", '&quot;Preços aumentam e o bolsonaro lucra mais&quot;', 'Multiplica a produçao de ' + game.buildings[6].name + ' por 2 '))
-game.upgrades.push(new Upgrade(game, 'Greve do alcool', 2407500000, 15, { Construcao: 2.5, Alvo: 6 }, "img/icons/upgrades/caminhoneiros/2.jpg", '&quot;Bolsonaro tira os impostos do disel&quot;', 'Multiplica a produçao de ' + game.buildings[6].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Greve dos professores', 20407500000, 25, { Construcao: 2.5, Alvo: 6 }, "img/icons/upgrades/caminhoneiros/3.jpeg", '&quot;Professores tiram salario do neymar&quot;', 'Multiplica a produçao de ' + game.buildings[6].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Greve dos professores2', 204075000000, 50, { Construcao: 2.5, Alvo: 6 }, "img/icons/upgrades/caminhoneiros/3.jpeg", '&quot;Professores tiram salario do neymar&quot;', 'Multiplica a produçao de ' + game.buildings[6].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Frota Leve', 481500000, 5, { Construcao: 2, Alvo: 6 }, "", '&quot;Rotas mais eficientes.&quot;', 'Multiplica a produçao de ' + game.buildings[6].name + ' por 2 '))
+game.upgrades.push(new Upgrade(game, 'Frota Ágil', 2407500000, 15, { Construcao: 2.5, Alvo: 6 }, "", '&quot;Logística de alto rendimento.&quot;', 'Multiplica a produçao de ' + game.buildings[6].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Frota Pesada', 20407500000, 25, { Construcao: 2.5, Alvo: 6 }, "", '&quot;Capacidade máxima de transporte.&quot;', 'Multiplica a produçao de ' + game.buildings[6].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Frota Titã', 204075000000, 50, { Construcao: 2.5, Alvo: 6 }, "", '&quot;Rede logística dominante.&quot;', 'Multiplica a produçao de ' + game.buildings[6].name + ' por 2.5 '))
 
-game.upgrades.push(new Upgrade(game, 'Vagabunda', 9630000000, 5, { Construcao: 2, Alvo: 7 }, "img/icons/upgrades/bolsonaroold/bolsonaro_maria.jpg", '&quot;VAGABUNDA 😡🤬&quot;', 'Multiplica a produçao de ' + game.buildings[7].name + ' por 2 '))
-game.upgrades.push(new Upgrade(game, 'Da que eu te dou outra', 48150000000, 15, { Construcao: 2.5, Alvo: 7 }, "img/icons/upgrades/bolsonaroold/bolsonaro_maria.jpg", '&quot; DA QUE EU TE DOU OUTRA!!!! 😡🤬&quot;', 'Multiplica a produçao de ' + game.buildings[7].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Voce nao merece[...]', 481500000000, 25, { Construcao: 2.5, Alvo: 7 }, "img/icons/upgrades/bolsonaroold/bolsonaro_maria.jpg", '&quot; TA OK?!!!! 😡🤬&quot;', 'Multiplica a produçao de ' + game.buildings[7].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Memória de Núcleo I', 9630000000, 5, { Construcao: 2, Alvo: 7 }, "", '&quot;Ativa módulos antigos.&quot;', 'Multiplica a produçao de ' + game.buildings[7].name + ' por 2 '))
+game.upgrades.push(new Upgrade(game, 'Memória de Núcleo II', 48150000000, 15, { Construcao: 2.5, Alvo: 7 }, "", '&quot;Recupera dados históricos.&quot;', 'Multiplica a produçao de ' + game.buildings[7].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Memória de Núcleo III', 481500000000, 25, { Construcao: 2.5, Alvo: 7 }, "", '&quot;Aprimora o desempenho legado.&quot;', 'Multiplica a produçao de ' + game.buildings[7].name + ' por 2.5 '))
 
-game.upgrades.push(new Upgrade(game, 'mIDicOS cuMAs!!', 192600000000, 5, { Construcao: 2, Alvo: 8 }, "img/icons/upgrades/medicoscomunas/1.avif", '&quot;Medicos Comunistas&quot;', 'Multiplica a produçao de ' + game.buildings[8].name + ' por 2 '))
-game.upgrades.push(new Upgrade(game, 'nao agunto mais progamar!!', 963000000000, 15, { Construcao: 2.5, Alvo: 8 }, "img/icons/upgrades/medicoscomunas/30542851768_ce4e34bfaf_o.png", '&quot;DA QUE EU T DOU OUTRA 😡🤬&quot;', 'Multiplica a produçao de ' + game.buildings[8].name + ' por 2.5 '))
-game.upgrades.push(new Upgrade(game, 'Medicos Infiltados', 963000000000, 25, { Construcao: 2.5, Alvo: 8 }, "img/icons/upgrades/medicoscomunas/c.jpg", '&quot;Medicos enfiltrados para roubar informaçoes&quot;', 'Multiplica a produçao de ' + game.buildings[8].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Equipe Tática I', 192600000000, 5, { Construcao: 2, Alvo: 8 }, "", '&quot;Coordenação de especialistas.&quot;', 'Multiplica a produçao de ' + game.buildings[8].name + ' por 2 '))
+game.upgrades.push(new Upgrade(game, 'Equipe Tática II', 963000000000, 15, { Construcao: 2.5, Alvo: 8 }, "", '&quot;Execução de alto nível.&quot;', 'Multiplica a produçao de ' + game.buildings[8].name + ' por 2.5 '))
+game.upgrades.push(new Upgrade(game, 'Equipe Tática III', 963000000000, 25, { Construcao: 2.5, Alvo: 8 }, "", '&quot;Cobertura completa de operações.&quot;', 'Multiplica a produçao de ' + game.buildings[8].name + ' por 2.5 '))
 
 Armas();
 //multiplica a buld por 20 e divide por 5 e depois multiplica pela quantidade de build
@@ -1159,7 +1155,7 @@ function Armas() {
 
             console.log(`Para UpQuantMulArmas = ${UpQuantMulArmas}, o custo é ${Fcusto}`);
 
-            game.upgrades.push(new Upgrade(game, nome, Fcusto * 20, Fcusto * 10, { multiplayer: power }, "img/icons/upgrades/" + imgFinal, '&quot;É perigoso na mão de crianças, cuidado&quot;', 'Multiplica a produçao em ' + power + '%'))
+            game.upgrades.push(new Upgrade(game, nome, Fcusto * 20, Fcusto * 10, { multiplayer: power }, "", '&quot;É perigoso na mão de crianças, cuidado&quot;', 'Multiplica a produçao em ' + power + '%'))
         }
     }
 }
@@ -1292,7 +1288,7 @@ function ajaxSorebord() {
                     }
                     tabela.append('<tr>' +
                         '<th scope="row">' + (index + 1) + '</th>' +
-                        '<td><img id="fescura" src="' + jogador.icon + '" height="45px" class="rounded-5"></td>' +
+                        '<td>—</td>' +
                         '<td>' + nome + '</td>' +
                         '<td>' + formatarNumero(PontosAcumulados) + '</td>' +
                         '<td>' + formatarNumero(PPsd) + '</td>' +
@@ -1348,9 +1344,9 @@ function mostrarEstatisticas(construcao) {
 
             document.getElementById('statsModalBody').innerHTML = `
             
-            <h6>As ${game.buildings[0].quantidade} <b>Carabinas</b> Estão com a produçao aumentada baseado na quantidade de itens que voce possui - as propias carabinas (${SomaQuntConstrucao()-game.buildings[0].quantidade})</h6>
+            <h6>As ${game.buildings[0].quantidade} <b>${game.buildings[0].name}</b> estão com a produção aumentada com base na quantidade total de construções (${SomaQuntConstrucao()-game.buildings[0].quantidade})</h6>
  
-            <p>Cada carabina ganha: <b>${(game.especial.carabina / 100).toFixed(2)}</b> De poder base por cada Construçao adquirida, Aumentando em um total de <b>${game.buildings[0].poweradd}</b></p>
+            <p>Cada item ganha: <b>${(game.especial.carabina / 100).toFixed(2)}</b> de poder base por construção adquirida, aumentando em um total de <b>${game.buildings[0].poweradd}</b></p>
             <p>(<b>${(game.especial.carabina / 100).toFixed(2)}</b> * <b>${SomaQuntConstrucao()-game.buildings[0].quantidade}</b> = <b>${game.buildings[0].poweradd}</b>) + <b>${game.buildings[0].powerbase.toFixed(2)}</b> = <b>${game.buildings[0].power.toFixed(2)}</b></p>
             `
             break
@@ -1368,7 +1364,7 @@ function mostrarEstatisticas(construcao) {
 
             document.getElementById('statsModalBody').innerHTML = `
             
-            <h5>Os ${game.buildings[1].quantidade} <b>Auxilio Emergencial</b> auxilia(Buffa) ${game.especial.auxilio} ite${game.especial.auxilio > 1 ? 'ns' : 'm'}:</h5>
+            <h5>Os ${game.buildings[1].quantidade} <b>${game.buildings[1].name}</b> buffam ${game.especial.auxilio} ite${game.especial.auxilio > 1 ? 'ns' : 'm'}:</h5>
         
             <ol>
             ${content}
