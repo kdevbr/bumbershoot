@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CLICA MUITO</title>
+    <title>BOMBCLICKER</title>
     <style>
 
     </style>
@@ -181,7 +181,7 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Leaderboard <img class="mb-1" src="img/leaderboard.png" style="height:30px;"></h1>
+                    <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">Leaderboard</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -192,7 +192,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Nº</th>
-                                <th scope="col">Icon</th>
+                                <th scope="col">Perfil</th>
                                 <th scope="col">Nick</th>
                                 <th scope="col">Pontos</th>
                                 <th scope="col">PPs</th>
@@ -234,7 +234,7 @@
         </div>
         <div class="col-md-4 col-12">
             <div id="" class="align-items-center mx-0 pb-0 px-2 rounded-1 border border-1 border-dark border-opacity-75 transition-bg upgrade-container cordofundoup2">
-                <h1 class="h3">Bozoclicker</h1>
+                <h1 class="h3">Bombclicker</h1>
                 <p class="">Pontos Acumulados: <span id="PontosAcumuladosD"></span></p>
             </div>
         </div>
@@ -250,14 +250,14 @@
 
                 <div id="pontosd"></div>
 
-                <h6 class="text-center text-bg-dark" style="bottom: -3px;">IMBROXABILIDADE: <span id="MltD"></span>%</h6>
-                <img class="img-fluid border border-dark rounded mb-1" src="bozo.jpg" id="BOZOIMG">
+                <h6 class="text-center text-bg-dark" style="bottom: -3px;">Multiplicador: <span id="MltD"></span>%</h6>
+                <button class="img-fluid border border-dark rounded mb-1 btn btn-light w-100 fw-semibold" id="CLICK_TARGET" style="min-height: 260px;">CLIQUE</button>
 
                 <div class="numero-temporario "></div>
 
             </div>
 
-            <div class="col-md-9 p-3 border border-3 border-black border-end-0 overflow-y-visible" style="background-image: url(planalto.jpg); background-size: 40%;" id="pontosd1">
+            <div class="col-md-9 p-3 border border-3 border-black border-end-0 overflow-y-visible" id="pontosd1">
 
                 <nav class="mb-3 border-bottom border-3 border-black">
                     <div class="nav nav-tabs border-0 mb-1" id="nav-tab" role="tablist">
@@ -294,11 +294,11 @@
 <!-- Prestigio -->
                     <div class="tab-pane fade" id="nav-prestig" tabindex="0">
                         <div style="border-color: rgb(255, 255, 255)!important;top: 5px; z-index: 1000;" class=" py-1 ps-2 border-top rounded-start-2 rounded-end-2 border-4 bg-dark my-2 col-12 m-auto">
-                            <h4 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; letter-spacing:8px;text-shadow: 2px 1px 3px rgba(255, 153, 0, 0.445), 0 0 1em rgb(0 0 0), 0 0 0.2em rgb(255, 102, 0); color: white;" class="mx-2 mb-1 m-0 p-0 border-bottom border-2 border-white text-center fw-semibold">Bozo Pedras Magicas<br><span style="letter-spacing:2px;text-shadow: none;" class="fs-6 my-5" id="numeroprestigio">oi</h4>
+                            <h4 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; letter-spacing:8px;text-shadow: 2px 1px 3px rgba(255, 153, 0, 0.445), 0 0 1em rgb(0 0 0), 0 0 0.2em rgb(255, 102, 0); color: white;" class="mx-2 mb-1 m-0 p-0 border-bottom border-2 border-white text-center fw-semibold">Pedras Mágicas<br><span style="letter-spacing:2px;text-shadow: none;" class="fs-6 my-5" id="numeroprestigio">oi</h4>
                         </div>
                         <div class="scroll-container" id="containercell">
                             <div class="d-flex flex-wrap flex-md-row justify-content-start upgrades-container-upgrades p-3 rounded transition-bg text-center border border-3 border-danger" id="prestigeo-container">
-<div style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="text-bg-dark text-center m-auto rounded-4"><p class="m-0 h5">As pedras magicas do bolsonaro servem para voce recomeçar o jogo com um uma porcentagem multiplicativa com base nas pedras que voce possui, voce consegue Pedras com base nos Pontos Acumulados </p>
+<div style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="text-bg-dark text-center m-auto rounded-4"><p class="m-0 h5">As pedras mágicas permitem reiniciar o jogo com bônus multiplicativo com base nas pedras que você já possui.</p>
 
     <h4 class="my-2">Voce precisa de mais <span class="text-bg-info">10.000</span> Pontos Acumulados para o proximo Prestigio</h4>
                             <div class="progress col-11 m-auto rounded-1 mb-1 bg-secondary" role="progressbar" aria-label="Example 20px high" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="height: 5px">

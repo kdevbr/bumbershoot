@@ -19,13 +19,13 @@ echo json_encode($_SESSION['username']);
 
 $dados = $conn->real_escape_string($dados);
 
-$sql = "INSERT INTO bozoclicker (idusername2, id, savee) VALUES ($iduser, $iduser, '$save') 
+$sql = "INSERT INTO bombclicker (idusername2, id, savee) VALUES ($iduser, $iduser, '$save') 
 ON DUPLICATE KEY UPDATE savee = VALUES(savee)";
 $conn->query($sql);
 
 }elseif(isset($_POST['BuscaTabela'])){
 
-        $sql = "SELECT usuarios.username, usuarios.icon, bozoclicker.savee FROM bozoclicker JOIN usuarios ON usuarios.id = bozoclicker.idusername2 ORDER BY bozoclicker.id";
+        $sql = "SELECT usuarios.username, usuarios.icon, bombclicker.savee FROM bombclicker JOIN usuarios ON usuarios.id = bombclicker.idusername2 ORDER BY bombclicker.id";
         $res = $conn->query($sql);
 
         if($res){

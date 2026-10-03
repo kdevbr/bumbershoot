@@ -79,12 +79,12 @@ img {
     /* Faz com que a borda esteja dentro do elemento */
 }
 
-#BOZOIMG {
+#CLICK_TARGET {
     border: 1px solid rgba(0, 0, 0, 0.158);
     transition: transform 0.3s ease;
 }
 
-#BOZOIMG:hover {
+#CLICK_TARGET:hover {
     transform: scale(1.03);
 }
 
