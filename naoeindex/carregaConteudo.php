@@ -20,7 +20,7 @@ if ($res->num_rows > 0) {
 
     $dados['dados'] = [
         'titulo' => $rou['titulo'],
-        'data' => '' . date('d/m/Y'),
+        'data' => '' . date('d/m/Y', filectime('../'.$rou['corpo'])),
         'autor' => '@'. $rou['autor'],
         'conteudo' => [
             'img' => $rou['linkIMG'],

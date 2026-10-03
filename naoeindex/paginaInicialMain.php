@@ -1,12 +1,20 @@
 <?php
 include_once('bd.php');
 $res = $conn->query("SELECT * FROM `paginas`");
+
+$caminhoPasta = '../p'; 
+
+if (file_exists($caminhoPasta)) {
+    $ultimaAtualizacao = date("d/m/Y", filemtime($caminhoPasta));
+} else {
+    $ultimaAtualizacao = date("d/m/Y"); 
+}
 ?>
 <div class="CabecaContainerMain">
     <div class='text-light py-2 d-flex justify-content-between h-100 flex-wrap'>
         <div id="TituloMain" class="AnimaMainEntradaText ladoEsquedoHeadMainConteudo ms-3">
             <h1 class=''>Bumbershoot</h1>
-            <h5 class='AutorMain'>Ultima Atualizaçao:<span class="text-warning"> 2001</span></h5>
+            <h5 class='AutorMain'>Ultima Atualizaçao:<span class="text-warning"> <?php echo $ultimaAtualizacao; ?></span></h5>
         </div>
     </div>
 </div>

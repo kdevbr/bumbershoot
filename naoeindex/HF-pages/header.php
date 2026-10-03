@@ -2,10 +2,10 @@
 
 <nav class="navbar position-fixed w-100 top-0 navInicial" id="navInicial" style="" data-bs-theme="dark">
     <a class="navbar-brand ms-2 p-1 fs-6 " style="font-family: 'FONTETITOLE';"
-        href="https://bumbershoot.com.br/">BumberShoot</a>
+        href="http://132.226.254.98/">Bumbershoot</a>
     <div class="botoesNav" id="divDosBtnMembroComum">
         <a href="/" class="btn btn-outline-light border-0 rounded-5 fw-bold">Inicio</a>
-        <a href="/bozoclicker" class="btn btn-outline-light border-0 rounded-5 fw-bold">Bozoclicker</a>
+        <a href="/bombclicker" class="btn btn-outline-light border-0 rounded-5 fw-bold">bombclicker</a>
 
         <div class="dropdown" id="more-menu">
             <button class="btn btn-outline-light border-0 rounded-5 fw-bold dropdown-toggle" type="button"
