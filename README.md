@@ -9,8 +9,7 @@ Diferente de portfólios estáticos tradicionais, o Bumbershoot foi projetado pa
 
 # Pagina Inicial:
 
-<img width="830" height="408" alt="image" src="https://github.com/user-attachments/assets/9cce4372-afef-42f7-837e-8a2fe6e9aff0" />
-
+<img width="825" height="406" alt="image" src="https://github.com/user-attachments/assets/48e2e961-7596-4425-85a9-7e79928d3c20" />
 
 # Exemplo de um projeto:
 <img width="1922" height="533" alt="image" src="https://github.com/user-attachments/assets/5956e864-fb86-4eb8-9b66-40a97b668da3" />
