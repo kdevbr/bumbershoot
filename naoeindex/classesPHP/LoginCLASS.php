@@ -72,7 +72,7 @@ class Usuario
         } elseif(isset($_COOKIE['lembrarDeMim'])) {
             $token = $_COOKIE['lembrarDeMim'];
 
-            $query = $conn->prepare("SELECT id, username, icon, cor, poder FROM users WHERE token = ?");
+            $query = $conn->prepare("SELECT id, username, icon, cor, poder FROM usuarios WHERE token = ?");
             $query->bind_param('s', $token);
             $query->execute();
             $result = $query->get_result();
